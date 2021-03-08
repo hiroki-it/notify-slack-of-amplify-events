@@ -18,8 +18,9 @@ WORKDIR /go/notify_slack_of_amplify_events
 # インストールのキャッシュを活用するためにコピーしておく
 COPY go.mod go.sum ./
 
-# ライブラリをインストールする
-RUN go mod download
+# ライブラリをインストールする．
+RUN go get -u github.com/cosmtrek/air \
+  && go mod download
 
 COPY . .
 
