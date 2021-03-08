@@ -27,8 +27,4 @@ COPY . .
 # ビルドのアーティファクトを$HOME/go/binに配置する．
 RUN go build -o ${HOME}/go/bin ./cmd
 
-RUN apk add --no-cache ca-certificates
-
-COPY --from=builder /go/notify_slack_of_amplify_events/cmd/app /app
-
-CMD ["/app"]
+CMD ["sh"]
