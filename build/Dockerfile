@@ -13,9 +13,9 @@ ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 
-WORKDIR /go/notify_slack_of_amplify_events
+WORKDIR /go/src
 
-# インストールのキャッシュを活用するためにコピーしておく
+# インストールのキャッシュを活用するためにコピーしておく．
 COPY go.mod go.sum ./
 
 # ライブラリをインストールする．
@@ -24,12 +24,8 @@ RUN go get -u github.com/cosmtrek/air \
 
 COPY . .
 
-RUN go build ./cmd/app
-
-#===================
-# Production Stage
-#===================
-FROM alpine
+# ビルドのアーティファクトを$HOME/go/binに配置する．
+RUN go build -o ${HOME}/go/bin ./cmd
 
 RUN apk add --no-cache ca-certificates
 
