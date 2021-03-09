@@ -15,5 +15,5 @@ $ docker-compose up -d
 ### 2. 接続
 
 ```sh
-$ docker exec -it <コンテナ名> sh 
+$ docker exec -it notify-slack-of-amplify-events sh 
 ```
