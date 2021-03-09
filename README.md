@@ -17,3 +17,15 @@ $ docker-compose up -d
 ```sh
 $ docker exec -it notify-slack-of-amplify-events sh 
 ```
+
+## ホットリロード
+
+ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
+
+ホスト側でソースコードを修正すると，コンテナ側のアーティファクトが随時更新されます．
+
+```sh
+$ docker exec -it notify-slack-of-amplify-events sh 
+# コンテナ内
+$ air -c .air.toml
+```
