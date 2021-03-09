@@ -9,7 +9,7 @@ tmp_dir = "air_tmp"
 # Just plain old shell command. You could use `make` as well.
 cmd = "go build -o ${HOME}/go/bin ./cmd"
 # Binary file yields from `cmd`.
-bin = "tmp/main"
+bin = "${HOME}/go/bin"
 # Customize binary.
 full_bin = "APP_ENV=dev APP_USER=air ${HOME}/go/bin"
 # Watch these filename extensions.
