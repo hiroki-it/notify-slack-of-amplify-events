@@ -1,6 +1,6 @@
 module github.com/Hiroki-IT/notify_slack_of_amplify_events
 
-go 1.16
+go 1.15
 
 require (
     github.com/Hiroki-IT/notify_slack_of_amplify_events/cmd/amplify-cli v1.0.0
