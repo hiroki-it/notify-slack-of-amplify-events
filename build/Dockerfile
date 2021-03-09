@@ -14,7 +14,7 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 ENV GO111MODULE=on
 
-WORKDIR /go/src
+WORKDIR ${GOPATH}/src/github.com
 
 # インストールのキャッシュを活用するためにコピーしておく．
 COPY go.mod go.sum ./
@@ -25,7 +25,7 @@ RUN go get -u github.com/cosmtrek/air \
 
 COPY . .
 
-# ビルドのアーティファクトを$HOME/go/binに配置する．
-RUN go build -o ${HOME}/go/bin ./cmd
+# ビルドのアーティファクトを/go/binに配置する．
+RUN go build -o ${GOPATH}/bin ./cmd
 
 CMD ["sh"]
