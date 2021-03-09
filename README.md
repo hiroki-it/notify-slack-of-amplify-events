@@ -25,7 +25,9 @@ $ docker exec -it notify-slack-of-amplify-events sh
 ホスト側でソースコードを修正すると，コンテナ側のアーティファクトが随時更新されます．
 
 ```sh
+# 接続
 $ docker exec -it notify-slack-of-amplify-events sh 
-# コンテナ内
+
+# コンテナ内でairを起動
 $ air -c .air.toml
 ```
