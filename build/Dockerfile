@@ -14,7 +14,7 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 ENV GO111MODULE=on
 
-WORKDIR ${GOPATH}/src/github.com
+WORKDIR ${GOPATH}/src
 
 # インストールのキャッシュを活用するためにコピーしておく．
 COPY go.mod go.sum ./
