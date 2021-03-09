@@ -1,4 +1,4 @@
-package slack-message
+package slack
 
 import(
     "bytes"
