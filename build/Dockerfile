@@ -21,11 +21,11 @@ COPY go.mod go.sum ./
 
 # ライブラリをインストールする．
 RUN go get -u github.com/cosmtrek/air \
-  && go mod download
+  && go mod download -x
 
 COPY . .
 
 # ビルドのアーティファクトを/go/binに配置する．
-RUN go build -o ${GOPATH}/bin ./cmd
+RUN go build -x -o ${GOPATH}/bin ./cmd
 
 CMD ["sh"]
