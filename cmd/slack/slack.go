@@ -10,18 +10,18 @@ import(
 )
 
 /**
- * EventBridgeから転送されたAmplifyイベントを構成します．
+ * Amplifyイベント構造体
  */
 type Request struct {
     Records []struct { 
-        AmplifyEvent struct {
+        Amplify struct {
             Event string `json:event`
         }
     }
 }
 
 /**
- * Eventを構成します．
+ * Event構造体
  */
 type Event struct {
     Version    string   `json:"version"`
@@ -41,16 +41,24 @@ type Event struct {
 } `json:"event"`
 
 /**
- * メッセージボディを構成します．
+ * Slackメッセージ構造体
  */
 type SlackMessage struct {
     Channel string  `json:"channel"`
     Text    string  `json:"text"`
+    Attachments []Attachment `json:"attachments"`
+}
+
+/**
+ * Attachmentスライスの要素
+ */
+type Attachment struct {
+    Color  string `json:"color"`
     Blocks  []Block `json:"blocks"`
 }
 
 /**
- * Blockスライスの要素を構成します．
+ * Blockスライスの要素
  */
 type Block struct {
     Type string `json:"type"`
@@ -62,7 +70,7 @@ type Block struct {
 }
 
 /**
- * Elementスライスの要素を構成します．
+ * Elementスライスの要素
  */
 type Element struct {
     Type string `json:"type"`
@@ -76,7 +84,8 @@ func handler(request Request) {
 
     var event Event
     
-    err := json.Unmarshal([]byte(request.Records[0].AmplifyEvent.Event), &event)
+    // EventBridgeから転送されたイベントをマッピングします．
+    err := json.Unmarshal([]byte(request.Records[0].Amplify.Event), &event)
     
     if err != nil {
         log.Printf("Failed: %#v\n", err)
@@ -92,64 +101,77 @@ func handler(request Request) {
  * Slackに送信するメッセージを構成します．
  */
 func BuildMessage(event Event) SlackMessage {
+    
+    // 通知の色を判定します．
+    var color string
+    if (event.jobStatus == "FAILED" || event.JobStatus.jobStatus == "ABORTED") {
+        color = "danger"
+    } else {
+        color = "good"
+    }
+
+    // メッセージを構成します．
     return SlackMessage{
         Channel: os.Getenv("SLACK_CHANNEL_ID"),
         Text: "検証用dev環境",
-        Blocks: []Block{
-            Block{
-                Type: "section"
-                Element: {
-                    Type: "mrkdwn"
-                    Text: ":github: *検証用dev環境*" 
+        Attachments: []Attachment{
+            Color: color
+            Blocks: []Block{
+                Block{
+                    Type: "section"
+                    Element: {
+                        Type: "mrkdwn"
+                        Text: ":github: *検証用dev環境*" 
+                    }
+                },
+                Block{
+                    Type: "context"
+                    Element: {
+                        Type: "mrkdwn"
+                        Text: Sprintf(
+                            "*結果*: %s",
+                            event.Detail.JobStatus
+                            )
+                    }
+                },
+                Block{
+                    Type: "context"
+                    Element: {
+                        Type: "mrkdwn"
+                        Text: Sprintf(
+                            "*ブランチ名*: %s",
+                            event.Detail.BranchName
+                            )
+                    }
+                },            
+                Block{
+                    Type: "context"
+                    Element: {
+                        Type: "mrkdwn"
+                        Text: Sprintf(
+                            "*検証URL*: https://%s.%s.amplifyapp.com", 
+                            event.Detail.BranchName,
+                            event.Detail.AppId
+                            )
+                        }
+                },
+                Block{
+                    Type: "context"
+                    Element: {
+                        Type: "mrkdwn"
+                        Text: Sprintf(
+                            ":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
+                            event.Region,
+                            event.Region,
+                            event.Detail.AppId,
+                            event.Detail.BranchName,
+                            event.Detail.JobId,
+                            )
+                    }
+                },
+                Block{
+                    Type: "divider"
                 }
-            },
-            Block{
-                Type: "context"
-                Element: {
-                    Type: "mrkdwn"
-                    Text: Sprintf(
-                        "*結果*: %s",
-                        event.Detail.JobStatus
-                        )
-                }
-            },
-            Block{
-                Type: "context"
-                Element: {
-                    Type: "mrkdwn"
-                    Text: Sprintf(
-                        "*ブランチ名*: %s",
-                        event.Detail.BranchName
-                        )
-                }
-            },            
-            Block{
-                Type: "context"
-                Element: {
-                    Type: "mrkdwn"
-                    Text: Sprintf(
-                        "*検証URL*: https://%s.%s.amplifyapp.com", 
-                        event.Detail.BranchName,
-                        event.Detail.AppId
-                        )
-                }            
-            },
-            Block{
-                Type: "context"
-                Element: {
-                    Type: "mrkdwn"
-                    Text: Sprintf(
-                        ":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
-                        event.Region,
-                        event.Region,
-                        event.Detail.AppId,
-                        event.Detail.BranchName,
-                        event.Detail.JobId,
-                        )
-                }            
-            },
-            Block{
-                Type: "divider"
             }
         }
     }
@@ -171,7 +193,7 @@ func PostMessage(slackMessage SlackMessage) bool {
     // リクエストメッセージを定義する．
     request, err := http.NewRequest(
         "POST",
-        "https://xxxx.slack.com",
+        os.Getenv("SLACK_API_URL"),
         bytes.NewBuffer(json),
     )
 
