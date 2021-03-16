@@ -6,5 +6,12 @@ import (
     )
 
 func main() {
-    lambda.Start(handler)
+
+    string, error := lambda.Start(handler)
+    
+    if err != nil {
+        log.Fatalf("Failed: %#v\n", error)
+    }
+    
+    return true
 }
