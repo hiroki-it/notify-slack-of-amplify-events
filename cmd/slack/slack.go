@@ -93,7 +93,7 @@ func handler(request Request) {
 
     message := BuildMessage(event)
   
-    return PostMessage(message)
+    PostMessage(message)
 }
 
 /**
