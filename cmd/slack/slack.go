@@ -3,9 +3,8 @@ package slack
 import(
     "bytes"
     "encoding/json"
-    "fmt"
-    "log"
     "net/http"
+    "fmt"
     "os"
 )
 
@@ -44,8 +43,8 @@ type Event struct {
  * メッセージ構造体
  */
 type Message struct {
-    Channel string  `json:"channel"`
-    Text    string  `json:"text"`
+    Channel     string       `json:"channel"`
+    Text        string       `json:"text"`
     Attachments []Attachment `json:"attachments"`
 }
 
@@ -53,7 +52,7 @@ type Message struct {
  * Attachmentスライスの要素
  */
 type Attachment struct {
-    Color  string `json:"color"`
+    Color   string  `json:"color"`
     Blocks  []Block `json:"blocks"`
 }
 
@@ -80,7 +79,7 @@ type Element struct {
 /**
  * ハンドラー関数
  */
-func handler(request Request) {
+func Handler(request Request) error {
 
     var event Event
     
@@ -88,12 +87,12 @@ func handler(request Request) {
     err := json.Unmarshal([]byte(request.Records[0].Amplify.Event), &event)
     
     if err != nil {
-        log.Fatalf("Failed: %#v\n", err)
+        return err
     }
 
     message := BuildMessage(event)
   
-    PostMessage(message)
+    return PostMessage(message)
 }
 
 /**
@@ -102,85 +101,93 @@ func handler(request Request) {
 func BuildMessage(event Event) Message {
     
     // 通知の色を判定します．
-    var color string
-    if (event.jobStatus == "SUCCEED") {
-        color = "good"
-    } else {
-        color = "danger"
-    }
+    color := PrintColor(event.Detail.JobStatus)
     
     // メッセージを構成します．
     return Message{
         Channel: os.Getenv("SLACK_CHANNEL_ID"),
         Text: "検証用dev環境",
         Attachments: []Attachment{
-            Color: color,
-            Blocks: []Block{
-                Block{
-                    Type: "section",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: "*検証用dev環境*",
+            Attachment{
+                Color: color,
+                Blocks: []Block{
+                    Block{
+                        Type: "section",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: "*検証用dev環境*",
+                            },
+                        },
                     },
-                },
-                Block{
-                    Type: "context",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: Sprintf(
-                                "*結果*: %s",
-                                event.Detail.JobStatus,
-                            ),
+                    Block{
+                        Type: "context",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: fmt.Sprintf(
+                                        "*結果*: %s",
+                                        event.Detail.JobStatus,
+                                    ),
+                            },
+                        },
                     },
-                },
-                Block{
-                    Type: "context",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: Sprintf(
-                                "*ブランチ名*: %s",
-                                event.Detail.BranchName,
-                            ),
+                    Block{
+                        Type: "context",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: fmt.Sprintf(
+                                        "*ブランチ名*: %s",
+                                        event.Detail.BranchName,
+                                    ),
+                            },
+                        },
                     },
-                },
-                Block{
-                    Type: "context",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: Sprintf(
-                                ":github:*プルリクURL*: %s/compare/%s",
-                                data.repository,
-                                event.Detail.BranchName,
-                            ),
+                    Block{
+                        Type: "context",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: fmt.Sprintf(
+                                        ":github:*プルリクURL*: :github_octocat:*プルリクURL*: https://github.com/Hiroki-IT/notify_slack_of_amplify_events/compare/%s",
+                                        event.Detail.BranchName,
+                                    ),
+                            },
+                        },
                     },
-                },                             
-                Block{
-                    Type: "context",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: Sprintf(
-                                "*検証URL*: https://%s.%s.amplifyapp.com", 
-                                event.Detail.BranchName,
-                                event.Detail.AppId,
-                            ),
+                    Block{
+                        Type: "context",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: fmt.Sprintf(
+                                        "*検証URL*: https://%s.%s.amplifyapp.com", 
+                                        event.Detail.BranchName,
+                                        event.Detail.AppId,
+                                    ),
+                            },
+                        },
                     },
-                },
-                Block{
-                    Type: "context",
-                    Element: {
-                        Type: "mrkdwn",
-                        Text: Sprintf(
-                                ":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
-                                event.Region,
-                                event.Region,
-                                event.Detail.AppId,
-                                event.Detail.BranchName,
-                                event.Detail.JobId,
-                            ),
+                    Block{
+                        Type: "context",
+                        Elements: []Element{
+                            Element{
+                                Type: "mrkdwn",
+                                Text: fmt.Sprintf(
+                                        ":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
+                                        event.Region,
+                                        event.Region,
+                                        event.Detail.AppId,
+                                        event.Detail.BranchName,
+                                        event.Detail.JobId,
+                                    ),
+                            },
+                        },
                     },
-                },
-                Block{
-                    Type: "divider",
+                    Block{
+                        Type: "divider",
+                    },
                 },
             },
         },
@@ -188,15 +195,27 @@ func BuildMessage(event Event) Message {
 }
 
 /**
- * Slackにメッセージを送信します．
+ * 通知色を判定します．
  */
-func PostMessage(Message message) bool {
+func PrintColor(jobStatus string) string {
+
+    if (jobStatus == "SUCCEED") {
+        return "good"
+    }
+    
+    return "danger"
+}
+
+/**
+ * メッセージを送信します．
+ */
+func PostMessage(message Message) error {
 
     // マッピングを元に，構造体をJSONに変換する．
     json, err := json.Marshal(message)
 
     if err != nil {
-        log.Fatalf("Failed: %#v\n", err)
+        return err
     }
 
     // リクエストメッセージを定義する．
@@ -207,12 +226,12 @@ func PostMessage(Message message) bool {
     )
 
     if err != nil {
-        log.Fatalf("Failed: %#v\n", err)
+        return err
     }
 
     // ヘッダーを定義する．
     request.Header.Set("Content-Type", "application/json")
-    request.Header.Set("Authorization", Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
+    request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
 
     client := &http.Client {}
 
@@ -222,13 +241,11 @@ func PostMessage(Message message) bool {
     // deferで宣言しておき，HTTP通信を必ず終了できるようにする．
     defer response.Body.Close()
     
-    if err != nil {
-        log.Fatalf("Failed: %#v\n", err)
-    }
-    
-    if response.StatusCode != 200 {
-        log.Fatalf("Failed: %#v\n", err)
+    if err != nil || response.StatusCode != 200 {
+        return err
     }
     
     fmt.Printf("Success %#v\n", response)
+    
+    return nil
 }

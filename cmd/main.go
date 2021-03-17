@@ -6,12 +6,5 @@ import (
     )
 
 func main() {
-
-    string, error := lambda.Start(handler)
-    
-    if err != nil {
-        log.Fatalf("Failed: %#v\n", error)
-    }
-    
-    return true
+    lambda.Start(slack.Handler)
 }
