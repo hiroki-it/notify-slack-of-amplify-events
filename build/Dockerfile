@@ -7,7 +7,7 @@ ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 #===================
 # Build Stage
 #===================
-FROM golang:${GO_VERSION} as builder
+FROM golang:${GO_VERSION}
 
 ENV CGO_ENABLED=0
 ENV GOOS=linux
