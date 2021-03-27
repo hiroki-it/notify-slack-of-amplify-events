@@ -245,7 +245,7 @@ func PostMessage(message Message) error {
 		return err
 	}
 
-	fmt.Printf("Success %#v\n", response)
+	fmt.Printf("Success: %#v\n", response)
 
 	return nil
 }
