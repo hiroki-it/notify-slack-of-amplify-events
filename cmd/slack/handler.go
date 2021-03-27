@@ -49,7 +49,7 @@ func Handler(request Request) error {
 		return err
 	}
 
-	message := BuildMessage(event)
+	message := buildMessage(event)
 
-	return PostMessage(message)
+	return postMessage(message)
 }

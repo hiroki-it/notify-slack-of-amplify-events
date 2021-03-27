@@ -11,7 +11,7 @@ import (
 /**
  * メッセージを送信します．
  */
-func PostMessage(message Message) error {
+func postMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)

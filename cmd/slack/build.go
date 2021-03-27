@@ -45,10 +45,10 @@ type Element struct {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func BuildMessage(event Event) Message {
+func buildMessage(event Event) Message {
 
 	// 通知の色を判定します．
-	color := PrintColor(event.Detail.JobStatus)
+	color := printColor(event.Detail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -144,7 +144,7 @@ func BuildMessage(event Event) Message {
 /**
  * 通知色を判定します．
  */
-func PrintColor(jobStatus string) string {
+func printColor(jobStatus string) string {
 
 	if jobStatus == "SUCCEED" {
 		return "good"
