@@ -11,7 +11,7 @@ import (
 /**
  * メッセージを送信します．
  */
-func postMessage(message Message) error {
+func postMessage(message Message) (bool, error) {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
@@ -49,5 +49,5 @@ func postMessage(message Message) error {
 
 	fmt.Printf("Success: %#v\n", response)
 
-	return nil
+	return true, err
 }
