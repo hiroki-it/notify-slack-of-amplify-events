@@ -2,6 +2,7 @@ package slack
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 /**
@@ -38,7 +39,7 @@ type Event struct {
 /**
  * ハンドラー関数
  */
-func Handler(request Request) bool {
+func Handler(request Request) string {
 
 	var event Event
 
@@ -46,14 +47,22 @@ func Handler(request Request) bool {
 	err := json.Unmarshal([]byte(request.Records[0].EventBridge.Event), &event)
 
 	if err != nil {
-		return err
+		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
 	branch, err := getAmplifyBranch(event)
 
 	if err != nil {
-		return err
+		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	return result
+	message := buildMessage(event, branch)
+
+	err = postMessage(message)
+
+	if err != nil {
+		return fmt.Sprintf("ERROR: %#v\n", err)
+	}
+
+	return fmt.Sprintln("Exit")
 }
