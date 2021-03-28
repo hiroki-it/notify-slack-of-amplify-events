@@ -24,6 +24,8 @@ $ docker exec -it notify-slack-of-amplify-events sh
 
 ホスト側でソースコードを修正すると，コンテナ側のアーティファクトが随時更新されます．
 
+また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
+
 ```sh
 # 接続
 $ docker exec -it notify-slack-of-amplify-events sh 
