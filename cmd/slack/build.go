@@ -6,7 +6,7 @@ import (
 )
 
 /**
- * メッセージ構造体
+ * Message構造体
  */
 type Message struct {
 	Channel     string       `json:"channel"`
