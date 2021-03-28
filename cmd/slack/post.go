@@ -11,13 +11,13 @@ import (
 /**
  * メッセージを送信します．
  */
-func postMessage(message Message) (bool, error) {
+func postMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// リクエストメッセージを定義する．
@@ -28,7 +28,7 @@ func postMessage(message Message) (bool, error) {
 	)
 
 	if err != nil {
-		return false, err
+		return err
 	}
 
 	// ヘッダーを定義する．
@@ -44,10 +44,10 @@ func postMessage(message Message) (bool, error) {
 	defer response.Body.Close()
 
 	if err != nil || response.StatusCode != 200 {
-		return false, err
+		return err
 	}
 
 	fmt.Printf("Success: %#v\n", response)
 
-	return true, err
+	return err
 }
