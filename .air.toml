@@ -7,7 +7,7 @@ tmp_dir = "air_tmp"
 
 [build]
 # Just plain old shell command. You could use `make` as well.
-cmd = "go fmt ./... && go build -o ${HOME}/go/bin ./cmd"
+cmd = "go fmt ./... && go vet ./... && go build -o ${HOME}/go/bin ./cmd"
 # Binary file yields from `cmd`.
 bin = "${HOME}/go/bin"
 # Customize binary.
