@@ -5,11 +5,11 @@ import (
 )
 
 /**
- * Amplifyイベント構造体
+ * イベント構造体
  */
 type Request struct {
 	Records []struct {
-		Amplify struct {
+		EventBridge struct {
 			Event string `json:event`
 		}
 	}
@@ -43,7 +43,7 @@ func Handler(request Request) bool {
 	var event Event
 
 	// EventBridgeから転送されたイベントをマッピングします．
-	err := json.Unmarshal([]byte(request.Records[0].Amplify.Event), &event)
+	err := json.Unmarshal([]byte(request.Records[0].EventBridge.Event), &event)
 
 	if err != nil {
 		return err
