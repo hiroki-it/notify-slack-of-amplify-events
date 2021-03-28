@@ -47,8 +47,7 @@ type Element struct {
  */
 func buildMessage(event Event) Message {
 
-	// 通知の色を判定します．
-	color := printColor(event.Detail.JobStatus)
+	status, color := jobStatusMessage(event.Detail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -74,7 +73,7 @@ func buildMessage(event Event) Message {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
-									event.Detail.JobStatus,
+									status,
 								),
 							},
 						},
@@ -97,7 +96,7 @@ func buildMessage(event Event) Message {
 							Element{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
-									":github:*プルリクURL*: :github_octocat:*プルリクURL*: https://github.com/Hiroki-IT/notify_slack_of_amplify_events/compare/%s",
+									"*プルリクURL*: https://github.com/Hiroki-IT/notify_slack_of_amplify_events/compare/%s",
 									event.Detail.BranchName,
 								),
 							},
@@ -142,13 +141,13 @@ func buildMessage(event Event) Message {
 }
 
 /**
- * 通知色を判定します．
+ * ジョブ状態を表現するメッセージを返却します．
  */
-func printColor(jobStatus string) string {
+func jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
-		return "good"
+		return "成功", "#00FF00"
 	}
 
-	return "danger"
+	return "失敗", "#ff0000"
 }
