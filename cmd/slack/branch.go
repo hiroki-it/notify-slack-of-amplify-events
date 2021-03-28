@@ -47,7 +47,7 @@ type AmplifyApp struct {
 }
 
 /**
- * Amplifyからアプリケーション情報を取得します．
+ * Amplifyからブランチ情報を取得します．
  */
 func getAmplifyBranch(event Event) (AmplifyApp, error) {
 	sess := session.Must(session.NewSession(aws.NewConfig().WithRegion("ap-northeast-1")))
