@@ -49,9 +49,7 @@ func Handler(request Request) bool {
 		return err
 	}
 
-	message := buildMessage(event)
-
-	result, err := postMessage(message)
+	branch, err := getAmplifyBranch(event)
 
 	if err != nil {
 		return err

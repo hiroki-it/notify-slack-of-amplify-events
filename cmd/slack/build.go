@@ -45,7 +45,7 @@ type Element struct {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func buildMessage(event Event) Message {
+func buildMessage(event Event, amplifyApp AmplifyApp) Message {
 
 	status, color := jobStatusMessage(event.Detail.JobStatus)
 
@@ -109,7 +109,7 @@ func buildMessage(event Event) Message {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
-									event.Detail.BranchName,
+									amplifyApp.Branch.DisplayName,
 									event.Detail.AppId,
 								),
 							},
