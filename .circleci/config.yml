@@ -1,1 +1,56 @@
 version: 2.1
+
+orbs:
+  slack: circleci/slack@4.3.1
+
+commands:
+  # 失敗をSlackに通知します．
+  notify_of_failure:
+    steps:
+      - slack/notify:
+          template: basic_fail_1
+          event: fail
+
+jobs:
+  build_and_test:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run:
+          name: Docker compose up
+          command: |
+            set -xe
+            docker-compose up -d
+      - run:
+          name: Go fmt
+          command: |
+            docker exec -it notify-slack-of-amplify-events test -z "$(go fmt ./... | tee /dev/stderr)"
+#      - run:
+#          name: Go vet
+#          command: |
+#            docker exec -it notify-slack-of-amplify-events go vet ./...
+#      - run:
+#          name: Go test
+#          command: |
+#            docker exec -it notify-slack-of-amplify-events go test
+
+workflows: 
+  develop:
+    jobs:
+      - build_and_test:
+          post-steps:
+            - notify_of_failure
+          filters:
+            branches:
+              only: develop
+  production:
+    jobs:
+      - build_and_test:
+          post-steps:
+            - notify_of_failure
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /release\/.*/
