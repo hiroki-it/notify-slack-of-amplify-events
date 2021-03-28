@@ -17,7 +17,7 @@ func postMessage(message Message) (bool, error) {
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		return err
+		return false, err
 	}
 
 	// リクエストメッセージを定義する．
@@ -28,7 +28,7 @@ func postMessage(message Message) (bool, error) {
 	)
 
 	if err != nil {
-		return err
+		return false, err
 	}
 
 	// ヘッダーを定義する．
@@ -44,7 +44,7 @@ func postMessage(message Message) (bool, error) {
 	defer response.Body.Close()
 
 	if err != nil || response.StatusCode != 200 {
-		return err
+		return false, err
 	}
 
 	fmt.Printf("Success: %#v\n", response)
