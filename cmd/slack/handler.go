@@ -38,7 +38,7 @@ type Event struct {
 /**
  * ハンドラー関数
  */
-func Handler(request Request) error {
+func Handler(request Request) bool {
 
 	var event Event
 
@@ -51,5 +51,11 @@ func Handler(request Request) error {
 
 	message := buildMessage(event)
 
-	return postMessage(message)
+	result, err := postMessage(message)
+
+	if err != nil {
+		return err
+	}
+
+	return result
 }
