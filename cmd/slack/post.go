@@ -23,7 +23,7 @@ func postMessage(message Message) error {
 	// リクエストメッセージを定義する．
 	request, err := http.NewRequest(
 		"POST",
-		os.Getenv("SLACK_API_URL"),
+		"https://slack.com/api/chat.postMessage",
 		bytes.NewBuffer(json),
 	)
 
