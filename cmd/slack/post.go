@@ -40,12 +40,12 @@ func postMessage(message Message) error {
 	// HTTPリクエストを送信する．
 	response, err := client.Do(request)
 
-	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
-	defer response.Body.Close()
-
 	if err != nil || response.StatusCode != 200 {
 		return err
 	}
+
+	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
+	defer response.Body.Close()
 
 	fmt.Printf("Success: %#v\n", response)
 
