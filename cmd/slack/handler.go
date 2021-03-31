@@ -11,7 +11,7 @@ import (
 type Request struct {
 	Records []struct {
 		EventBridge struct {
-			Event string `json:event`
+			Event string `json:"event"`
 		}
 	}
 }
