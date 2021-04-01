@@ -17,7 +17,7 @@ type Branch struct {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func getAmplifyBranch(event Event) (Branch, error) {
+func getBranchFromAmplify(event Event) (Branch, error) {
 
 	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-1"))
 
