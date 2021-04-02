@@ -58,7 +58,7 @@ func Handler(request Request) string {
 
 	slack := NewSlack()
 
-	message := slack.buildMessage(event, branch)
+	message := slack.buildMessage(event, *branch)
 
 	err = slack.postMessage(message)
 
