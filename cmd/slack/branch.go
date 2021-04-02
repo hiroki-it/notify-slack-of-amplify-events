@@ -12,7 +12,7 @@ type Branch struct {
 }
 
 type AmplifyClient struct {
-	svc *amplify.Client
+	Svc *amplify.Client
 }
 
 /**
@@ -27,16 +27,14 @@ func NewAmplifyClient() (*AmplifyClient, error) {
 	}
 
 	return &AmplifyClient{
-		svc: amplify.NewFromConfig(config),
+		Svc: amplify.NewFromConfig(config),
 	}, nil
 }
 
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
-
-	var branch Branch
+func (client AmplifyClient) getBranchFromAmplify(event Event) (*Branch, error) {
 
 	input := amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
@@ -44,16 +42,13 @@ func (client AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
 	}
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.svc.GetBranch(context.TODO(), &input)
+	response, err := client.Svc.GetBranch(context.TODO(), &input)
 
 	if err != nil {
-		return branch, err
+		return nil, err
 	}
 
-	// あらかじめ定義した構造体に出力します．．
-	branch = Branch{
+	return &Branch{
 		DisplayName: aws.ToString(response.Branch.DisplayName),
-	}
-
-	return branch, err
+	}, nil
 }
