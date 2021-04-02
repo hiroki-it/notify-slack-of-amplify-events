@@ -49,5 +49,5 @@ func postMessage(message Message) error {
 
 	fmt.Printf("Success: %#v\n", response)
 
-	return err
+	return nil
 }
