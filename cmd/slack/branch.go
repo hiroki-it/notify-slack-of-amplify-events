@@ -7,22 +7,16 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/amplify"
 )
 
-/**
- * AmplifyApp構造体
- */
 type Branch struct {
 	DisplayName string
 }
 
-/**
- * Amplifyクライアント
- */
 type AmplifyClient struct {
 	svc *amplify.Client
 }
 
 /**
- * Amplifyのクライアントを作成します．
+ * コンストラクタ
  */
 func NewAmplifyClient() (*AmplifyClient, error) {
 
@@ -40,7 +34,7 @@ func NewAmplifyClient() (*AmplifyClient, error) {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client *AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
+func (client AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
 
 	var branch Branch
 

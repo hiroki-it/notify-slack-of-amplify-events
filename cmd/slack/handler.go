@@ -5,9 +5,6 @@ import (
 	"fmt"
 )
 
-/**
- * イベント構造体
- */
 type Request struct {
 	Records []struct {
 		EventBridge struct {
@@ -16,9 +13,6 @@ type Request struct {
 	}
 }
 
-/**
- * Event構造体
- */
 type Event struct {
 	Version    string   `json:"version"`
 	Id         string   `json:"id"`

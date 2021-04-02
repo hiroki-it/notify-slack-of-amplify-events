@@ -5,26 +5,17 @@ import (
 	"os"
 )
 
-/**
- * Message構造体
- */
 type Message struct {
 	Channel     string       `json:"channel"`
 	Text        string       `json:"text"`
 	Attachments []Attachment `json:"attachments"`
 }
 
-/**
- * Attachmentスライスの要素
- */
 type Attachment struct {
 	Color  string  `json:"color"`
 	Blocks []Block `json:"blocks"`
 }
 
-/**
- * Blockスライスの要素
- */
 type Block struct {
 	Type string `json:"type"`
 	Text struct {
@@ -34,9 +25,6 @@ type Block struct {
 	Elements []Element `json:"elements,omitempty"`
 }
 
-/**
- * Elementスライスの要素
- */
 type Element struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
