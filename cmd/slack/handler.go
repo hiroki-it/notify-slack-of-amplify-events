@@ -56,9 +56,11 @@ func Handler(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	message := buildMessage(event, branch)
+	slack := NewSlack()
 
-	err = postMessage(message)
+	message := slack.buildMessage(event, branch)
+
+	err = slack.postMessage(message)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

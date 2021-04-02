@@ -30,12 +30,22 @@ type Element struct {
 	Text string `json:"text"`
 }
 
+type Slack struct {
+}
+
+/**
+ * コンストラクタ
+ */
+func NewSlack() *Slack {
+	return new(Slack)
+}
+
 /**
  * Slackに送信するメッセージを構成します．
  */
-func buildMessage(event Event, branch Branch) Message {
+func (slack Slack) buildMessage(event Event, branch Branch) Message {
 
-	status, color := jobStatusMessage(event.Detail.JobStatus)
+	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -131,7 +141,7 @@ func buildMessage(event Event, branch Branch) Message {
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func jobStatusMessage(jobStatus string) (string, string) {
+func (slack Slack) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
