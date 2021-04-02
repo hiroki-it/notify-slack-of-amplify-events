@@ -50,7 +50,13 @@ func Handler(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	branch, err := getBranchFromAmplify(event)
+	client, err := NewAmplifyClient()
+
+	if err != nil {
+		return fmt.Sprintf("ERROR: %#v\n", err)
+	}
+
+	branch, err := client.getBranchFromAmplify(event)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

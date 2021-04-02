@@ -15,9 +15,16 @@ type Branch struct {
 }
 
 /**
+ * Amplifyクライアント
+ */
+type AmplifyClient struct {
+	svc *amplify.Client
+}
+
+/**
  * Amplifyのクライアントを作成します．
  */
-func NewAmplifyClient() (*amplify.Client, error) {
+func NewAmplifyClient() (*AmplifyClient, error) {
 
 	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-1"))
 
@@ -25,21 +32,17 @@ func NewAmplifyClient() (*amplify.Client, error) {
 		return nil, err
 	}
 
-	return amplify.NewFromConfig(config), nil
+	return &AmplifyClient{
+		svc: amplify.NewFromConfig(config),
+	}, nil
 }
 
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func getBranchFromAmplify(event Event) (Branch, error) {
+func (client *AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
 
 	var branch Branch
-
-	client, err := NewAmplifyClient()
-
-	if err != nil {
-		return branch, err
-	}
 
 	input := amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
@@ -47,7 +50,7 @@ func getBranchFromAmplify(event Event) (Branch, error) {
 	}
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.GetBranch(context.TODO(), &input)
+	response, err := client.svc.GetBranch(context.TODO(), &input)
 
 	if err != nil {
 		return branch, err
