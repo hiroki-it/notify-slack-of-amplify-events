@@ -51,7 +51,9 @@ func (client AmplifyClient) getBranchFromAmplify(event Event) (Branch, error) {
 	}
 
 	// あらかじめ定義した構造体に出力します．．
-	branch = Branch{DisplayName: aws.ToString(response.Branch.DisplayName)}
+	branch = Branch{
+		DisplayName: aws.ToString(response.Branch.DisplayName),
+	}
 
 	return branch, err
 }
