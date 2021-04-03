@@ -33,20 +33,25 @@ type Element struct {
 	Text string `json:"text"`
 }
 
-type Slack struct {
+type SlackClientInterface interface {
+	buildMessage(event Event, branch Branch) Message
+	jobStatusMessage(jobStatus string) (string, string)
+}
+
+type SlackClientImpl struct {
 }
 
 /**
  * コンストラクタ
  */
-func NewSlack() *Slack {
-	return new(Slack)
+func NewSlackClient() *SlackClientImpl {
+	return new(SlackClientImpl)
 }
 
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (slack Slack) buildMessage(event Event, branch Branch) Message {
+func (slack SlackClientImpl) buildMessage(event Event, branch Branch) Message {
 
 	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
 
@@ -144,7 +149,7 @@ func (slack Slack) buildMessage(event Event, branch Branch) Message {
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (slack Slack) jobStatusMessage(jobStatus string) (string, string) {
+func (slack SlackClientImpl) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
@@ -156,7 +161,7 @@ func (slack Slack) jobStatusMessage(jobStatus string) (string, string) {
 /**
  * メッセージを送信します．
  */
-func (slack Slack) postMessage(message Message) error {
+func (slack SlackClientImpl) postMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)

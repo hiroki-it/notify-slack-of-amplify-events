@@ -8,18 +8,22 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/amplify"
 )
 
-type Branch struct {
-	DisplayName string
+type AmplifyClientInterface interface {
+	getBranchFromAmplify(event Event) (*Branch, error)
 }
 
-type AmplifyClient struct {
+type AmplifyClientImpl struct {
 	Svc *amplify.Client
+}
+
+type Branch struct {
+	DisplayName string
 }
 
 /**
  * コンストラクタ
  */
-func NewAmplifyClient() (*AmplifyClient, error) {
+func NewAmplifyClient() (*AmplifyClientImpl, error) {
 
 	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-1"))
 
@@ -27,7 +31,7 @@ func NewAmplifyClient() (*AmplifyClient, error) {
 		return nil, err
 	}
 
-	return &AmplifyClient{
+	return &AmplifyClientImpl{
 		Svc: amplify.NewFromConfig(config),
 	}, nil
 }
@@ -35,7 +39,7 @@ func NewAmplifyClient() (*AmplifyClient, error) {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client AmplifyClient) getBranchFromAmplify(event Event) (*Branch, error) {
+func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*Branch, error) {
 
 	input := amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),

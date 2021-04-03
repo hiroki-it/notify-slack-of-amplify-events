@@ -56,7 +56,7 @@ func Handler(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	slack := NewSlack()
+	slack := NewSlackClient()
 
 	message := slack.buildMessage(event, *branch)
 
