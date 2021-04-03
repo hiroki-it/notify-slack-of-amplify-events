@@ -34,7 +34,7 @@ type Element struct {
 }
 
 type SlackClientInterface interface {
-	buildMessage(event Event, branch Branch) Message
+	buildMessage(event Event, amplifyBranch AmplifyBranch) Message
 	jobStatusMessage(jobStatus string) (string, string)
 }
 
@@ -52,7 +52,7 @@ func NewSlackClient() *SlackClientImpl {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (slack SlackClientImpl) buildMessage(event Event, branch Branch) Message {
+func (slack SlackClientImpl) buildMessage(event Event, amplifyBranch AmplifyBranch) Message {
 
 	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
 
@@ -116,7 +116,7 @@ func (slack SlackClientImpl) buildMessage(event Event, branch Branch) Message {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
-									branch.DisplayName,
+									amplifyBranch.DisplayName,
 									event.Detail.AppId,
 								),
 							},

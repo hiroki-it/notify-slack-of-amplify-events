@@ -32,7 +32,7 @@ type Event struct {
 	} `json:"detail"`
 }
 
-type Branch struct {
+type AmplifyBranch struct {
 	DisplayName string
 }
 
@@ -66,7 +66,7 @@ func Handler(request Request) string {
 
 	message := slack.buildMessage(
 		event,
-		Branch{DisplayName: aws.ToString(response.Branch.DisplayName)},
+		AmplifyBranch{DisplayName: aws.ToString(response.Branch.DisplayName)},
 	)
 
 	err = slack.postMessage(message)
