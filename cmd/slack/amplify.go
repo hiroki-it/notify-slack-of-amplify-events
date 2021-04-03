@@ -9,7 +9,7 @@ import (
 )
 
 type AmplifyClientInterface interface {
-	getBranchFromAmplify(event Event) (*Branch, error)
+	getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error)
 }
 
 type AmplifyClientImpl struct {
