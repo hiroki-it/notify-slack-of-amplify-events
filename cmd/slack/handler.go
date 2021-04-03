@@ -3,6 +3,8 @@ package slack
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/aws/aws-sdk-go-v2/aws"
 )
 
 type Request struct {
@@ -30,6 +32,10 @@ type Event struct {
 	} `json:"detail"`
 }
 
+type Branch struct {
+	DisplayName string
+}
+
 /**
  * ハンドラー関数
  */
@@ -50,7 +56,7 @@ func Handler(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	branch, err := client.getBranchFromAmplify(event)
+	response, err := client.getBranchFromAmplify(event)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)
@@ -58,7 +64,10 @@ func Handler(request Request) string {
 
 	slack := NewSlackClient()
 
-	message := slack.buildMessage(event, *branch)
+	message := slack.buildMessage(
+		event,
+		Branch{DisplayName: aws.ToString(response.Branch.DisplayName)},
+	)
 
 	err = slack.postMessage(message)
 

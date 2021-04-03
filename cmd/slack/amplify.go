@@ -16,10 +16,6 @@ type AmplifyClientImpl struct {
 	Svc *amplify.Client
 }
 
-type Branch struct {
-	DisplayName string
-}
-
 /**
  * コンストラクタ
  */
@@ -39,7 +35,7 @@ func NewAmplifyClient() (*AmplifyClientImpl, error) {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*Branch, error) {
+func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
 
 	input := amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
@@ -53,7 +49,5 @@ func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*Branch, erro
 		return nil, err
 	}
 
-	return &Branch{
-		DisplayName: aws.ToString(response.Branch.DisplayName),
-	}, nil
+	return response, err
 }
