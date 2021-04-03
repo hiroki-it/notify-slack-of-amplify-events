@@ -39,6 +39,7 @@ type SlackClientInterface interface {
 }
 
 type SlackClientImpl struct {
+	SlackClientInterface
 }
 
 /**

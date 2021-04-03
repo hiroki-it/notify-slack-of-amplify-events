@@ -13,6 +13,7 @@ type AmplifyClientInterface interface {
 }
 
 type AmplifyClientImpl struct {
+	AmplifyClientInterface
 	Svc *amplify.Client
 }
 
