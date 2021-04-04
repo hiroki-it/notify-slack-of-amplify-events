@@ -103,7 +103,7 @@ func (slack SlackClientImpl) buildMessage(event Event, amplifyBranch AmplifyBran
 							Element{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
-									"*プルリクURL*: https://github.com/Hiroki-IT/notify_slack_of_amplify_events/compare/%s",
+									"*プルリクURL*: https://github.com/hiroki-it/notify_slack_of_amplify_events/compare/%s",
 									event.Detail.BranchName,
 								),
 							},
