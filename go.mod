@@ -1,4 +1,4 @@
-module github.com/Hiroki-IT/notify_slack_of_amplify_events
+module github.com/hiroki-it/notify_slack_of_amplify_events
 
 go 1.15
 
@@ -10,4 +10,4 @@ require (
 	github.com/stretchr/testify v1.7.0
 )
 
-replace github.com/Hiroki-IT/notify_slack_of_amplify_events/cmd/slack => ./slack
+replace github.com/hiroki-it/notify_slack_of_amplify_events/cmd/slack => ./slack
