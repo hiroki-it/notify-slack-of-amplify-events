@@ -3,8 +3,12 @@ package main
 import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/hiroki-it/notify_slack_of_amplify_events/cmd/slack"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	lambda.Start(slack.Handler)
+
+	godotenv.Load()
+
+	lambda.Start(slack.LambdaHandler)
 }
