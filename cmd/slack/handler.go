@@ -37,9 +37,9 @@ type AmplifyBranch struct {
 }
 
 /**
- * ハンドラー関数
+ * Lambdaハンドラー関数
  */
-func Handler(request Request) string {
+func LambdaHandler(request Request) string {
 
 	var event Event
 

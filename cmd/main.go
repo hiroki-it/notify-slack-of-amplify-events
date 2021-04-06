@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	lambda.Start(slack.Handler)
+	lambda.Start(slack.LambdaHandler)
 }
