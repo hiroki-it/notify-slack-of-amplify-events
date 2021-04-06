@@ -12,6 +12,7 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/amplify"
+	"github.com/joho/godotenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -42,6 +43,8 @@ type Branch struct {
  * ハンドラ関数をテストします．
  */
 func testLambdaHandler(t *testing.T) {
+
+	godotenv.Load()
 
 	var event Event
 
