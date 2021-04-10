@@ -3,8 +3,10 @@ package slack
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/joho/godotenv"
 )
 
 type Request struct {
@@ -40,6 +42,10 @@ type AmplifyBranch struct {
  * Lambdaハンドラー関数
  */
 func LambdaHandler(request Request) string {
+
+	if os.Getenv("APP_ENV") == "dev" {
+		godotenv.Load()
+	}
 
 	var event Event
 
