@@ -40,6 +40,7 @@ workflows:
   develop:
     jobs:
       - build_and_test:
+          name: build_and_test_stg
           filters:
             branches:
               only: develop
@@ -47,6 +48,7 @@ workflows:
   main:
     jobs:
       - build_and_test:
+          name: build_and_test_prd
           post-steps:
             - notify_of_failure
           filters:
