@@ -11,4 +11,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 )
 
-replace github.com/hiroki-it/notify_slack_of_amplify_events/cmd/slack => ./slack
+replace (
+		github.com/hiroki-it/notify_slack_of_amplify_events/cmd/slack => ./slack
+		github.com/hiroki-it/notify_slack_of_amplify_events/config => ../config
+)
