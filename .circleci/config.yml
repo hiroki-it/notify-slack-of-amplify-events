@@ -35,14 +35,23 @@ jobs:
 #          command: |
 #           docker exec -it notify-slack-of-amplify-events go test -v -cover ./...
 
-workflows: 
+workflows:
+
   develop:
     jobs:
       - build_and_test:
           filters:
             branches:
               only: develop
-  production:
+              
+  main:
+    jobs:
+      - build_and_test:
+          filters:
+            branches:
+              only: main
+              
+  release:
     jobs:
       - build_and_test:
           post-steps:
