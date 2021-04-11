@@ -20,7 +20,7 @@ WORKDIR ${GOPATH}/src
 COPY go.mod go.sum ./
 
 # ライブラリをインストールする．
-RUN go get -u github.com/cosmtrek/air \
+RUN go get github.com/cosmtrek/air@v1.15.1 \
   && go mod download -x
 
 COPY . .
