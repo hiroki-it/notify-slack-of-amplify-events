@@ -23,7 +23,7 @@ $ docker-compose up -d
 ### 2. 接続
 
 ```sh
-$ docker exec -it notify-slack-of-amplify-events sh 
+$ docker exec -it notify-slack-of-amplify-events sh
 ```
 
 ## ホットリロード
@@ -36,7 +36,7 @@ $ docker exec -it notify-slack-of-amplify-events sh
 
 ```sh
 # 接続
-$ docker exec -it notify-slack-of-amplify-events sh 
+$ docker exec -it notify-slack-of-amplify-events sh
 
 # コンテナ内でairを起動
 $ air -c .air.toml
