@@ -41,7 +41,7 @@ type Branch struct {
 /**
  * ハンドラ関数をテストします．
  */
-func testLambdaHandler(t *testing.T) {
+func TestLambdaHandler(t *testing.T) {
 
 	var event Event
 
