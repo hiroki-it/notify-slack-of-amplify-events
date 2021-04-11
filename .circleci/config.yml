@@ -26,10 +26,10 @@ jobs:
           name: Go fmt
           command: |
             docker exec -it notify-slack-of-amplify-events test -z "$(go fmt ./... | tee /dev/stderr)"
-#      - run:
-#          name: Go vet
-#          command: |
-#            docker exec -it notify-slack-of-amplify-events go vet ./...
+     - run:
+         name: Go vet
+         command: |
+           docker exec -it notify-slack-of-amplify-events go vet ./...
 #      - run:
 #          name: Go test
 #          command: |
