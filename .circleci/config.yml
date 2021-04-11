@@ -39,8 +39,6 @@ workflows:
   develop:
     jobs:
       - build_and_test:
-          post-steps:
-            - notify_of_failure
           filters:
             branches:
               only: develop
