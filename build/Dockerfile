@@ -2,7 +2,6 @@
 # Global ARG
 #===================
 ARG GO_VERSION="1.15"
-ARG ALPINE_VERSION="3.13"
 ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 
 #===================
