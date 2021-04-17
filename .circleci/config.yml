@@ -23,6 +23,10 @@ jobs:
             set -xe
             docker-compose up -d
       - run:
+          name: Go mod download
+          command: |
+            docker exec -it notify-slack-of-amplify-events go mod download -x
+      - run:
           name: Go fmt
           command: |
             docker exec -it notify-slack-of-amplify-events go fmt ./... >&2
