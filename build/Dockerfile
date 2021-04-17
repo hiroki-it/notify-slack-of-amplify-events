@@ -9,10 +9,6 @@ ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 #===================
 FROM golang:${GO_VERSION} as build
 
-ENV GOOS=linux
-ENV GOARCH=amd64
-ENV GO111MODULE=on
-
 WORKDIR /go/src
 
 # インストールのキャッシュを活用するためにコピーしておく．
@@ -35,7 +31,11 @@ WORKDIR /go/src
 
 # /go/binにパスを通す．
 ENV PATH $PATH:/go/bin
+
 ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
+ENV GO111MODULE=on
 
 COPY --from=build /go ../
 
