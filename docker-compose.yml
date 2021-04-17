@@ -11,8 +11,6 @@ services:
     tty: true
     volumes:
       - .:/go/src
-    ports:
-      - 8080:8080
     environment:
       TZ: "Asia/Tokyo"
       LANG: "ja_JP.UTF-8"
