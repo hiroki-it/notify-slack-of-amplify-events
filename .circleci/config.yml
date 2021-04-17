@@ -25,15 +25,15 @@ jobs:
       - run:
           name: Go mod download
           command: |
-            docker exec -it notify-slack-of-amplify-events go mod download -x
+            docker run -it notify-slack-of-amplify-events go mod download -x
       - run:
           name: Go fmt
           command: |
-            docker exec -it notify-slack-of-amplify-events go fmt ./... >&2
+            docker run -it notify-slack-of-amplify-events go fmt ./... >&2
       - run:
           name: Go vet
           command: |
-            docker exec -it notify-slack-of-amplify-events go vet ./...
+            docker run -it notify-slack-of-amplify-events go vet ./...
 #      - run:
 #          name: Go test
 #          command: |
