@@ -16,24 +16,28 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 ### 1. ビルド & コンテナ構築
 
-```sh
+```shell
 $ docker-compose up -d
 ````
 
-### 2. 接続確認
+### 2. 起動確認
 
-```sh
-$ docker exec -it notify-slack-of-amplify-events sh
+コンテナを起動します．また，起動時に```shell````を実行し，コンテナに接続します．
 
-# コンテナ内で実行する．
-$ exit
+```shell
+$ docker run -it notify-slack-of-amplify-events:latest sh
+
+# 接続中です．
+/go/src $
+# 接続を切断します．
+/go/src $ exit
 ```
 
 ### 3. モジュールのインストール
 
 アプリケーションで使用するモジュールをインストールします．
 
-```sh
+```shell
 $ docker exec -it notify-slack-of-amplify-events go mod download -x
 ```
 
@@ -45,6 +49,6 @@ $ docker exec -it notify-slack-of-amplify-events go mod download -x
 
 また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
 
-```sh
+```shell
 $ docker exec -it notify-slack-of-amplify-events air -c .air.toml
 ```
