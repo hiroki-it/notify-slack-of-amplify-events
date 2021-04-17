@@ -9,9 +9,9 @@ tmp_dir = "air_tmp"
 # Just plain old shell command. You could use `make` as well.
 cmd = "go fmt ./... && go vet ./... && go build -o /go/bin ./cmd"
 # Binary file yields from `cmd`.
-bin = "${HOME}/go/bin"
+bin = "/go/bin"
 # Customize binary.
-full_bin = "APP_ENV=dev APP_USER=air ${HOME}/go/bin"
+full_bin = "APP_ENV=dev APP_USER=air /go/bin"
 # Watch these filename extensions.
 include_ext = ["go", "tpl", "tmpl", "html"]
 # Ignore these filename extensions or directories.
