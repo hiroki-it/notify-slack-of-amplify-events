@@ -1,4 +1,4 @@
-# notify_slack_of_amplify_events
+# notify-slack-of-amplify-events
 
 ## 概要
 
