@@ -3,10 +3,13 @@ version: "3.7"
 services:
 
   go:
-    container_name: notify-slack-of-amplify-events
     build:
-      dockerfile: ./build/Dockerfile
       context: .
+      dockerfile: ./build/Dockerfile
+    container_name: notify-slack-of-amplify-events
+    environment:
+      TZ: "Asia/Tokyo"
+      LANG: "ja_JP.UTF-8"
     image: notify-slack-of-amplify-events:latest
     tty: true
     volumes:
