@@ -29,7 +29,7 @@ COPY . .
 # ビルドのアーティファクトを/go/binに配置する．
 RUN go build -x -o /go/bin ./cmd
 
-FROM alpine:${ALPINE_VERSION}
+FROM golang:${GO_VERSION}-alpine
 
 WORKDIR /go
 
