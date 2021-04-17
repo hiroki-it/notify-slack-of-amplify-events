@@ -20,10 +20,13 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 $ docker-compose up -d
 ````
 
-### 2. 接続
+### 2. 接続確認
 
 ```sh
 $ docker exec -it notify-slack-of-amplify-events sh
+
+# コンテナ内で実行する．
+$ exit
 ```
 
 ### 3. モジュールのインストール
