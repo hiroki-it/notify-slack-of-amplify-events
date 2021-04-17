@@ -7,10 +7,12 @@ services:
     build:
       dockerfile: ./build/Dockerfile
       context: .
-    image: notify-slack-of-amplify-events:latest
+    image: notify-slack-of-amplify-events:9
     tty: true
     volumes:
       - .:/go/src
+    ports:
+      - 8080:8080
     environment:
       TZ: "Asia/Tokyo"
       LANG: "ja_JP.UTF-8"
