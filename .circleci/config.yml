@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Go fmt
           command: |
-            docker exec -it notify-slack-of-amplify-events test -z "$(go fmt ./... | tee /dev/stderr)"
+            docker exec -it notify-slack-of-amplify-events go fmt ./... >&2
       - run:
           name: Go vet
           command: |
