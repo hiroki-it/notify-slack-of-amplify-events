@@ -2,19 +2,20 @@
 # Global ARG
 #===================
 ARG GO_VERSION="1.15"
+ARG ALPINE_VERSION="3.13"
 ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 
 #===================
 # Build Stage
 #===================
-FROM golang:${GO_VERSION}
+FROM golang:${GO_VERSION} as build
 
 ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 ENV GO111MODULE=on
 
-WORKDIR ${GOPATH}/src
+WORKDIR /go/src
 
 # インストールのキャッシュを活用するためにコピーしておく．
 COPY go.mod go.sum ./
@@ -26,6 +27,15 @@ RUN go get github.com/cosmtrek/air@v1.15.1 \
 COPY . .
 
 # ビルドのアーティファクトを/go/binに配置する．
-RUN go build -x -o ${GOPATH}/bin ./cmd
+RUN go build -x -o /go/bin ./cmd
 
-CMD ["sh"]
+FROM alpine:${ALPINE_VERSION}
+
+WORKDIR /go
+
+COPY --from=build /go/bin ./bin
+
+# /go/binにパスを通す．
+ENV PATH $PATH:/go/bin
+
+CMD ["/bin/sh"]
