@@ -27,6 +27,9 @@ COPY . .
 # ビルドのアーティファクトを/go/binに配置する．
 RUN go build -x -o /go/bin ./cmd
 
+#===================
+# Production Stage
+#===================
 FROM golang:${GO_VERSION}-alpine
 
 WORKDIR /go/src
