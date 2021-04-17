@@ -39,4 +39,4 @@ ENV GO111MODULE=on
 
 COPY --from=build /go ../
 
-CMD ["/bin/sh"]
+CMD ["/go/bin/cmd"]
