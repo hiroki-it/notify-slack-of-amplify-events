@@ -7,7 +7,7 @@ services:
     build:
       dockerfile: ./build/Dockerfile
       context: .
-    image: notify-slack-of-amplify-events:9
+    image: notify-slack-of-amplify-events:latest
     tty: true
     volumes:
       - .:/go/src
