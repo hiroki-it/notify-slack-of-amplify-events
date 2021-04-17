@@ -10,7 +10,6 @@ ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 #===================
 FROM golang:${GO_VERSION} as build
 
-ENV CGO_ENABLED=0
 ENV GOOS=linux
 ENV GOARCH=amd64
 ENV GO111MODULE=on
@@ -21,8 +20,7 @@ WORKDIR /go/src
 COPY go.mod go.sum ./
 
 # ライブラリをインストールする．
-RUN go get github.com/cosmtrek/air@v1.15.1 \
-  && go mod download -x
+RUN go get github.com/cosmtrek/air@v1.15.1
 
 COPY . .
 
@@ -31,11 +29,12 @@ RUN go build -x -o /go/bin ./cmd
 
 FROM golang:${GO_VERSION}-alpine
 
-WORKDIR /go
-
-COPY --from=build /go/bin ./bin
+WORKDIR /go/src
 
 # /go/binにパスを通す．
 ENV PATH $PATH:/go/bin
+ENV CGO_ENABLED=0
+
+COPY --from=build /go ../
 
 CMD ["/bin/sh"]
