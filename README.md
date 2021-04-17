@@ -26,6 +26,14 @@ $ docker-compose up -d
 $ docker exec -it notify-slack-of-amplify-events sh
 ```
 
+### 3. モジュールのインストール
+
+アプリケーションで使用するモジュールをインストールします．
+
+```sh
+$ docker exec -it notify-slack-of-amplify-events go mod download -x
+```
+
 ## ホットリロード
 
 ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
@@ -35,9 +43,5 @@ $ docker exec -it notify-slack-of-amplify-events sh
 また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
 
 ```sh
-# 接続
-$ docker exec -it notify-slack-of-amplify-events sh
-
-# コンテナ内でairを起動
-$ air -c .air.toml
+$ docker exec -it notify-slack-of-amplify-events air -c .air.toml
 ```
