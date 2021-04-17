@@ -22,7 +22,7 @@ $ docker-compose up -d
 
 ### 2. 起動確認
 
-コンテナを起動します．また，起動時に```shell````を実行し，コンテナに接続します．
+コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
 
 ```shell
 $ docker run -it notify-slack-of-amplify-events:latest sh
