@@ -6,10 +6,10 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
+      target: ${TARGET_ENV}
     container_name: notify-slack-of-amplify-events
-    environment:
-      TZ: "Asia/Tokyo"
-      LANG: "ja_JP.UTF-8"
+    env_file:
+      - .docker.env
     image: notify-slack-of-amplify-events:latest
     tty: true
     volumes:

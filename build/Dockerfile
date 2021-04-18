@@ -23,9 +23,9 @@ COPY . .
 RUN go build -x -o /go/bin ./cmd
 
 #===================
-# Production Stage
+# Base Stage
 #===================
-FROM golang:${GO_VERSION}-alpine
+FROM golang:${GO_VERSION}-alpine as base
 
 WORKDIR /go/src
 
@@ -38,5 +38,19 @@ ENV GOARCH=amd64
 ENV GO111MODULE=on
 
 COPY --from=build /go ../
+
+#===================
+# Develop Stage
+#===================
+FROM base as dev
+LABEL maintainer=${LABEL}
+
+CMD ["/go/bin/cmd"]
+
+#===================
+# Production Stage
+#===================
+FROM base as prd
+LABEL maintainer=${LABEL}
 
 CMD ["/go/bin/cmd"]

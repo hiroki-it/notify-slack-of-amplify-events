@@ -3,5 +3,6 @@
 **/air_tmp
 
 # ファイル
+.docker.env
 .env
 .air.toml
