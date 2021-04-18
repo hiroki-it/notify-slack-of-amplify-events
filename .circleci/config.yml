@@ -26,6 +26,7 @@ jobs:
           command: |
             set -xe
             docker-compose up -d
+            docker run -it notify-slack-of-amplify-events go env 
       - run:
           name: Go mod download
           command: |
