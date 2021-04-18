@@ -25,6 +25,7 @@ jobs:
           name: Docker compose up
           command: |
             set -xe
+            docker-compose config
             docker-compose up -d
             docker run -it notify-slack-of-amplify-events go env 
       - run:
