@@ -25,7 +25,7 @@ $ docker-compose up
 コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
 
 ```shell
-$ docker run -it notify-slack-of-amplify-events:latest sh
+$ docker run -it notify-slack-of-amplify-events sh
 
 # 接続中です．
 /go/src $
