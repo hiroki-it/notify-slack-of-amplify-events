@@ -47,7 +47,7 @@ jobs:
 #      - run:
 #          name: Go test
 #          command: |
-#           docker exec -it notify-slack-of-amplify-events go test -v -cover ./...
+#           docker-compose run notify-slack-of-amplify-events go test -v -cover ./...
 
 workflows:
 
