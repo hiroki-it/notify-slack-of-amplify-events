@@ -32,11 +32,6 @@ WORKDIR /go/src
 # /go/binにパスを通す．
 ENV PATH $PATH:/go/bin
 
-ENV CGO_ENABLED=0
-ENV GOOS=linux
-ENV GOARCH=amd64
-ENV GO111MODULE=on
-
 COPY --from=build /go ../
 
 #===================
