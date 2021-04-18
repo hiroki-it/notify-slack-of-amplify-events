@@ -48,7 +48,7 @@ workflows:
   develop:
     jobs:
       - build_and_test:
-          name: build_and_test_stg
+          name: build_and_test_dev
           filters:
             branches:
               only: develop
