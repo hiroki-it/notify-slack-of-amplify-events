@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Copy env file
           command: |
+            cp .env.example .env
             cp .docker.env.example .docker.env
       - run:
           name: Build image & Create container
