@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
 
-  go:
+  notify-slack-of-amplify-events:
     build:
       context: .
       dockerfile: ./build/Dockerfile
