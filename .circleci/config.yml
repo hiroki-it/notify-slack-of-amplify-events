@@ -23,10 +23,13 @@ jobs:
             cp .env.example .env
             cp .docker.env.example .docker.env
       - run:
+          name: Validate docker-compose.yml
+          command: |
+            docker-compose config
+      - run:
           name: Build image & Create container
           command: |
             set -xe
-            docker-compose config
             docker-compose up --build -d
             docker-compose run notify-slack-of-amplify-events go env
       - run:
