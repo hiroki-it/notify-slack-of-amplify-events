@@ -1,10 +1,11 @@
-package slack
+package handler
 
 import (
 	"encoding/json"
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/hiroki-it/notify_slack_of_amplify_events/config"
 )
 
 type Request struct {
@@ -40,6 +41,8 @@ type AmplifyBranch struct {
  * Lambdaハンドラー関数
  */
 func LambdaHandler(request Request) string {
+
+	config.LoadConfig()
 
 	var event Event
 

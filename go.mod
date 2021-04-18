@@ -12,6 +12,6 @@ require (
 )
 
 replace (
-	github.com/hiroki-it/notify_slack_of_amplify_events/cmd/slack => ./slack
-	github.com/hiroki-it/notify_slack_of_amplify_events/config => ../config
+	github.com/hiroki-it/notify_slack_of_amplify_events/cmd/handler => ./handler
+	github.com/hiroki-it/notify_slack_of_amplify_events/config => ../../config
 )
