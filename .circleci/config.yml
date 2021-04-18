@@ -26,20 +26,20 @@ jobs:
           command: |
             set -xe
             docker-compose config
-            docker-compose up -d
-            docker run -it notify-slack-of-amplify-events go env 
+            docker-compose up --build -d
+            docker-compose run notify-slack-of-amplify-events go env
       - run:
           name: Go mod download
           command: |
-            docker run -it notify-slack-of-amplify-events go mod download -x
+            docker-compose run notify-slack-of-amplify-events go mod download -x
       - run:
           name: Go fmt
           command: |
-            docker run -it notify-slack-of-amplify-events go fmt ./... >&2
+            docker-compose run notify-slack-of-amplify-events go fmt ./... >&2
       - run:
           name: Go vet
           command: |
-            docker run -it notify-slack-of-amplify-events go vet ./...
+            docker-compose run notify-slack-of-amplify-events go vet ./...
 #      - run:
 #          name: Go test
 #          command: |
