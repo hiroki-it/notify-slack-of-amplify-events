@@ -18,6 +18,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Copy env file
+          command: |
+            cp .docker.env.example .docker.env
+      - run:
           name: Docker compose up
           command: |
             set -xe
