@@ -1,10 +1,6 @@
 #===================
 # Global ARG
 #===================
-ARG CGO_ENABLED=0
-ARG GO111MODULE="on"
-ARG GOARCH="amd64"
-ARG GOOS="linux"
 ARG GO_VERSION="1.15"
 ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 
@@ -17,10 +13,6 @@ WORKDIR /go/src
 
 # インストールのキャッシュを活用するためにコピーしておく．
 COPY go.mod go.sum ./
-
-ENV CGO_ENABLED=${CGO_ENABLED}
-ENV GOARCH=${GOARCH}
-ENV GOOS=${GOOS}
 
 # ライブラリをインストールする．
 RUN go get github.com/cosmtrek/air@v1.15.1
@@ -39,11 +31,6 @@ WORKDIR /go/src
 
 # /go/binにパスを通す．
 ENV PATH $PATH:/go/bin
-
-ENV CGO_ENABLED=${CGO_ENABLED}
-ENV GO111MODULE=${GO111MODULE}
-ENV GOARCH=${GOARCH}
-ENV GOOS=${GOOS}
 
 COPY --from=build /go ../
 
