@@ -25,7 +25,7 @@ $ docker-compose up
 コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
 
 ```shell
-$ docker run -it notify-slack-of-amplify-events sh
+$ docker-compose run notify-slack-of-amplify-events sh
 
 # 接続中です．
 /go/src $
@@ -38,13 +38,13 @@ $ docker run -it notify-slack-of-amplify-events sh
 起動中のコンテナで，アプリケーションで使用するモジュールをインストールします．
 
 ```shell
-$ docker exec -it notify-slack-of-amplify-events go mod download -x
+$ docker-compose exec notify-slack-of-amplify-events go mod download -x
 ```
 
 停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
 
 ```shell
-$ docker run -it notify-slack-of-amplify-events go mod download -x
+$ docker-compose run notify-slack-of-amplify-events go mod download -x
 ```
 
 ## ホットリロード
@@ -56,11 +56,11 @@ $ docker run -it notify-slack-of-amplify-events go mod download -x
 また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
 
 ```shell
-$ docker exec -it notify-slack-of-amplify-events air -c .air.toml
+$ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
 ```
 
 停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
 
 ```shell
-$ docker run -it notify-slack-of-amplify-events air -c .air.toml
+$ docker-compose run notify-slack-of-amplify-events air -c .air.toml
 ```
