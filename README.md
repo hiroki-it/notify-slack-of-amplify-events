@@ -24,8 +24,10 @@ $ docker-compose up -d
 
 コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
 
+また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
+
 ```shell
-$ docker-compose run notify-slack-of-amplify-events sh
+$ docker-compose run --rm  notify-slack-of-amplify-events sh
 
 # 接続中です．
 /go/src $
@@ -43,8 +45,10 @@ $ docker-compose exec notify-slack-of-amplify-events go mod download -x
 
 停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
 
+また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
+
 ```shell
-$ docker-compose run notify-slack-of-amplify-events go mod download -x
+$ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```
 
 ## ホットリロード
@@ -61,6 +65,8 @@ $ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
 
 停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
 
+また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
+
 ```shell
-$ docker-compose run notify-slack-of-amplify-events air -c .air.toml
+$ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 ```
