@@ -17,7 +17,7 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 ### 1. ビルド & コンテナ構築
 
 ```shell
-$ docker-compose up
+$ docker-compose up -d
 ````
 
 ### 2. 起動
