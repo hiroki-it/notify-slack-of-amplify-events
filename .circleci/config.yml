@@ -23,6 +23,12 @@ jobs:
             cp .env.example .env
             cp .docker.env.example .docker.env
       - run:
+          name: Install Lambda RIE # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+          command: |
+            mkdir -p ~/.aws-lambda-rie
+            curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
+            chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+      - run:
           name: Validate docker-compose.yml
           command: |
             docker-compose config
