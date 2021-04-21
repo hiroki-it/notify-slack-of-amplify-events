@@ -14,13 +14,36 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 ## 環境構築
 
-### 1. ビルド & コンテナ構築
+### 1. RIEのインストール
+
+Lambdaをローカルで擬似的に再現するために，RIEをインストールする必要があります．
+
+いくつか方法が用意されており，Goソースコードの再利用性の観点から，ホストPCにRIEをインストールする方法を採用いたしました．
+
+ホストPCで以下のコマンドを実行します．
+
+```shell
+mkdir -p ~/.aws-lambda-rie
+  && curl -Lo ~/.aws-lambda-rie/aws-lambda-rie \
+       https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie \
+  && chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+```
+
+その他のインストール方法につきましては，以下を参考に．
+
+https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+
+### 2. ビルドイメージ & コンテナ構築
+
+Dockerfileからイメージをビルドし，コンテナを構築します．
+
+デタッチモードを使用して起動します．
 
 ```shell
 $ docker-compose up -d
 ````
 
-### 2. 起動
+### 3. 起動
 
 コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
 
@@ -35,7 +58,7 @@ $ docker-compose run --rm  notify-slack-of-amplify-events sh
 /go/src $ exit
 ```
 
-### 3. モジュールのインストール
+### 4. モジュールのインストール
 
 起動中のコンテナで，アプリケーションで使用するモジュールをインストールします．
 
