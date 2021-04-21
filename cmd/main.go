@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	lambda.Start(handler.LambdaHandler)
+	lambda.Start(handler.HandleRequest)
 }

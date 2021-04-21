@@ -40,7 +40,7 @@ type AmplifyBranch struct {
 /**
  * Lambdaハンドラー関数
  */
-func LambdaHandler(request Request) string {
+func HandleRequest(request Request) string {
 
 	config.LoadConfig()
 
