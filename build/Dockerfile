@@ -19,6 +19,9 @@ RUN go get github.com/cosmtrek/air@v1.15.1
 
 COPY . .
 
+# ビルドするバイナリファイルをスタティックリンク化する．
+ENV CGO_ENABLED=0 
+
 # ビルドのアーティファクトを/go/binに配置する．
 RUN go build -x -o /go/bin ./cmd
 
