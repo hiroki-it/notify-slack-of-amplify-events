@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
 
+  # Go開発用サービス
   notify-slack-of-amplify-events:
     build:
       context: .
@@ -15,6 +16,7 @@ services:
     volumes:
       - .:/go/src
 
+  # Lambda検証用サービス
   lambda:
     build:
       context: .
