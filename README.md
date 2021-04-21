@@ -23,10 +23,9 @@ Lambdaをローカルで擬似的に再現するために，RIEをインスト�
 ホストPCで以下のコマンドを実行します．
 
 ```shell
-mkdir -p ~/.aws-lambda-rie
-  && curl -Lo ~/.aws-lambda-rie/aws-lambda-rie \
-       https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie \
-  && chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+$ mkdir -p ~/.aws-lambda-rie
+$ curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
+$ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
 ```
 
 その他のインストール方法につきましては，以下を参考に．
