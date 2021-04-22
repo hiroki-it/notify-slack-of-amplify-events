@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -29,10 +28,6 @@ func NewMockAmplifyClient() (*MockAmplifyClientImpl, error) {
 func (mock *MockAmplifyClientImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
 	arguments := mock.Called(event)
 	return arguments.Get(0).(*amplify.GetBranchOutput), arguments.Error(1)
-}
-
-func handler(writer http.ResponseWriter, request *http.Request) {
-	io.WriteString(writer, "ping")
 }
 
 type Branch struct {
@@ -74,8 +69,6 @@ func TestLambdaHandler(t *testing.T) {
 
 	// HTTPリクエストを送信する．
 	writer := httptest.NewRecorder()
-
-	handler(writer, request)
 
 	assert.Equal(t, http.StatusOK, writer.Code)
 }
