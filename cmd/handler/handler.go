@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/hiroki-it/notify_slack_of_amplify_events/config"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
 )
 
 type Request struct {

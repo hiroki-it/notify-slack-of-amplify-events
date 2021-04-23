@@ -1,4 +1,4 @@
-module github.com/hiroki-it/notify_slack_of_amplify_events
+module github.com/hiroki-it/notify-slack-of-amplify-events
 
 go 1.15
 
@@ -12,6 +12,6 @@ require (
 )
 
 replace (
-	github.com/hiroki-it/notify_slack_of_amplify_events/cmd/handler => ./handler
-	github.com/hiroki-it/notify_slack_of_amplify_events/config => ../../config
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/handler => ./handler
+	github.com/hiroki-it/notify-slack-of-amplify-events/config => ../../config
 )
