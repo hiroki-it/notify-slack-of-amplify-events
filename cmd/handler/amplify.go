@@ -25,10 +25,6 @@ type Event struct {
 	} `json:"detail"`
 }
 
-type AmplifyBranch struct {
-	DisplayName string
-}
-
 type AmplifyAPIInterface interface {
 	getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error)
 }

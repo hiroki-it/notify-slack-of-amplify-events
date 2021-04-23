@@ -16,6 +16,10 @@ type Request struct {
 	}
 }
 
+type AmplifyBranch struct {
+	DisplayName string
+}
+
 /**
  * Lambdaハンドラー関数
  */
