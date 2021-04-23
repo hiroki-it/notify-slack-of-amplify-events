@@ -32,13 +32,13 @@ func HandleRequest(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	client, err := NewAmplifyClient()
+	api, err := NewAmplifyAPI()
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	response, err := client.getBranchFromAmplify(event)
+	response, err := getBranchFromAmplify(api, event)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

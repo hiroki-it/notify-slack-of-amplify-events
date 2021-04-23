@@ -16,16 +16,16 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-type MockAmplifyClientImpl struct {
-	AmplifyClientInterface
+type MockAmplifyAPIImpl struct {
+	AmplifyAPIInterface
 	mock.Mock
 }
 
-func NewMockAmplifyClient() (*MockAmplifyClientImpl, error) {
-	return new(MockAmplifyClientImpl), nil
+func NewMockAmplifyAPI() (*MockAmplifyAPIImpl, error) {
+	return new(MockAmplifyAPIImpl), nil
 }
 
-func (mock *MockAmplifyClientImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
+func (mock *MockAmplifyAPIImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
 	arguments := mock.Called(event)
 	return arguments.Get(0).(*amplify.GetBranchOutput), arguments.Error(1)
 }
@@ -44,7 +44,7 @@ func TestLambdaHandler(t *testing.T) {
 	var event Event
 
 	// モックオブジェクトとスタブを定義します．
-	client, _ := NewMockAmplifyClient()
+	client, _ := NewMockAmplifyAPI()
 	client.On("getBranchFromAmplify", event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
 
 	response, _ := client.getBranchFromAmplify(event)

@@ -29,19 +29,19 @@ type AmplifyBranch struct {
 	DisplayName string
 }
 
-type AmplifyClientInterface interface {
+type AmplifyAPIInterface interface {
 	getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error)
 }
 
-type AmplifyClientImpl struct {
-	AmplifyClientInterface
+type AmplifyAPIImpl struct {
+	AmplifyAPIInterface
 	Svc *amplify.Client
 }
 
 /**
  * コンストラクタ
  */
-func NewAmplifyClient() (*AmplifyClientImpl, error) {
+func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 
 	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-1"))
 
@@ -49,7 +49,7 @@ func NewAmplifyClient() (*AmplifyClientImpl, error) {
 		return nil, err
 	}
 
-	return &AmplifyClientImpl{
+	return &AmplifyAPIImpl{
 		Svc: amplify.NewFromConfig(config),
 	}, nil
 }
@@ -57,7 +57,7 @@ func NewAmplifyClient() (*AmplifyClientImpl, error) {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
+func getBranchFromAmplify(api *AmplifyAPIImpl, event Event) (*amplify.GetBranchOutput, error) {
 
 	input := amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
@@ -65,7 +65,7 @@ func (client AmplifyClientImpl) getBranchFromAmplify(event Event) (*amplify.GetB
 	}
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.Svc.GetBranch(context.TODO(), &input)
+	response, err := api.Svc.GetBranch(context.TODO(), &input)
 
 	if err != nil {
 		return nil, err
