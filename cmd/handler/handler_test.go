@@ -10,25 +10,9 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/service/amplify"
 	"github.com/hiroki-it/notify_slack_of_amplify_events/config"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 )
-
-type MockAmplifyAPIImpl struct {
-	AmplifyAPIInterface
-	mock.Mock
-}
-
-func NewMockAmplifyAPI() (*MockAmplifyAPIImpl, error) {
-	return new(MockAmplifyAPIImpl), nil
-}
-
-func (mock *MockAmplifyAPIImpl) getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error) {
-	arguments := mock.Called(event)
-	return arguments.Get(0).(*amplify.GetBranchOutput), arguments.Error(1)
-}
 
 type Branch struct {
 	DisplayName *string
@@ -44,10 +28,10 @@ func TestLambdaHandler(t *testing.T) {
 	var event Event
 
 	// モックオブジェクトとスタブを定義します．
-	client, _ := NewMockAmplifyAPI()
-	client.On("getBranchFromAmplify", event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
+	api, _ := NewMockAmplifyAPI()
+	api.On("getMockBranchFromAmplify", event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
 
-	response, _ := client.getBranchFromAmplify(event)
+	response, _ := getMockBranchFromAmplify(api, event)
 
 	slack := NewSlackClient()
 
