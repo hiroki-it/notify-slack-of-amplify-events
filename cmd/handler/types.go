@@ -50,7 +50,7 @@ type AmplifyAPIInterface interface {
 /**/
 type AmplifyAPIImpl struct {
 	AmplifyAPIInterface
-	Svc *amplify.Client
+	Client *amplify.Client
 }
 
 /**

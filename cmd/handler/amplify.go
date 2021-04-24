@@ -21,7 +21,7 @@ func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 	}
 
 	return &AmplifyAPIImpl{
-		Svc: amplify.NewFromConfig(config),
+		Client: amplify.NewFromConfig(config),
 	}, nil
 }
 
@@ -36,7 +36,7 @@ func getBranchFromAmplify(api *AmplifyAPIImpl, event Event) (*amplify.GetBranchO
 	}
 
 	// ブランチ情報を構造体として取得します．
-	response, err := api.Svc.GetBranch(context.TODO(), &input)
+	response, err := api.Client.GetBranch(context.TODO(), &input)
 
 	if err != nil {
 		return nil, err
