@@ -29,6 +29,9 @@ type AmplifyAPIInterface interface {
 	getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error)
 }
 
+/**
+ * AmplifyClientをラップします．
+ */
 type AmplifyAPIImpl struct {
 	AmplifyAPIInterface
 	Svc *amplify.Client
@@ -36,6 +39,7 @@ type AmplifyAPIImpl struct {
 
 /**
  * コンストラクタ
+ * AmplifyAPIを作成します．
  */
 func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 

@@ -44,6 +44,7 @@ type SlackClientImpl struct {
 
 /**
  * コンストラクタ
+ * SlackClientを作成します．
  */
 func NewSlackClient() *SlackClientImpl {
 	return new(SlackClientImpl)
