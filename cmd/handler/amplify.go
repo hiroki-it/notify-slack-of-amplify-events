@@ -25,18 +25,6 @@ type Event struct {
 	} `json:"detail"`
 }
 
-type AmplifyAPIInterface interface {
-	getBranchFromAmplify(event Event) (*amplify.GetBranchOutput, error)
-}
-
-/**
- * AmplifyClientをラップします．
- */
-type AmplifyAPIImpl struct {
-	AmplifyAPIInterface
-	Svc *amplify.Client
-}
-
 /**
  * コンストラクタ
  * AmplifyAPIを作成します．

@@ -8,18 +8,6 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
 )
 
-type Request struct {
-	Records []struct {
-		EventBridge struct {
-			Event string `json:"event"`
-		}
-	}
-}
-
-type AmplifyBranch struct {
-	DisplayName string
-}
-
 /**
  * Lambdaハンドラー関数
  */

@@ -8,40 +8,6 @@ import (
 	"os"
 )
 
-type Message struct {
-	Channel     string       `json:"channel"`
-	Text        string       `json:"text"`
-	Attachments []Attachment `json:"attachments"`
-}
-
-type Attachment struct {
-	Color  string  `json:"color"`
-	Blocks []Block `json:"blocks"`
-}
-
-type Block struct {
-	Type string `json:"type"`
-	Text struct {
-		Type string `json:"type"`
-		Text string `json:"text"`
-	} `json:"text,omitempty"`
-	Elements []Element `json:"elements,omitempty"`
-}
-
-type Element struct {
-	Type string `json:"type"`
-	Text string `json:"text"`
-}
-
-type SlackClientInterface interface {
-	buildMessage(event Event, amplifyBranch AmplifyBranch) Message
-	jobStatusMessage(jobStatus string) (string, string)
-}
-
-type SlackClientImpl struct {
-	SlackClientInterface
-}
-
 /**
  * コンストラクタ
  * SlackClientを作成します．
