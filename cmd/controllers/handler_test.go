@@ -1,4 +1,4 @@
-package handler
+package controllers
 
 import (
 	"bytes"
@@ -10,12 +10,19 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
 	"github.com/stretchr/testify/assert"
 )
 
 type Branch struct {
 	DisplayName *string
+}
+
+func SlackResponse(writer http.ResponseWriter, request *http.Request) {
+	fmt.Fprintf(writer, "200")
 }
 
 /**
@@ -25,19 +32,19 @@ func TestLambdaHandler(t *testing.T) {
 
 	config.LoadConfig()
 
-	var event Event
+	var event eventbridge.Event
 
 	// モックオブジェクトとスタブを定義します．
-	api, _ := NewMockAmplifyAPI()
+	api, _ := amplify.NewMockAmplifyAPI()
 	api.MockClient.On("mockGetBranchFromAmplify", api, event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
 
-	response, _ := mockGetBranchFromAmplify(api, event)
+	response, _ := amplify.MockGetBranchFromAmplify(api, event)
 
-	slack := NewSlackClient()
+	slack := slack.NewSlackClient()
 
-	message := slack.buildMessage(
+	message := slack.BuildMessage(
 		event,
-		AmplifyBranch{DisplayName: aws.ToString(response.Branch.DisplayName)},
+		amplify.AmplifyBranch{DisplayName: aws.ToString(response.Branch.DisplayName)},
 	)
 
 	json, _ := json.Marshal(message)
@@ -54,5 +61,5 @@ func TestLambdaHandler(t *testing.T) {
 	// HTTPリクエストを送信する．
 	writer := httptest.NewRecorder()
 
-	assert.Equal(t, http.StatusOK, writer.Code)
+	assert.Equal(t, http.StatusOK, writer)
 }

@@ -1,11 +1,12 @@
-package handler
+package amplify
 
 import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/amplify"
+	aws_amplify "github.com/aws/aws-sdk-go-v2/service/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 )
 
 /**
@@ -21,16 +22,16 @@ func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 	}
 
 	return &AmplifyAPIImpl{
-		Client: amplify.NewFromConfig(config),
+		Client: aws_amplify.NewFromConfig(config),
 	}, nil
 }
 
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func getBranchFromAmplify(api *AmplifyAPIImpl, event Event) (*amplify.GetBranchOutput, error) {
+func GetBranchFromAmplify(api *AmplifyAPIImpl, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
 
-	input := amplify.GetBranchInput{
+	input := aws_amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
 		BranchName: aws.String(event.Detail.BranchName),
 	}

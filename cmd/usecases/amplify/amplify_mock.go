@@ -1,8 +1,9 @@
-package handler
+package amplify
 
 import (
 	"context"
-	"github.com/aws/aws-sdk-go-v2/service/amplify"
+	aws_amplify "github.com/aws/aws-sdk-go-v2/service/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -16,7 +17,7 @@ type MockClient struct {
 /**
  * Mockのメソッドを構成します．
  */
-type MockGetBranch func(ctx context.Context, params *amplify.GetBranchInput, optFns ...func(*amplify.Options)) (*amplify.GetBranchOutput, error)
+type MockGetBranch func(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error)
 
 /**
  * MockをラッピングしたAPIを構成します．
@@ -37,14 +38,14 @@ func NewMockAmplifyAPI() (*MockAmplifyAPIImpl, error) {
 /**
  * AmplifyのGetBranch関数のモックを返却します．
  */
-func (mockClient MockClient) GetBranch(ctx context.Context, params *amplify.GetBranchInput, optFns ...func(*amplify.Options)) (*amplify.GetBranchOutput, error) {
+func (mockClient MockClient) GetBranch(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error) {
 	return mockClient.mockGetBranch(ctx, params, optFns...)
 }
 
 /**
  * AmplifyのGetBranch関数のモックを返却します．
  */
-func mockGetBranchFromAmplify(mockAPI *MockAmplifyAPIImpl, event Event) (*amplify.GetBranchOutput, error) {
+func MockGetBranchFromAmplify(mockAPI *MockAmplifyAPIImpl, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
 	arguments := mockAPI.MockClient.Called(event)
-	return arguments.Get(0).(*amplify.GetBranchOutput), arguments.Error(1)
+	return arguments.Get(0).(*aws_amplify.GetBranchOutput), arguments.Error(1)
 }

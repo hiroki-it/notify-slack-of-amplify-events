@@ -1,9 +1,11 @@
-package handler
+package slack
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"net/http"
 	"os"
 )
@@ -19,7 +21,7 @@ func NewSlackClient() *SlackClientImpl {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (slack SlackClientImpl) buildMessage(event Event, amplifyBranch AmplifyBranch) Message {
+func (slack SlackClientImpl) BuildMessage(event eventbridge.Event, amplifyBranch amplify.AmplifyBranch) Message {
 
 	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
 
@@ -129,7 +131,7 @@ func (slack SlackClientImpl) jobStatusMessage(jobStatus string) (string, string)
 /**
  * メッセージを送信します．
  */
-func (slack SlackClientImpl) postMessage(message Message) error {
+func (slack SlackClientImpl) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
