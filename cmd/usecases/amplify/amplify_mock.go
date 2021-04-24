@@ -2,6 +2,7 @@ package amplify
 
 import (
 	"context"
+
 	aws_amplify "github.com/aws/aws-sdk-go-v2/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/stretchr/testify/mock"
