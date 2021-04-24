@@ -28,6 +28,7 @@ type AmplifyBranch struct {
 type AmplifyAPIInterface interface {
 	getBranchFromAmplify(api *AmplifyAPIImpl, event Event) (*amplify.GetBranchOutput, error)
 }
+
 /**/
 type AmplifyAPIImpl struct {
 	AmplifyAPIInterface
@@ -42,11 +43,13 @@ type Message struct {
 	Text        string       `json:"text"`
 	Attachments []Attachment `json:"attachments"`
 }
+
 /**/
 type Attachment struct {
 	Color  string  `json:"color"`
 	Blocks []Block `json:"blocks"`
 }
+
 /**/
 type Block struct {
 	Type string `json:"type"`
@@ -56,16 +59,19 @@ type Block struct {
 	} `json:"text,omitempty"`
 	Elements []Element `json:"elements,omitempty"`
 }
+
 /**/
 type Element struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
 }
+
 /**/
 type SlackClientInterface interface {
 	buildMessage(event Event, amplifyBranch AmplifyBranch) Message
 	jobStatusMessage(jobStatus string) (string, string)
 }
+
 /**/
 type SlackClientImpl struct {
 	SlackClientInterface
