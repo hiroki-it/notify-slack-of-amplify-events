@@ -72,6 +72,7 @@ type Element struct {
 type SlackClientInterface interface {
 	buildMessage(event Event, amplifyBranch AmplifyBranch) Message
 	jobStatusMessage(jobStatus string) (string, string)
+	postMessage(message Message) error
 }
 
 /**/
