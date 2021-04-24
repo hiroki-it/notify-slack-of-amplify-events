@@ -14,10 +14,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type Branch struct {
-	DisplayName *string
-}
-
 /**
  * ハンドラ関数をテストします．
  */
