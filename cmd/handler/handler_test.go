@@ -25,9 +25,9 @@ func TestLambdaHandler(t *testing.T) {
 
 	// モックオブジェクトとスタブを定義します．
 	api, _ := NewMockAmplifyAPI()
-	api.On("getMockBranchFromAmplify", event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
+	api.MockClient.On("mockGetBranchFromAmplify", api, event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
 
-	response, _ := getMockBranchFromAmplify(api, event)
+	response, _ := mockGetBranchFromAmplify(api, event)
 
 	slack := NewSlackClient()
 
