@@ -48,7 +48,7 @@ type AmplifyAPIInterface interface {
 }
 
 /**
- * ClientをラッピングしたAPIを構成します．
+ * Clientをラッピングした構造体を構成します．
  */
 type AmplifyAPIImpl struct {
 	AmplifyAPIInterface
@@ -56,7 +56,7 @@ type AmplifyAPIImpl struct {
 }
 
 /**
- * Slackに送信するMessageを構成します．
+ * Slackに送信するメッセージデータを構成します．
  */
 type Message struct {
 	Channel     string       `json:"channel"`
@@ -87,7 +87,7 @@ type Element struct {
 }
 
 /**
- * SlackClientを構成します．
+ * メッセージデータに関するメソッドを構成します．
  */
 type SlackClientInterface interface {
 	buildMessage(event Event, amplifyBranch AmplifyBranch) Message
