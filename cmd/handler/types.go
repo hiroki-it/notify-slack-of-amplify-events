@@ -1,5 +1,9 @@
 package handler
 
+import (
+	"github.com/aws/aws-sdk-go-v2/service/amplify"
+)
+
 /**
  * EventBrdigeのイベントを構成します．
  */
