@@ -41,13 +41,15 @@ type AmplifyBranch struct {
 }
 
 /**
- * AmplifyClientを扱うAPIを構成します．
+ * APIのインターフェースを構成します．
  */
 type AmplifyAPIInterface interface {
 	getBranchFromAmplify(api *AmplifyAPIImpl, event Event) (*amplify.GetBranchOutput, error)
 }
 
-/**/
+/**
+ * ClientをラッピングしたAPIを構成します．
+ */
 type AmplifyAPIImpl struct {
 	AmplifyAPIInterface
 	Client *amplify.Client
