@@ -17,10 +17,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type Branch struct {
-	DisplayName *string
-}
-
 func SlackResponse(writer http.ResponseWriter, request *http.Request) {
 	fmt.Fprintf(writer, "200")
 }
