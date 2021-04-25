@@ -13,7 +13,7 @@ import (
  * コンストラクタ
  * AmplifyAPIを作成します．
  */
-func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
+func NewAmplifyAPI() (*AmplifyAPI, error) {
 
 	config, err := config.LoadDefaultConfig(context.TODO(), config.WithRegion("ap-northeast-1"))
 
@@ -21,7 +21,7 @@ func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 		return nil, err
 	}
 
-	return &AmplifyAPIImpl{
+	return &AmplifyAPI{
 		Client: aws_amplify.NewFromConfig(config),
 	}, nil
 }
@@ -29,7 +29,7 @@ func NewAmplifyAPI() (*AmplifyAPIImpl, error) {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func GetBranchFromAmplify(api *AmplifyAPIImpl, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
+func GetBranchFromAmplify(api *AmplifyAPI, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
 
 	input := aws_amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),
