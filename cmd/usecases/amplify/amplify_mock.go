@@ -11,41 +11,41 @@ import (
 /**
  * Mockを構成します．
  */
-type MockClient struct {
-	mockGetBranch MockGetBranch
+type MockedClient struct {
+	mockGetBranch MockedGetBranch
 }
 
 /**
  * Mockのメソッドを構成します．
  */
-type MockGetBranch func(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error)
+type MockedGetBranch func(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error)
 
 /**
  * MockをラッピングしたAPIを構成します．
  */
-type MockAmplifyAPI struct {
-	MockClient mock.Mock
+type MockedAmplifyAPI struct {
+	MockedClient mock.Mock
 }
 
 /**
  * コンストラクタ
  * APIのMockを作成します．
  */
-func NewMockAmplifyAPI() (*MockAmplifyAPI, error) {
-	return new(MockAmplifyAPI), nil
+func NewMockedAmplifyAPI() (*MockedAmplifyAPI, error) {
+	return new(MockedAmplifyAPI), nil
 }
 
 /**
  * AmplifyのGetBranch関数のモックを返却します．
  */
-func (mockClient MockClient) GetBranch(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error) {
+func (mockClient MockedClient) GetBranch(ctx context.Context, params *aws_amplify.GetBranchInput, optFns ...func(*aws_amplify.Options)) (*aws_amplify.GetBranchOutput, error) {
 	return mockClient.mockGetBranch(ctx, params, optFns...)
 }
 
 /**
  * GetBranchFromAmplifyのモック化をします．
  */
-func MockGetBranchFromAmplify(mockAPI *MockAmplifyAPI, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
-	arguments := mockAPI.MockClient.Called(event)
+func MockedGetBranchFromAmplify(mockAPI *MockedAmplifyAPI, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
+	arguments := mockAPI.MockedClient.Called(event)
 	return arguments.Get(0).(*aws_amplify.GetBranchOutput), arguments.Error(1)
 }
