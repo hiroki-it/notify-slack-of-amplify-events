@@ -32,7 +32,7 @@ func TestLambdaHandler(t *testing.T) {
 
 	// モックオブジェクトとスタブを定義します．
 	api, _ := amplify.NewMockedAmplifyAPI()
-	api.MockedClient.On("mockGetBranchFromAmplify", api, event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
+	api.MockedClient.On("mockedGetBranchFromAmplify", api, event).Return(Branch{DisplayName: aws.String("feature/test")}, nil)
 
 	response, _ := amplify.MockedGetBranchFromAmplify(api, event)
 
