@@ -20,7 +20,7 @@ func NewAmplifyClient() (*AmplifyClient, error) {
 	}
 
 	return &AmplifyClient{
-		api: aws_amplify.New(sess),
+		Api: aws_amplify.New(sess),
 	}, nil
 }
 
@@ -35,7 +35,7 @@ func GetBranchFromAmplify(client *AmplifyClient, event eventbridge.Event) (*aws_
 	}
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.api.GetBranch(&input)
+	response, err := client.Api.GetBranch(&input)
 
 	if err != nil {
 		return nil, err

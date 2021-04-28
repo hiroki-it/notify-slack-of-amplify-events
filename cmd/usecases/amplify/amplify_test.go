@@ -1,7 +1,6 @@
 package amplify
 
 import (
-	"context"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -17,10 +16,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		BranchName: aws.String("feature/test"),
 	}
 
-	client := &AmplifyClient{api: new(MockedAmplifyAPI)}
+	mockedAPI := new(MockedAmplifyAPI)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
-	client.api.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+
+	client := &AmplifyClient{Api: mockedAPI}
 
 	var event eventbridge.Event
 
@@ -28,7 +29,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	response, _ := GetBranchFromAmplify(client, event)
 
 	//関数内部でスタブがコールされているかを検証する．
-	api.MockedClient.AssertExpectations(t)
+	mockedAPI.AssertExpectations(t)
 
 	// 最終的な返却値が正しいかを検証する．
 	assert.Exactly(t, aws.String("feature-test"), response.Branch.DisplayName)

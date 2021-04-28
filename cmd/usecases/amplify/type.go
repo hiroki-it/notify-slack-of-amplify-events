@@ -12,5 +12,5 @@ type AmplifyBranch struct {
 }
 
 type AmplifyClient struct {
-	api amplifyiface.AmplifyAPI
+	Api amplifyiface.AmplifyAPI
 }

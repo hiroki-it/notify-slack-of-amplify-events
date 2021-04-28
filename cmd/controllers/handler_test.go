@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -15,7 +14,6 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -33,20 +31,22 @@ func TestLambdaHandler(t *testing.T) {
 		BranchName: aws.String("feature/test"),
 	}
 
-	client := &amplify.AmplifyClient{api: new(amplify.MockedAmplifyAPI)}
+	mockedAPI := new(amplify.MockedAmplifyAPI)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
-	api.Client.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+
+	client := &amplify.AmplifyClient{Api: mockedAPI}
 
 	var event eventbridge.Event
 
-	response, _ := amplify.GetBranchFromAmplify(api, event)
+	response, _ := amplify.GetBranchFromAmplify(client, event)
 
 	slack := slack.NewSlackClient()
 
 	message := slack.BuildMessage(
 		event,
-		amplify.AmplifyBranch{DisplayName: aws.ToString(response.Branch.DisplayName)},
+		amplify.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	json, _ := json.Marshal(message)
