@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go/aws"
+
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
@@ -27,7 +28,7 @@ func HandleRequest(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	api, err := amplify.NewAmplifyAPI()
+	api, err := amplify.NewAmplifyClient()
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)
@@ -43,7 +44,7 @@ func HandleRequest(request Request) string {
 
 	message := slack.BuildMessage(
 		event,
-		amplify.AmplifyBranch{DisplayName: aws.ToString(response.Branch.DisplayName)},
+		amplify.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	err = slack.PostMessage(message)

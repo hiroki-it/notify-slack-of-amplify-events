@@ -10,13 +10,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	aws_amplify "github.com/aws/aws-sdk-go-v2/service/amplify"
+	"github.com/aws/aws-sdk-go/aws"
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/mock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -34,10 +33,10 @@ func TestLambdaHandler(t *testing.T) {
 		BranchName: aws.String("feature/test"),
 	}
 
-	api, _ := mock.NewMockedAmplifyAPI()
+	client := &amplify.AmplifyClient{api: new(amplify.MockedAmplifyAPI)}
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
-	api.Client.On("GetBranch", context.TODO(), &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+	api.Client.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
 
 	var event eventbridge.Event
 
