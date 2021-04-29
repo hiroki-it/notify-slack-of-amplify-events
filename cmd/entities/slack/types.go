@@ -1,7 +1,7 @@
 package slack
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
 /**

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"net/http"
 	"os"
 )

@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
 )
 
