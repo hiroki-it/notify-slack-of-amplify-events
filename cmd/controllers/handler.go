@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-sdk-go/aws"
-
+	"github.com/aws/aws-sdk-go/aws/session"
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
@@ -28,13 +29,21 @@ func HandleRequest(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	api, err := amplify.NewAmplifyClient()
+	sess, err := session.NewSession(&aws.Config{Region: aws.String("ap-northeast-1")})
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	response, err := amplify.GetBranchFromAmplify(api, event)
+	api := aws_amplify.New(sess)
+
+	client, err := amplify.NewAmplifyClient(api)
+
+	if err != nil {
+		return fmt.Sprintf("ERROR: %#v\n", err)
+	}
+
+	response, err := amplify.GetBranchFromAmplify(client, event)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

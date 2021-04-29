@@ -2,25 +2,19 @@ package amplify
 
 import (
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
+	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 )
 
 /**
  * コンストラクタ
- * AmplifyAPIを作成します．
+ * AmplifyClientを作成します．
  */
-func NewAmplifyClient() (*AmplifyClient, error) {
-
-	sess, err := session.NewSession(&aws.Config{Region: aws.String("ap-northeast-1")})
-
-	if err != nil {
-		return nil, err
-	}
+func NewAmplifyClient(api amplifyiface.AmplifyAPI) (*AmplifyClient, error) {
 
 	return &AmplifyClient{
-		Api: aws_amplify.New(sess),
+		Api: api,
 	}, nil
 }
 
