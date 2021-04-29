@@ -9,6 +9,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/configs"
 )
 
@@ -25,13 +26,13 @@ func HandleRequest(request Request) string {
 	err := json.Unmarshal([]byte(request.Records[0].EventBridge.Event), &event)
 
 	if err != nil {
-		return fmt.Sprintf("ERROR: %#v\n", err)
+		return exception.Error(err)
 	}
 
 	api, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
-		return fmt.Sprintf("ERROR: %#v\n", err)
+		return exception.Error(err)
 	}
 
 	client := amplify.NewAmplifyClient(api)
@@ -39,7 +40,7 @@ func HandleRequest(request Request) string {
 	response, err := client.GetBranchFromAmplify(event)
 
 	if err != nil {
-		return fmt.Sprintf("ERROR: %#v\n", err)
+		return exception.Error(err)
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -52,7 +53,7 @@ func HandleRequest(request Request) string {
 	err = slackClient.PostMessage(message)
 
 	if err != nil {
-		return fmt.Sprintf("ERROR: %#v\n", err)
+		return exception.Error(err)
 	}
 
 	return fmt.Sprintln("Exit")
