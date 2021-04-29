@@ -12,26 +12,6 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 今回，これらには当てはまりませんが，Goの環境構築からデプロイまでの一連の流れを俯瞰するために，Goを採用しました．
 
-## 環境構築
-
-### 1. RIEのインストール
-
-Lambdaをローカルで擬似的に再現するために，RIEをインストールする必要があります．
-
-いくつか方法が用意されており，Goソースコードの再利用性の観点から，ホストPCにRIEをインストールする方法を採用いたしました．
-
-ホストPCで以下のコマンドを実行します．
-
-```shell
-$ mkdir -p ~/.aws-lambda-rie
-$ curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
-$ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
-```
-
-その他のインストール方法につきましては，以下を参考に．
-
-https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
-
 ## ディレクトリ構造
 
 本リポジトリのディレクトリ構造は以下の通りに構成しております．
@@ -53,6 +33,26 @@ notify-slack-of-amplify-events
     ├── mock # モック処理
     └── unit # ユニットテスト処理
 ```
+
+## 環境構築
+
+### 1. RIEのインストール
+
+Lambdaをローカルで擬似的に再現するために，RIEをインストールする必要があります．
+
+いくつか方法が用意されており，Goソースコードの再利用性の観点から，ホストPCにRIEをインストールする方法を採用いたしました．
+
+ホストPCで以下のコマンドを実行します．
+
+```shell
+$ mkdir -p ~/.aws-lambda-rie
+$ curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
+$ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+```
+
+その他のインストール方法につきましては，以下を参考に．
+
+https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
 ### 2. ビルドイメージ & コンテナ構築
 
