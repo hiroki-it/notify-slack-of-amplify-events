@@ -119,7 +119,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (slack SlackClient) jobStatusMessage(jobStatus string) (string, string) {
+func (client SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
@@ -131,7 +131,7 @@ func (slack SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 /**
  * メッセージを送信します．
  */
-func (slack SlackClient) PostMessage(message Message) error {
+func (client SlackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
@@ -155,10 +155,10 @@ func (slack SlackClient) PostMessage(message Message) error {
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
 
-	client := &http.Client{}
+	httpClient := &http.Client{}
 
 	// HTTPリクエストを送信する．
-	response, err := client.Do(request)
+	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
 		return err
