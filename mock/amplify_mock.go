@@ -1,4 +1,4 @@
-package amplify
+package mock
 
 import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"

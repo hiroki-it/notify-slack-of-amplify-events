@@ -17,4 +17,5 @@ replace (
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge => /cmd/usecases/eventbridge
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack => /cmd/usecases/slack
 	github.com/hiroki-it/notify-slack-of-amplify-events/config => /config
+	github.com/hiroki-it/notify-slack-of-amplify-events/mock => /mock
 )
