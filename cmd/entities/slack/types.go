@@ -1,8 +1,7 @@
 package slack
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
 /**
@@ -40,12 +39,19 @@ type Element struct {
  * メッセージデータに関するメソッドを構成します．
  */
 type SlackClientInterface interface {
-	buildMessage(event eventbridge.Event, amplifyBranch amplify.AmplifyBranch) Message
+	buildMessage(event eventbridge.Event, amplifyBranch AmplifyBranch) Message
 	jobStatusMessage(jobStatus string) (string, string)
 	postMessage(message Message) error
 }
 
 /**/
-type SlackClientImpl struct {
+type SlackClient struct {
 	SlackClientInterface
+}
+
+/**
+ * EventBrdigeのイベントを構成します．
+ */
+type AmplifyBranch struct {
+	DisplayName string
 }

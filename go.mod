@@ -4,17 +4,19 @@ go 1.15
 
 require (
 	github.com/aws/aws-lambda-go v1.23.0
-	github.com/aws/aws-sdk-go-v2 v1.3.0
-	github.com/aws/aws-sdk-go-v2/config v1.1.3
-	github.com/aws/aws-sdk-go-v2/service/amplify v1.1.3
+	github.com/aws/aws-sdk-go v1.25.40
+	github.com/aws/aws-sdk-go-v2 v1.3.4
+	github.com/aws/aws-sdk-go-v2/service/amplify v1.1.5
 	github.com/joho/godotenv v1.3.0
 	github.com/stretchr/testify v1.7.0
 )
 
 replace (
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/controllers => /src/cmd/usecases/controllers
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify => /src/cmd/usecases/amplify
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge => /src/cmd/usecases/eventbridge
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack => /src/cmd/usecases/slack
-	github.com/hiroki-it/notify-slack-of-amplify-events/config => /src/config
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/controllers/handler => /cmd/controllers/handler
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify => /cmd/entities/amplify
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge => /cmd/entities/eventbridge
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack => /cmd/entities/slack
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception => /cmd/usecases/exception
+	github.com/hiroki-it/notify-slack-of-amplify-events/configs => /configs
+	github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify => /test/mock/amplify
 )

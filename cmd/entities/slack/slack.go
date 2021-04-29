@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"net/http"
 	"os"
 )
@@ -14,16 +14,16 @@ import (
  * コンストラクタ
  * SlackClientを作成します．
  */
-func NewSlackClient() *SlackClientImpl {
-	return new(SlackClientImpl)
+func NewSlackClient() *SlackClient {
+	return new(SlackClient)
 }
 
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (slack SlackClientImpl) BuildMessage(event eventbridge.Event, amplifyBranch amplify.AmplifyBranch) Message {
+func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch AmplifyBranch) Message {
 
-	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
+	status, color := client.jobStatusMessage(event.Detail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -119,7 +119,7 @@ func (slack SlackClientImpl) BuildMessage(event eventbridge.Event, amplifyBranch
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (slack SlackClientImpl) jobStatusMessage(jobStatus string) (string, string) {
+func (slack SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
@@ -131,7 +131,7 @@ func (slack SlackClientImpl) jobStatusMessage(jobStatus string) (string, string)
 /**
  * メッセージを送信します．
  */
-func (slack SlackClientImpl) PostMessage(message Message) error {
+func (slack SlackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
