@@ -29,15 +29,15 @@ func HandleRequest(request Request) string {
 		return exception.Error(err)
 	}
 
-	api, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
 		return exception.Error(err)
 	}
 
-	client := amplify.NewAmplifyClient(api)
+	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	response, err := client.GetBranchFromAmplify(event)
+	response, err := amplifyClient.GetBranchFromAmplify(event)
 
 	if err != nil {
 		return exception.Error(err)
