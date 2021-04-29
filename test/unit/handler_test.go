@@ -14,7 +14,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/mock"
+	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -32,7 +32,7 @@ func TestLambdaHandler(t *testing.T) {
 		BranchName: aws.String("feature/test"),
 	}
 
-	mockedAPI := new(mock.MockedAmplifyAPI)
+	mockedAPI := new(m_amplify.MockedAmplifyAPI)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
