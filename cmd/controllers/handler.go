@@ -37,11 +37,7 @@ func HandleRequest(request Request) string {
 
 	api := aws_amplify.New(sess)
 
-	client, err := amplify.NewAmplifyClient(api)
-
-	if err != nil {
-		return fmt.Sprintf("ERROR: %#v\n", err)
-	}
+	client := amplify.NewAmplifyClient(api)
 
 	response, err := amplify.GetBranchFromAmplify(client, event)
 

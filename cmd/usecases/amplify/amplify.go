@@ -11,11 +11,11 @@ import (
  * コンストラクタ
  * AmplifyClientを作成します．
  */
-func NewAmplifyClient(api amplifyiface.AmplifyAPI) (*AmplifyClient, error) {
+func NewAmplifyClient(api amplifyiface.AmplifyAPI) *AmplifyClient {
 
 	return &AmplifyClient{
 		Api: api,
-	}, nil
+	}
 }
 
 /**
