@@ -40,14 +40,14 @@ func HandleRequest(request Request) string {
 		return fmt.Sprintf("ERROR: %#v\n", err)
 	}
 
-	slack := slack.NewSlackClient()
+	slackClient := slack.NewSlackClient()
 
-	message := slack.BuildMessage(
+	message := slackClient.BuildMessage(
 		event,
-		amplify.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
-	err = slack.PostMessage(message)
+	err = slackClient.PostMessage(message)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

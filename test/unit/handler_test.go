@@ -43,11 +43,11 @@ func TestLambdaHandler(t *testing.T) {
 
 	response, _ := amplify.GetBranchFromAmplify(client, event)
 
-	slack := slack.NewSlackClient()
+	slackClient := slack.NewSlackClient()
 
-	message := slack.BuildMessage(
+	message := slackClient.BuildMessage(
 		event,
-		amplify.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	json, _ := json.Marshal(message)

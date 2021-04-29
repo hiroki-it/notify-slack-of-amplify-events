@@ -5,12 +5,8 @@ import (
 )
 
 /**
- * EventBrdigeのイベントを構成します．
+ * Amplifyのクライアントを構成します．
  */
-type AmplifyBranch struct {
-	DisplayName string
-}
-
 type AmplifyClient struct {
 	Api amplifyiface.AmplifyAPI
 }

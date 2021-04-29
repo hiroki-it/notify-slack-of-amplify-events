@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/amplify"
+
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/eventbridge"
 	"net/http"
 	"os"
@@ -21,7 +21,7 @@ func NewSlackClient() *SlackClientImpl {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (slack SlackClientImpl) BuildMessage(event eventbridge.Event, amplifyBranch amplify.AmplifyBranch) Message {
+func (slack SlackClientImpl) BuildMessage(event eventbridge.Event, amplifyBranch AmplifyBranch) Message {
 
 	status, color := slack.jobStatusMessage(event.Detail.JobStatus)
 
