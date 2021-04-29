@@ -11,6 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+/**
+ * 関数をテストします．
+ */
 func TestGetBranchFromAmplify(t *testing.T) {
 
 	input := aws_amplify.GetBranchInput{

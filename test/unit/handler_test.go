@@ -23,7 +23,7 @@ func SlackResponse(writer http.ResponseWriter, request *http.Request) {
 }
 
 /**
- * ハンドラ関数をテストします．
+ * 関数をテストします．
  */
 func TestLambdaHandler(t *testing.T) {
 
