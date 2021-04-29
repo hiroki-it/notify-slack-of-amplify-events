@@ -32,6 +32,28 @@ $ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
 
 https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
+## ディレクトリ構造
+
+本リポジトリのディレクトリ構造は以下の通りに構成しております．
+
+cmdディレクトリの構成は，クリーンアーキテクチャを参考にいたしました．
+
+参考：https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+
+```
+notify-slack-of-amplify-events
+├── build # ビルド処理
+├── cmd # エントリポイントを含む処理
+|   ├── controllers # コントローラ
+|   ├── entities # エンティティ
+|   └── usecases # ユースケース
+|
+├── configs # セットアップ処理
+└── test
+    ├── mock # モック処理
+    └── unit # ユニットテスト処理
+```
+
 ### 2. ビルドイメージ & コンテナ構築
 
 Dockerfileからイメージをビルドし，コンテナを構築します．
