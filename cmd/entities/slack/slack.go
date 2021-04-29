@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"net/http"
 	"os"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
 /**
