@@ -1,4 +1,4 @@
-package controllers
+package controller
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/config"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/configs"
 )
 
 /**
