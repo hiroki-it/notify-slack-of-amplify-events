@@ -1,4 +1,4 @@
-package controller
+package handler
 
 /**
  * EventBrdigeのイベントを構成します．

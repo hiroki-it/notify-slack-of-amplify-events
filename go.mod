@@ -12,6 +12,7 @@ require (
 )
 
 replace (
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/controllers/handler => /cmd/controllers/handler
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify => /cmd/entities/amplify
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge => /cmd/entities/eventbridge
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack => /cmd/entities/slack
