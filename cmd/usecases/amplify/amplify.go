@@ -37,7 +37,7 @@ func NewAmplifyClient(api amplifyiface.AmplifyAPI) *AmplifyClient {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func GetBranchFromAmplify(client *AmplifyClient, event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
+func (client *AmplifyClient) GetBranchFromAmplify(event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
 
 	input := aws_amplify.GetBranchInput{
 		AppId:      aws.String(event.Detail.AppId),

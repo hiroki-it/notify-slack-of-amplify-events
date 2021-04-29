@@ -37,11 +37,11 @@ func TestLambdaHandler(t *testing.T) {
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
 
-	client := &amplify.AmplifyClient{Api: mockedAPI}
+	client := amplify.NewAmplifyClient(mockedAPI)
 
 	var event eventbridge.Event
 
-	response, _ := amplify.GetBranchFromAmplify(client, event)
+	response, _ := client.GetBranchFromAmplify(event)
 
 	slackClient := slack.NewSlackClient()
 

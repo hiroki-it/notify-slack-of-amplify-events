@@ -36,7 +36,7 @@ func HandleRequest(request Request) string {
 
 	client := amplify.NewAmplifyClient(api)
 
-	response, err := amplify.GetBranchFromAmplify(client, event)
+	response, err := client.GetBranchFromAmplify(event)
 
 	if err != nil {
 		return fmt.Sprintf("ERROR: %#v\n", err)

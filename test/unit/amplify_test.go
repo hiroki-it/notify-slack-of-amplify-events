@@ -31,7 +31,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	var event eventbridge.Event
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	response, _ := amplify.GetBranchFromAmplify(client, event)
+	response, _ := client.GetBranchFromAmplify(event)
 
 	//関数内部でスタブがコールされているかを検証する．
 	mockedAPI.AssertExpectations(t)
