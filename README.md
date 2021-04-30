@@ -58,6 +58,8 @@ https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
 Dockerfileからイメージをビルドし，コンテナを構築します．
 
+イメージにおいては，マルチステージビルドを採用しております．
+
 デタッチモードを使用して起動します．
 
 ```shell
