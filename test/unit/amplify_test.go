@@ -34,8 +34,8 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	mockedAPI := new(m_amplify.MockedAmplifyAPI)
 
 	input := aws_amplify.GetBranchInput{
-		AppId:      aws.String("123456789"),
-		BranchName: aws.String("feature/test"),
+		AppId:      aws.String(eventDetail.AppId),
+		BranchName: aws.String(eventDetail.BranchName),
 	}
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
