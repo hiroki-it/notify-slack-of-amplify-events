@@ -23,7 +23,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	var eventDetail *eventbridge.EventDetail
 
-	// eventbridgeから転送されたイベントをマッピングします．
+	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
