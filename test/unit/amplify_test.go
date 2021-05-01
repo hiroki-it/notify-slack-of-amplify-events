@@ -34,7 +34,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
 
-	getBranchInput := amplifyClient.NewGetBranchInput(eventDetail)
+	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", getBranchInput).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
