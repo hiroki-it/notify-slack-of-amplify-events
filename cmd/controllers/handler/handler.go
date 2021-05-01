@@ -17,14 +17,14 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(request events.CloudWatchEvent) string {
+func HandleRequest(event events.CloudWatchEvent) string {
 
 	config.LoadConfig()
 
 	var eventDetail *eventbridge.EventDetail
 
 	// eventbridgeから転送されたイベントをマッピングします．
-	err := json.Unmarshal([]byte(request.Detail), eventDetail)
+	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
 		return exception.Error(err)
