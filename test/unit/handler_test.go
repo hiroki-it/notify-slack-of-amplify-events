@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
@@ -40,20 +39,17 @@ func TestLambdaHandler(t *testing.T) {
 		exception.Error(err)
 	}
 
-	input := aws_amplify.GetBranchInput{
-		AppId:      aws.String("123456789"),
-		BranchName: aws.String("feature/test"),
-	}
-
 	mockedAPI := new(m_amplify.MockedAmplifyAPI)
 
-	// スタブに引数として渡される値と，その時の返却値を定義する．
-	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
 
-	client := amplify.NewAmplifyClient(mockedAPI)
+	getBranchInput := amplifyClient.NewGetBranchInput(eventDetail)
+
+	// スタブに引数として渡される値と，その時の返却値を定義する．
+	mockedAPI.On("GetBranch", getBranchInput).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	response, _ := client.GetBranchFromAmplify(eventDetail)
+	response, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	slackClient := slack.NewSlackClient()
 

@@ -35,17 +35,24 @@ func NewAmplifyClient(api amplifyiface.AmplifyAPI) *AmplifyClient {
 }
 
 /**
- * Amplifyからブランチ情報を取得します．
+ * コンストラクタ
+ * GetBranchInputを作成します．
  */
-func (client *AmplifyClient) GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error) {
+func (client *AmplifyClient) NewGetBranchInput(eventDetail *eventbridge.EventDetail) *aws_amplify.GetBranchInput {
 
-	input := aws_amplify.GetBranchInput{
+	return &aws_amplify.GetBranchInput{
 		AppId:      aws.String(eventDetail.AppId),
 		BranchName: aws.String(eventDetail.BranchName),
 	}
+}
+
+/**
+ * Amplifyからブランチ情報を取得します．
+ */
+func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.Api.GetBranch(&input)
+	response, err := client.Api.GetBranch(getBranchInput)
 
 	if err != nil {
 		return nil, err

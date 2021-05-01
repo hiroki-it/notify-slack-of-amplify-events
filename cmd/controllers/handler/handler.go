@@ -38,7 +38,9 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	response, err := amplifyClient.GetBranchFromAmplify(eventDetail)
+	getBranchInput := amplifyClient.NewGetBranchInput(eventDetail)
+
+	response, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
 		exception.Error(err)
