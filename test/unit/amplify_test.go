@@ -19,6 +19,17 @@ import (
  */
 func TestGetBranchFromAmplify(t *testing.T) {
 
+	detail, _ := ioutil.ReadFile("/test/testdata/event.json")
+
+	eventDetail := new(eventbridge.EventDetail)
+
+	// eventbridgeから転送されたJSONを構造体にマッピングします．
+	err := json.Unmarshal([]byte(detail), eventDetail)
+
+	if err != nil {
+		exception.Error(err)
+	}
+
 	input := aws_amplify.GetBranchInput{
 		AppId:      aws.String("123456789"),
 		BranchName: aws.String("feature/test"),
@@ -30,13 +41,6 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
 
 	client := amplify.NewAmplifyClient(mockedAPI)
-
-	eventDetail := &eventbridge.EventDetail{
-		AppId:      "123456789",
-		BranchName: "feature/test",
-		JobId:      "123456789",
-		JobStatus:  "SUCCEED",
-	}
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
 	response, err := client.GetBranchFromAmplify(eventDetail)
