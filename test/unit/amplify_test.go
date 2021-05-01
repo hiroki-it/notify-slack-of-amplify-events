@@ -30,12 +30,13 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		exception.Error(err)
 	}
 
+	// AmplifyAPIのモックを作成する．
+	mockedAPI := new(m_amplify.MockedAmplifyAPI)
+
 	input := aws_amplify.GetBranchInput{
 		AppId:      aws.String("123456789"),
 		BranchName: aws.String("feature/test"),
 	}
-
-	mockedAPI := new(m_amplify.MockedAmplifyAPI)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
