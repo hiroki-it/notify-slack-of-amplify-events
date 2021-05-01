@@ -51,11 +51,11 @@ func (client *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.Event
 func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
 
 	// ブランチ情報を構造体として取得します．
-	response, err := client.Api.GetBranch(getBranchInput)
+	getBranchOutput, err := client.Api.GetBranch(getBranchInput)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return response, err
+	return getBranchOutput, err
 }

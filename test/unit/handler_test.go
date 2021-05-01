@@ -49,13 +49,13 @@ func TestLambdaHandler(t *testing.T) {
 	mockedAPI.On("GetBranch", getBranchInput).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	response, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	slackClient := slack.NewSlackClient()
 
 	message := slackClient.BuildMessage(
 		eventDetail,
-		response.Branch,
+		getBranchOutput.Branch,
 	)
 
 	json, _ := json.Marshal(message)
