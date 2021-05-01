@@ -1,6 +1,7 @@
 package slack
 
 import (
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
@@ -39,7 +40,7 @@ type Element struct {
  * SlackClientインターフェースを構成します．
  */
 type SlackClientInterface interface {
-	buildMessage(*eventbridge.EventDetail, *AmplifyBranch) Message
+	buildMessage(*eventbridge.EventDetail, *aws_amplify.Branch) Message
 	jobStatusMessage(string) (string, string)
 	postMessage(Message) error
 }
@@ -49,11 +50,4 @@ type SlackClientInterface interface {
  */
 type SlackClient struct {
 	SlackClientInterface
-}
-
-/**
- * EventBrdigeのイベントを構成します．
- */
-type AmplifyBranch struct {
-	DisplayName string
 }

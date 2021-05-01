@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
@@ -21,7 +23,7 @@ func NewSlackClient() *SlackClient {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch *AmplifyBranch) Message {
+func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
 
 	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
@@ -85,7 +87,7 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amp
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
-									amplifyBranch.DisplayName,
+									aws.StringValue(branch.DisplayName),
 									eventDetail.AppId,
 								),
 							},

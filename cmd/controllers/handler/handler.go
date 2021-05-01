@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
@@ -50,7 +49,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	message := slackClient.BuildMessage(
 		eventDetail,
-		&slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		response.Branch,
 	)
 
 	err = slackClient.PostMessage(message)
