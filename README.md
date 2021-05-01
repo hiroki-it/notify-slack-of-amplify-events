@@ -20,7 +20,7 @@ cmdディレクトリの構成は，クリーンアーキテクチャを参考�
 
 参考：https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
-```sh
+```
 notify-slack-of-amplify-events
 ├── build   # ビルド処理
 ├── cmd     # エントリポイントを含む処理
