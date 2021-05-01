@@ -9,6 +9,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
 	"github.com/stretchr/testify/assert"
 )
