@@ -29,7 +29,7 @@ func HandleRequest(request Request) string {
 		return exception.Error(err)
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_LAMBDA_REGION"))
 
 	if err != nil {
 		return exception.Error(err)
