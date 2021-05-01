@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"net/http"
 	"os"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
 /**
@@ -21,9 +21,9 @@ func NewSlackClient() *SlackClient {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch AmplifyBranch) Message {
+func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch *AmplifyBranch) Message {
 
-	status, color := client.jobStatusMessage(event.Detail.JobStatus)
+	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -61,7 +61,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									event.Detail.BranchName,
+									eventDetail.BranchName,
 								),
 							},
 						},
@@ -73,7 +73,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									event.Detail.BranchName,
+									eventDetail.BranchName,
 								),
 							},
 						},
@@ -86,7 +86,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									amplifyBranch.DisplayName,
-									event.Detail.AppId,
+									eventDetail.AppId,
 								),
 							},
 						},
@@ -98,11 +98,11 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
-									event.Region,
-									event.Region,
-									event.Detail.AppId,
-									event.Detail.BranchName,
-									event.Detail.JobId,
+									os.Getenv("AWS_AMPLIFY_REGION"),
+									os.Getenv("AWS_AMPLIFY_REGION"),
+									eventDetail.AppId,
+									eventDetail.BranchName,
+									eventDetail.JobId,
 								),
 							},
 						},
@@ -119,7 +119,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (slack SlackClient) jobStatusMessage(jobStatus string) (string, string) {
+func (client SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
@@ -131,7 +131,7 @@ func (slack SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 /**
  * メッセージを送信します．
  */
-func (slack SlackClient) PostMessage(message Message) error {
+func (client SlackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
@@ -155,10 +155,10 @@ func (slack SlackClient) PostMessage(message Message) error {
 	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
 
-	client := &http.Client{}
+	httpClient := &http.Client{}
 
 	// HTTPリクエストを送信する．
-	response, err := client.Do(request)
+	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
 		return err

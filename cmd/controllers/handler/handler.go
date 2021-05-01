@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
@@ -16,28 +17,28 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(request Request) string {
+func HandleRequest(event events.CloudWatchEvent) string {
 
 	config.LoadConfig()
 
-	var event eventbridge.Event
+	var eventDetail *eventbridge.EventDetail
 
 	// eventbridgeから転送されたイベントをマッピングします．
-	err := json.Unmarshal([]byte(request.Records[0].EventBridge.Event), &event)
+	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
 		return exception.Error(err)
 	}
 
-	api, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_LAMBDA_REGION"))
 
 	if err != nil {
 		return exception.Error(err)
 	}
 
-	client := amplify.NewAmplifyClient(api)
+	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	response, err := client.GetBranchFromAmplify(event)
+	response, err := amplifyClient.GetBranchFromAmplify(eventDetail)
 
 	if err != nil {
 		return exception.Error(err)
@@ -46,8 +47,8 @@ func HandleRequest(request Request) string {
 	slackClient := slack.NewSlackClient()
 
 	message := slackClient.BuildMessage(
-		event,
-		slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		eventDetail,
+		&slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	err = slackClient.PostMessage(message)

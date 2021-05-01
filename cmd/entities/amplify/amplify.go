@@ -37,11 +37,11 @@ func NewAmplifyClient(api amplifyiface.AmplifyAPI) *AmplifyClient {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client *AmplifyClient) GetBranchFromAmplify(event eventbridge.Event) (*aws_amplify.GetBranchOutput, error) {
+func (client *AmplifyClient) GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error) {
 
 	input := aws_amplify.GetBranchInput{
-		AppId:      aws.String(event.Detail.AppId),
-		BranchName: aws.String(event.Detail.BranchName),
+		AppId:      aws.String(eventDetail.AppId),
+		BranchName: aws.String(eventDetail.BranchName),
 	}
 
 	// ブランチ情報を構造体として取得します．

@@ -39,15 +39,21 @@ func TestLambdaHandler(t *testing.T) {
 
 	client := amplify.NewAmplifyClient(mockedAPI)
 
-	var event eventbridge.Event
+	eventDetail := &eventbridge.EventDetail{
+		AppId:      "123456789",
+		BranchName: "feature/test",
+		JobId:      "123456789",
+		JobStatus:  "SUCCEED",
+	}
 
-	response, _ := client.GetBranchFromAmplify(event)
+	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
+	response, _ := client.GetBranchFromAmplify(eventDetail)
 
 	slackClient := slack.NewSlackClient()
 
 	message := slackClient.BuildMessage(
-		event,
-		slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		eventDetail,
+		&slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	json, _ := json.Marshal(message)
