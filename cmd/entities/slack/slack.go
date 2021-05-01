@@ -21,9 +21,9 @@ func NewSlackClient() *SlackClient {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch AmplifyBranch) Message {
+func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch AmplifyBranch) Message {
 
-	status, color := client.jobStatusMessage(event.Detail.JobStatus)
+	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
 	// メッセージを構成します．
 	return Message{
@@ -61,7 +61,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									event.Detail.BranchName,
+									eventDetail.BranchName,
 								),
 							},
 						},
@@ -73,7 +73,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									event.Detail.BranchName,
+									eventDetail.BranchName,
 								),
 							},
 						},
@@ -86,7 +86,7 @@ func (client SlackClient) BuildMessage(event eventbridge.Event, amplifyBranch Am
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									amplifyBranch.DisplayName,
-									event.Detail.AppId,
+									eventDetail.AppId,
 								),
 							},
 						},
