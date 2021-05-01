@@ -1,9 +1,9 @@
 package exception
 
 import (
-	"fmt"
+	"log"
 )
 
-func Error(err error) string {
-	return fmt.Sprintf("ERROR: %#v\n", err)
+func Error(err error) {
+	log.Fatalf("ERROR: %#v\n", err)
 }

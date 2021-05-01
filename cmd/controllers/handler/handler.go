@@ -17,7 +17,7 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(event events.CloudWatchEvent) string {
+func HandleRequest(event events.CloudWatchEvent) {
 
 	config.LoadConfig()
 
@@ -27,13 +27,13 @@ func HandleRequest(event events.CloudWatchEvent) string {
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		return exception.Error(err)
+		exception.Error(err)
 	}
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_LAMBDA_REGION"))
 
 	if err != nil {
-		return exception.Error(err)
+		exception.Error(err)
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
@@ -41,7 +41,7 @@ func HandleRequest(event events.CloudWatchEvent) string {
 	response, err := amplifyClient.GetBranchFromAmplify(eventDetail)
 
 	if err != nil {
-		return exception.Error(err)
+		exception.Error(err)
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -54,8 +54,8 @@ func HandleRequest(event events.CloudWatchEvent) string {
 	err = slackClient.PostMessage(message)
 
 	if err != nil {
-		return exception.Error(err)
+		exception.Error(err)
 	}
 
-	return fmt.Sprintln("Exit")
+	log.Println("Exit")
 }
