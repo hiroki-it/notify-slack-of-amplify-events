@@ -1,6 +1,8 @@
 package unit
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -36,7 +38,11 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	}
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	response, _ := client.GetBranchFromAmplify(eventDetail)
+	response, err := client.GetBranchFromAmplify(eventDetail)
+
+	if err != nil {
+		exception.Error(err)
+	}
 
 	//関数内部でスタブがコールされているかを検証する．
 	mockedAPI.AssertExpectations(t)
