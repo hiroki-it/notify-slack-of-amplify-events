@@ -48,7 +48,7 @@ func HandleRequest(request events.CloudWatchEvent) string {
 
 	message := slackClient.BuildMessage(
 		eventDetail,
-		slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		&slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
 	)
 
 	err = slackClient.PostMessage(message)

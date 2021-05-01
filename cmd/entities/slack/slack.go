@@ -21,7 +21,7 @@ func NewSlackClient() *SlackClient {
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch AmplifyBranch) Message {
+func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch *AmplifyBranch) Message {
 
 	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
