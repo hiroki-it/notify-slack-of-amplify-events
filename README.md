@@ -26,11 +26,15 @@ notify-slack-of-amplify-events
 ├── cmd # エントリポイントを含む処理
 |   ├── controllers # コントローラ
 |   ├── entities # エンティティ
+|   |   ├── amplify
+|   |   ├── eventbridge
+|   |   └── slack
 |   └── usecases # ユースケース
 |
 ├── configs # セットアップ処理
 └── test
     ├── mock # モック処理
+    ├── testdata # テストデータ（JSON）
     └── unit # ユニットテスト処理
 ```
 
