@@ -36,7 +36,7 @@ type Element struct {
 }
 
 /**
- * メッセージデータに関するメソッドを構成します．
+ * SlackClientインターフェースを構成します．
  */
 type SlackClientInterface interface {
 	buildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch *AmplifyBranch) Message
@@ -44,7 +44,9 @@ type SlackClientInterface interface {
 	postMessage(message Message) error
 }
 
-/**/
+/**
+ * SlackClientインターフェースの実装を構成します．
+ */
 type SlackClient struct {
 	SlackClientInterface
 }

@@ -6,12 +6,15 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 )
 
+/**
+ * AmplifyClientインターフェースを構成します．
+ */
 type AmplifyClientInterface interface {
 	GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error)
 }
 
 /**
- * Amplifyのクライアントを構成します．
+ * AmplifyClientインターフェースの実装を構成します．
  */
 type AmplifyClient struct {
 	AmplifyClientInterface
