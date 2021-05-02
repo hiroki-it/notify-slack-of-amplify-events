@@ -119,18 +119,6 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, bra
 }
 
 /**
- * ジョブ状態を表現するメッセージを返却します．
- */
-func (client SlackClient) jobStatusMessage(jobStatus string) (string, string) {
-
-	if jobStatus == "SUCCEED" {
-		return "成功", "#00FF00"
-	}
-
-	return "失敗", "#ff0000"
-}
-
-/**
  * メッセージを送信します．
  */
 func (client SlackClient) PostMessage(message Message) error {
@@ -172,4 +160,16 @@ func (client SlackClient) PostMessage(message Message) error {
 	fmt.Printf("Success: %#v\n", response)
 
 	return nil
+}
+
+/**
+ * ジョブ状態を表現するメッセージを返却します．
+ */
+func (client slackClient) jobStatusMessage(jobStatus string) (string, string) {
+
+	if jobStatus == "SUCCEED" {
+		return "成功", "#00FF00"
+	}
+
+	return "失敗", "#ff0000"
 }
