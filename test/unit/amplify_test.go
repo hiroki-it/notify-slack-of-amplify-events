@@ -15,7 +15,7 @@ import (
 )
 
 /**
- * 関数をテストします．
+ * GetBranchFromAmplifyメソッドをテストします．
  */
 func TestGetBranchFromAmplify(t *testing.T) {
 
