@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -30,12 +29,12 @@ func SlackResponse(writer http.ResponseWriter, request *http.Request) {
  */
 func TestLambdaHandler(t *testing.T) {
 
-	detail, _ := ioutil.ReadFile("/test/testdata/event.json")
+	detail := file.ReadTestData("./testdata/event.json")
 
 	eventDetail := new(eventbridge.EventDetail)
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(detail), eventDetail)
+	err := json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
 		exception.Error(err)

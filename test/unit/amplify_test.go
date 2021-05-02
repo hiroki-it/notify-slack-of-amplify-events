@@ -2,7 +2,6 @@ package unit
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -20,12 +19,12 @@ import (
  */
 func TestGetBranchFromAmplify(t *testing.T) {
 
-	detail, _ := ioutil.ReadFile("/test/testdata/event.json")
+	detail := file.ReadTestData("./testdata/event.json")
 
 	eventDetail := new(eventbridge.EventDetail)
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(detail), eventDetail)
+	err := json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
 		exception.Error(err)
