@@ -16,14 +16,14 @@ import (
  * コンストラクタ
  * SlackClientを作成します．
  */
-func NewSlackClient() *slackClient {
-	return new(slackClient)
+func NewSlackClient() *SlackClient {
+	return new(SlackClient)
 }
 
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client slackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
+func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
 
 	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
@@ -121,7 +121,7 @@ func (client slackClient) BuildMessage(eventDetail *eventbridge.EventDetail, bra
 /**
  * メッセージを送信します．
  */
-func (client slackClient) PostMessage(message Message) error {
+func (client SlackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
@@ -165,7 +165,7 @@ func (client slackClient) PostMessage(message Message) error {
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (client slackClient) jobStatusMessage(jobStatus string) (string, string) {
+func (client SlackClient) jobStatusMessage(jobStatus string) (string, string) {
 
 	if jobStatus == "SUCCEED" {
 		return "成功", "#00FF00"
