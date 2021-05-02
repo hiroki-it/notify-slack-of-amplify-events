@@ -6,7 +6,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func LoadConfig() {
+func LoadEnv() {
 
 	if os.Getenv("APP_ENV") == "dev" {
 		godotenv.Load()
