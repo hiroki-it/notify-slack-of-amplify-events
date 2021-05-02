@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
@@ -37,7 +38,14 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
-	mockedAPI.On("GetBranch", getBranchInput).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
+	mockedAPI.On("GetBranch", getBranchInput).Return(
+		aws_amplify.GetBranchOutput{
+			Branch: &aws_amplify.Branch{
+				DisplayName: aws.String("feature-test"),
+			},
+		},
+		nil,
+	)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
