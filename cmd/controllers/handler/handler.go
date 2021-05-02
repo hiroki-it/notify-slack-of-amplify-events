@@ -18,7 +18,7 @@ import (
  */
 func HandleRequest(event events.CloudWatchEvent) {
 
-	config.LoadEnv()
+	file.ReadEnvFile()
 
 	var eventDetail *eventbridge.EventDetail
 
