@@ -16,14 +16,14 @@ import (
  * コンストラクタ
  * SlackClientを作成します．
  */
-func NewSlackClient() *SlackClient {
-	return new(SlackClient)
+func NewSlackClient() *slackClient {
+	return new(slackClient)
 }
 
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
+func (client slackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
 
 	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
@@ -121,7 +121,7 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, bra
 /**
  * メッセージを送信します．
  */
-func (client SlackClient) PostMessage(message Message) error {
+func (client slackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
