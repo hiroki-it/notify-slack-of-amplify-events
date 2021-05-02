@@ -39,7 +39,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", getBranchInput).Return(
-		aws_amplify.GetBranchOutput{
+		&aws_amplify.GetBranchOutput{
 			Branch: &aws_amplify.Branch{
 				DisplayName: aws.String("feature-test"),
 			},
