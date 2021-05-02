@@ -19,5 +19,5 @@ type AmplifyClientInterface interface {
  */
 type AmplifyClient struct {
 	AmplifyClientInterface
-	Api amplifyiface.AmplifyAPI
+	api amplifyiface.AmplifyAPI
 }

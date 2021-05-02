@@ -27,11 +27,19 @@ func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
  * コンストラクタ
  * AmplifyClientを作成します．
  */
-func NewAmplifyClient(api amplifyiface.AmplifyAPI) *AmplifyClient {
+func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 
 	return &AmplifyClient{
-		Api: api,
+		api: amplifyApi,
 	}
+}
+
+/**
+ * ゲッター
+ * AmplifyAPIを返却します．
+ */
+func (client *AmplifyClient) GetAmplifyAPI() amplifyiface.AmplifyAPI {
+	return client.api
 }
 
 /**
@@ -51,7 +59,7 @@ func (client *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.Event
 func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
 
 	// ブランチ情報を構造体として取得します．
-	getBranchOutput, err := client.Api.GetBranch(getBranchInput)
+	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
 		return nil, err
