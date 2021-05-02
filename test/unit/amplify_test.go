@@ -19,7 +19,7 @@ import (
  */
 func TestGetBranchFromAmplify(t *testing.T) {
 
-	detail := file.ReadTestData("./testdata/event.json")
+	detail := file.ReadTestDataFile("./testdata/event.json")
 
 	eventDetail := new(eventbridge.EventDetail)
 

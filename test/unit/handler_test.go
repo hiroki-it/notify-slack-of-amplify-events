@@ -29,7 +29,7 @@ func SlackResponse(writer http.ResponseWriter, request *http.Request) {
  */
 func TestLambdaHandler(t *testing.T) {
 
-	detail := file.ReadTestData("./testdata/event.json")
+	detail := file.ReadTestDataFile("./testdata/event.json")
 
 	eventDetail := new(eventbridge.EventDetail)
 
