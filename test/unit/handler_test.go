@@ -31,7 +31,7 @@ func TestLambdaHandler(t *testing.T) {
 
 	detail := file.ReadTestDataFile("./testdata/event.json")
 
-	eventDetail := new(eventbridge.EventDetail)
+	eventDetail := eventbridge.NewEventDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal(detail, eventDetail)

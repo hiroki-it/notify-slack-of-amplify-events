@@ -20,7 +20,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	file.ReadEnvFile()
 
-	var eventDetail *eventbridge.EventDetail
+	eventDetail := eventbridge.NewEventDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
