@@ -40,9 +40,9 @@ type Element struct {
  * SlackClientインターフェースを構成します．
  */
 type slackClientInterface interface {
-	buildMessage(*eventbridge.EventDetail, *aws_amplify.Branch) Message
+	BuildMessage(*eventbridge.EventDetail, *aws_amplify.Branch) Message
+	PostMessage(Message) error
 	jobStatusMessage(string) (string, string)
-	postMessage(Message) error
 }
 
 /**
