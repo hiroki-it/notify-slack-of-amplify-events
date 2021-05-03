@@ -33,7 +33,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	}
 
 	// AmplifyAPIのモックを作成する．
-	mockedAPI := new(m_amplify.MockedAmplifyAPI)
+	mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
 	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
 

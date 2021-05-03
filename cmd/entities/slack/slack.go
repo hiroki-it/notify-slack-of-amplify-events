@@ -17,7 +17,7 @@ import (
  * SlackClientを作成します．
  */
 func NewSlackClient() *SlackClient {
-	return new(SlackClient)
+	return &SlackClient{}
 }
 
 /**

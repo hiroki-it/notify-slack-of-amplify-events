@@ -5,5 +5,5 @@ package eventbridge
  * EventDetailを作成します．
  */
 func NewEventDetail() *EventDetail {
-	return new(EventDetail)
+	return &EventDetail{}
 }
