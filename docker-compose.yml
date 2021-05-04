@@ -10,7 +10,7 @@ services:
       target: ${APP_ENV}
     container_name: notify-slack-of-amplify-events
     env_file:
-      - .docker.env
+      - .env
     image: notify-slack-of-amplify-events:latest
     tty: true
     volumes:
@@ -26,7 +26,7 @@ services:
     container_name: lambda
     entrypoint: /aws-lambda/aws-lambda-rie
     env_file:
-      - .docker.env
+      - .env
     image: notify-slack-of-amplify-events:latest
     ports:
       - 9000:8080
