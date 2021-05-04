@@ -26,7 +26,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 		exception.Error(err)
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_LAMBDA_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
 		exception.Error(err)
