@@ -7,7 +7,6 @@ require (
 	github.com/aws/aws-sdk-go v1.25.40
 	github.com/aws/aws-sdk-go-v2 v1.3.4
 	github.com/aws/aws-sdk-go-v2/service/amplify v1.1.5
-	github.com/joho/godotenv v1.3.0
 	github.com/stretchr/testify v1.7.0
 )
 

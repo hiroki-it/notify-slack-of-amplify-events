@@ -10,15 +10,12 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
 )
 
 /**
  * Lambdaハンドラー関数
  */
 func HandleRequest(event events.CloudWatchEvent) {
-
-	file.ReadEnvFile()
 
 	eventDetail := eventbridge.NewEventDetail()
 
