@@ -21,7 +21,6 @@ jobs:
           name: Copy env file
           command: |
             cp .env.example .env
-            cp .docker.env.example .docker.env
       - run:
           name: Install Lambda RIE # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
           command: |
