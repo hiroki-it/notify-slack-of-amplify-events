@@ -12,6 +12,8 @@ services:
     env_file:
       - .env
     image: notify-slack-of-amplify-events:latest
+    networks:
+      - default
     tty: true
     volumes:
       - .:/go/src
@@ -28,8 +30,14 @@ services:
     env_file:
       - .env
     image: notify-slack-of-amplify-events:latest
+    networks:
+      - default
     ports:
       - 9000:8080
     volumes:
       - ~/.aws-lambda-rie:/aws-lambda
       - .:/go/src
+
+networks:
+  default:
+    name: notify-slack-of-amplify-events-network
