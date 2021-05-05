@@ -18,7 +18,7 @@ func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
 
 	if err != nil {
-		return nil, exception.ThrowNew("Failed to create AWS new session.")
+		return nil, exception.NewException(err).Throw("Failed to create AWS new session.")
 	}
 
 	return aws_amplify.New(sess), nil
@@ -63,7 +63,7 @@ func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.Ge
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, exception.ThrowNew("Failed to execute GetBranch")
+		return nil, exception.NewException(err).Throw("Failed to execute GetBranch")
 	}
 
 	return getBranchOutput, nil
