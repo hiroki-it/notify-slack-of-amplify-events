@@ -6,6 +6,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
 /**
@@ -62,7 +63,7 @@ func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.Ge
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, err
+		return nil, logger.Error(err)
 	}
 
 	return getBranchOutput, err

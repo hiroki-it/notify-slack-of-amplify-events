@@ -1,4 +1,4 @@
-package exception
+package logger
 
 import (
 	"golang.org/x/xerrors"

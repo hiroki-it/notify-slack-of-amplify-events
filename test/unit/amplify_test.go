@@ -8,8 +8,8 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
 	"github.com/stretchr/testify/assert"
 )
@@ -29,7 +29,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	err := json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
-		exception.Error(err)
+		logger.Error(err)
 	}
 
 	// AmplifyAPIのモックを作成する．
@@ -53,7 +53,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		exception.Error(err)
+		logger.Error(err)
 	}
 
 	//関数内部でスタブがコールされているかを検証する．
