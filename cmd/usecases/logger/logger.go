@@ -2,8 +2,13 @@ package logger
 
 import (
 	"golang.org/x/xerrors"
+	"log"
 )
 
-func Error(err error) error {
-	return xerrors.Errorf("%w", err)
+/**
+ * エラーをロギングします．
+ */
+func ErrorLog(err error) {
+	trace := xerrors.Errorf("%w", err)
+	log.Printf("ERROR: %+v\n", trace)
 }

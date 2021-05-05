@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
 /**
@@ -127,7 +128,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		return err
+		logger.ErrorLog(err)
 	}
 
 	// リクエストメッセージを定義する．
@@ -138,7 +139,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	)
 
 	if err != nil {
-		return err
+		logger.ErrorLog(err)
 	}
 
 	// ヘッダーを定義する．
@@ -151,7 +152,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
-		return err
+		logger.ErrorLog(err)
 	}
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．

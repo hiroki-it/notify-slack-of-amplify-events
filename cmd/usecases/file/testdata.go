@@ -11,7 +11,7 @@ func ReadTestDataFile(path string) []byte {
 	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	return data

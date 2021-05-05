@@ -23,13 +23,13 @@ func HandleRequest(event events.CloudWatchEvent) {
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
@@ -39,7 +39,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -52,7 +52,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 	err = slackClient.PostMessage(message)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	log.Println("Exit")

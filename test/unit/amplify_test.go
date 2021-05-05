@@ -29,7 +29,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	err := json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	// AmplifyAPIのモックを作成する．
@@ -53,7 +53,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		logger.Error(err)
+		logger.ErrorLog(err)
 	}
 
 	//関数内部でスタブがコールされているかを検証する．

@@ -63,7 +63,7 @@ func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.Ge
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, logger.Error(err)
+		return nil, logger.ErrorLog(err)
 	}
 
 	return getBranchOutput, err
