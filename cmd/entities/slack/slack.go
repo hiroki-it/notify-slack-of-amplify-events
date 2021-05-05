@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 )
 
 /**
@@ -128,7 +128,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		exception.ThrowNew("Failed to JSON encode")
 	}
 
 	// リクエストメッセージを定義する．
@@ -139,7 +139,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		exception.ThrowNew("Failed to create new request")
 	}
 
 	// ヘッダーを定義する．
@@ -152,7 +152,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
-		logger.ErrorLog(err)
+		exception.ThrowNew("Failed to send request")
 	}
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．

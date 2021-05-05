@@ -6,7 +6,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 )
 
 /**
@@ -18,10 +18,10 @@ func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
 
 	if err != nil {
-		return nil, err
+		return nil, exception.ThrowNew("Failed to create AWS new session.")
 	}
 
-	return aws_amplify.New(sess), err
+	return aws_amplify.New(sess), nil
 }
 
 /**
@@ -63,8 +63,8 @@ func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.Ge
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, logger.ErrorLog(err)
+		return nil, exception.ThrowNew("Failed to execute GetBranch")
 	}
 
-	return getBranchOutput, err
+	return getBranchOutput, nil
 }
