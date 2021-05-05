@@ -37,7 +37,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
-	getBranchOutput, exc := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, ex := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if ex != nil {
 		logger.ErrorLog(ex)
@@ -53,7 +53,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 	ex = slackClient.PostMessage(message)
 
 	if ex != nil {
-		logger.ErrorLog(exc)
+		logger.ErrorLog(ex)
 	}
 
 	log.Println("Exit")
