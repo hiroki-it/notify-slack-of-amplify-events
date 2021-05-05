@@ -1,0 +1,18 @@
+{
+  "version": "test",
+  "id": "test",
+  "detail-type": "test",
+  "source": "aws.amplify",
+  "account": "test",
+  "time": "2021-01-01T00:00:00Z",
+  "region": "test",
+  "resources": [
+    "test"
+  ],
+  "detail": {
+    "appId":      "123456789",
+    "branchName": "feature/test",
+    "jobId":      "123456789",
+    "jobStatus":  "SUCCEED"
+  }
+}

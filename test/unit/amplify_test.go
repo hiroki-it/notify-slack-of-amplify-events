@@ -21,7 +21,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	t.Helper()
 
-	detail := file.ReadTestDataFile("./testdata/event.json")
+	detail := file.ReadTestDataFile("../testdata/request/event.json")
 
 	eventDetail := eventbridge.NewEventDetail()
 
