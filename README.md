@@ -30,8 +30,8 @@ notify-slack-of-amplify-events
 |
 └── test
     ├── mock     # モック処理
+    ├── testdata # テストデータ（JSON）
     └── unit     # ユニットテスト処理
-        └── testdata # テストデータ（JSON）
 ```
 
 ## 環境構築
