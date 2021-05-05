@@ -128,7 +128,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		exception.ThrowNew("Failed to JSON encode")
+		return exception.ThrowNew("Failed to JSON encode")
 	}
 
 	// リクエストメッセージを定義する．
@@ -139,7 +139,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	)
 
 	if err != nil {
-		exception.ThrowNew("Failed to create new request")
+		return exception.ThrowNew("Failed to create new request")
 	}
 
 	// ヘッダーを定義する．
@@ -152,7 +152,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
-		exception.ThrowNew("Failed to send request")
+		return exception.ThrowNew("Failed to send request")
 	}
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
