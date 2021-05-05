@@ -15,8 +15,8 @@ replace (
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/controllers/handler => /cmd/controllers/handler
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify => /cmd/entities/amplify
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge => /cmd/entities/eventbridge
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception => /cmd/entities/exception
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack => /cmd/entities/slack
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception => /cmd/usecases/exception
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file => /cmd/usecases/file
 	github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify => /test/mock/amplify
 )

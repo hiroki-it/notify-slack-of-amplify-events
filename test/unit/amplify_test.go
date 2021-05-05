@@ -8,7 +8,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"

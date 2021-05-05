@@ -3,7 +3,7 @@ package file
 import (
 	"io/ioutil"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 )
 
 func ReadTestDataFile(path string) ([]byte, *exception.Exception) {

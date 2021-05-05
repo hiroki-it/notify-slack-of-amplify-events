@@ -8,8 +8,8 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 

@@ -3,7 +3,7 @@ package logger
 import (
 	"log"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 )
 
 /**
