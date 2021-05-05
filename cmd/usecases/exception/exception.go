@@ -18,6 +18,13 @@ func NewException(err error) *Exception {
 /**
  * 例外をスローします．
  */
-func ThrowNew(exception string) error {
-	return errors.New(exception)
+func (exception *Exception) Throw(message string) error {
+	return errors.New(message)
+}
+
+/**
+ * スタックトレースを取得します．
+ */
+func (exception *Exception) GetTrace() error {
+	return exception.trace
 }
