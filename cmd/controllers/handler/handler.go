@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -16,7 +16,7 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(event events.CloudWatchEvent) {
+func HandleRequest(event events.CloudWatchEvent) string {
 
 	eventDetail := eventbridge.NewEventDetail()
 
@@ -25,12 +25,14 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	if err != nil {
 		logger.ErrorLog(exception.NewException(err, "Failed to parse json."))
+		return fmt.Sprintln("Failed to handle request")
 	}
 
 	amplifyApi, ex := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if ex != nil {
 		logger.ErrorLog(ex)
+		return fmt.Sprintln("Failed to handle request")
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
@@ -41,6 +43,7 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	if ex != nil {
 		logger.ErrorLog(ex)
+		return fmt.Sprintln("Failed to handle request")
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -54,7 +57,8 @@ func HandleRequest(event events.CloudWatchEvent) {
 
 	if ex != nil {
 		logger.ErrorLog(ex)
+		return fmt.Sprintln("Failed to handle request")
 	}
 
-	log.Println("Exit")
+	return fmt.Sprintln("Succeed to handle request")
 }
