@@ -9,6 +9,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
@@ -23,23 +24,23 @@ func HandleRequest(event events.CloudWatchEvent) {
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		logger.ErrorLog(exception.NewException(err, "Failed to parse json."))
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
+	amplifyApi, ex := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
-	if err != nil {
-		logger.ErrorLog(err)
+	if ex != nil {
+		logger.ErrorLog(ex)
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
 	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, exc := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
-	if err != nil {
-		logger.ErrorLog(err)
+	if ex != nil {
+		logger.ErrorLog(ex)
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -49,10 +50,10 @@ func HandleRequest(event events.CloudWatchEvent) {
 		getBranchOutput.Branch,
 	)
 
-	err = slackClient.PostMessage(message)
+	ex = slackClient.PostMessage(message)
 
-	if err != nil {
-		logger.ErrorLog(err)
+	if ex != nil {
+		logger.ErrorLog(exc)
 	}
 
 	log.Println("Exit")

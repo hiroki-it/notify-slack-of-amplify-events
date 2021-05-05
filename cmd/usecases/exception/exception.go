@@ -9,22 +9,23 @@ import (
  * コンストラクタ
  * Exceptionを作成します．
  */
-func NewException(err error) *Exception {
+func NewException(err error, message string) *Exception {
 	return &Exception{
-		trace: xerrors.Errorf("%w", err),
+		message:    errors.New(message),
+		stackTrace: xerrors.Errorf("%w", err),
 	}
 }
 
 /**
- * 例外をスローします．
+ * 例外メッセージを取得します．
  */
-func (exception *Exception) Throw(message string) error {
-	return errors.New(message)
+func (exception *Exception) GetMessage() error {
+	return exception.message
 }
 
 /**
  * スタックトレースを取得します．
  */
-func (exception *Exception) GetTrace() error {
-	return exception.trace
+func (exception *Exception) GetStackTrace() error {
+	return exception.stackTrace
 }

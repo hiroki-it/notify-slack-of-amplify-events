@@ -122,13 +122,13 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, bra
 /**
  * メッセージを送信します．
  */
-func (client SlackClient) PostMessage(message Message) error {
+func (client SlackClient) PostMessage(message Message) *exception.Exception {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
 
 	if err != nil {
-		return exception.NewException(err).Throw("Failed to JSON encode")
+		return exception.NewException(err, "Failed to JSON encode.")
 	}
 
 	// リクエストメッセージを定義する．
@@ -139,7 +139,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	)
 
 	if err != nil {
-		return exception.NewException(err).Throw("Failed to create new request")
+		return exception.NewException(err, "Failed to create new request.")
 	}
 
 	// ヘッダーを定義する．
@@ -152,7 +152,7 @@ func (client SlackClient) PostMessage(message Message) error {
 	response, err := httpClient.Do(request)
 
 	if err != nil || response.StatusCode != 200 {
-		return exception.NewException(err).Throw("Failed to send request")
+		return exception.NewException(err, "Failed to send request.")
 	}
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．

@@ -3,16 +3,16 @@ package file
 import (
 	"io/ioutil"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
 )
 
-func ReadTestDataFile(path string) []byte {
+func ReadTestDataFile(path string) ([]byte, *exception.Exception) {
 
 	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		return nil, exception.NewException(err, "Failed to read test data file.")
 	}
 
-	return data
+	return data, nil
 }

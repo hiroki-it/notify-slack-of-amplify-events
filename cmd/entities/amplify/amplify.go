@@ -13,12 +13,12 @@ import (
  * コンストラクタ
  * AmplifyAPIを作成します．
  */
-func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
+func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, *exception.Exception) {
 
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
 
 	if err != nil {
-		return nil, exception.NewException(err).Throw("Failed to create AWS new session.")
+		return nil, exception.NewException(err, "Failed to create AWS new session.")
 	}
 
 	return aws_amplify.New(sess), nil
@@ -57,13 +57,13 @@ func (client *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.Event
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
+func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, *exception.Exception) {
 
 	// ブランチ情報を構造体として取得します．
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, exception.NewException(err).Throw("Failed to execute GetBranch")
+		return nil, exception.NewException(err, "Failed to execute GetBranch.")
 	}
 
 	return getBranchOutput, nil
