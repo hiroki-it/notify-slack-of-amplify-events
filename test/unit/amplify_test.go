@@ -8,7 +8,6 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
@@ -22,19 +21,19 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	t.Helper()
 
-	detail, ex := file.ReadTestDataFile("../testdata/request/event.json")
+	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
 
-	if ex != nil {
-		logger.ErrorLog(ex)
+	if err != nil {
+		logger.ErrorLog(err)
 	}
 
 	eventDetail := eventbridge.NewEventDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal(detail, eventDetail)
+	err = json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
-		logger.ErrorLog(exception.NewException(err, "Failed to parse json."))
+		logger.ErrorLog(err)
 	}
 
 	// AmplifyAPIのモックを作成する．
@@ -55,10 +54,10 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	getBranchOutput, ex := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
-	if ex != nil {
-		logger.ErrorLog(ex)
+	if err != nil {
+		logger.ErrorLog(err)
 	}
 
 	//関数内部でスタブがコールされているかを検証する．

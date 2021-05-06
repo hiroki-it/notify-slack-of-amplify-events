@@ -6,19 +6,18 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 )
 
 /**
  * コンストラクタ
  * AmplifyAPIを作成します．
  */
-func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, *exception.Exception) {
+func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
 
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
 
 	if err != nil {
-		return nil, exception.NewException(err, "Failed to create AWS new session.")
+		return nil, err
 	}
 
 	return aws_amplify.New(sess), nil
@@ -57,13 +56,13 @@ func (client *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.Event
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, *exception.Exception) {
+func (client *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
 
 	// ブランチ情報を構造体として取得します．
 	getBranchOutput, err := client.api.GetBranch(getBranchInput)
 
 	if err != nil {
-		return nil, exception.NewException(err, "Failed to execute GetBranch.")
+		return nil, err
 	}
 
 	return getBranchOutput, nil

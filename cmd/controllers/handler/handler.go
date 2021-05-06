@@ -8,7 +8,6 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
@@ -24,14 +23,14 @@ func HandleRequest(event events.CloudWatchEvent) string {
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		logger.ErrorLog(exception.NewException(err, "Failed to parse json."))
+		logger.ErrorLog(err)
 		return fmt.Sprintln("Failed to handle request")
 	}
 
-	amplifyApi, ex := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
-	if ex != nil {
-		logger.ErrorLog(ex)
+	if err != nil {
+		logger.ErrorLog(err)
 		return fmt.Sprintln("Failed to handle request")
 	}
 
@@ -39,10 +38,10 @@ func HandleRequest(event events.CloudWatchEvent) string {
 
 	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
-	getBranchOutput, ex := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
-	if ex != nil {
-		logger.ErrorLog(ex)
+	if err != nil {
+		logger.ErrorLog(err)
 		return fmt.Sprintln("Failed to handle request")
 	}
 
@@ -53,10 +52,10 @@ func HandleRequest(event events.CloudWatchEvent) string {
 		getBranchOutput.Branch,
 	)
 
-	ex = slackClient.PostMessage(message)
+	err = slackClient.PostMessage(message)
 
-	if ex != nil {
-		logger.ErrorLog(ex)
+	if err != nil {
+		logger.ErrorLog(err)
 		return fmt.Sprintln("Failed to handle request")
 	}
 
