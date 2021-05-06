@@ -1,18 +1,13 @@
 package logger
 
 import (
-	"log"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/exception"
+	"go.uber.org/zap"
 )
 
 /**
  * エラーをロギングします．
  */
-func ErrorLog(exception *exception.Exception) {
-	log.Printf(
-		"ERROR: %s %+v\n",
-		exception.GetMessage(),
-		exception.GetStackTrace(),
-	)
+func ErrorLog(err error) {
+	logger, _ := zap.NewDevelopment()
+	logger.Error(err.Error())
 }
