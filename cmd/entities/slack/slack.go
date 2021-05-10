@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -157,8 +156,6 @@ func (client SlackClient) PostMessage(message Message) error {
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
 	defer response.Body.Close()
-
-	log.Printf("INFO: %#v\n", response)
 
 	return nil
 }
