@@ -5,7 +5,8 @@ import (
 )
 
 /**
- * エラーをロギングします．
+ * コンストラクタ
+ * zap.Loggerを作成します．
  */
 func NewLogger() *zap.Logger {
 	logger, _ := zap.NewDevelopment()
