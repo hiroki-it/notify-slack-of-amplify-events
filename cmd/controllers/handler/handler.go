@@ -17,20 +17,22 @@ import (
  */
 func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
+	log := logger.NewLogger()
+
 	eventDetail := eventbridge.NewEventDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 		return fmt.Sprintln("Failed to handle request"), err
 	}
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 		return fmt.Sprintln("Failed to handle request"), err
 	}
 
@@ -41,7 +43,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 		return fmt.Sprintln("Failed to handle request"), err
 	}
 
@@ -55,7 +57,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 	err = slackClient.PostMessage(message)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 		return fmt.Sprintln("Failed to handle request"), err
 	}
 

@@ -21,10 +21,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	t.Helper()
 
+	log := logger.NewLogger()
+
 	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 	}
 
 	eventDetail := eventbridge.NewEventDetail()
@@ -33,7 +35,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	err = json.Unmarshal(detail, eventDetail)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 	}
 
 	// AmplifyAPIのモックを作成する．
@@ -57,7 +59,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		logger.ErrorLog(err)
+		log.Error(err.Error())
 	}
 
 	//関数内部でスタブがコールされているかを検証する．

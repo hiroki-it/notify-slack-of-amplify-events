@@ -7,7 +7,7 @@ import (
 /**
  * エラーをロギングします．
  */
-func ErrorLog(err error) {
+func NewLogger() *zap.Logger {
 	logger, _ := zap.NewDevelopment()
-	logger.Error(err.Error())
+	return logger
 }
