@@ -15,7 +15,7 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(event events.CloudWatchEvent) string {
+func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	eventDetail := eventbridge.NewEventDetail()
 
@@ -24,14 +24,14 @@ func HandleRequest(event events.CloudWatchEvent) string {
 
 	if err != nil {
 		logger.ErrorLog(err)
-		return fmt.Sprintln("Failed to handle request")
+		return fmt.Sprintln("Failed to handle request"), err
 	}
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
 		logger.ErrorLog(err)
-		return fmt.Sprintln("Failed to handle request")
+		return fmt.Sprintln("Failed to handle request"), err
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
@@ -42,7 +42,7 @@ func HandleRequest(event events.CloudWatchEvent) string {
 
 	if err != nil {
 		logger.ErrorLog(err)
-		return fmt.Sprintln("Failed to handle request")
+		return fmt.Sprintln("Failed to handle request"), err
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -56,8 +56,8 @@ func HandleRequest(event events.CloudWatchEvent) string {
 
 	if err != nil {
 		logger.ErrorLog(err)
-		return fmt.Sprintln("Failed to handle request")
+		return fmt.Sprintln("Failed to handle request"), err
 	}
 
-	return fmt.Sprintln("Succeed to handle request")
+	return fmt.Sprintln("Succeed to handle request"), nil
 }
