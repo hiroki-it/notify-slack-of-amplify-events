@@ -161,7 +161,7 @@ func (client *SlackClient) PostMessage(message Message) error {
 
 	body, _ := ioutil.ReadAll(response.Body)
 
-	logger.NewLogger().Info(string(body))
+	log.Info(string(body))
 
 	return nil
 }
