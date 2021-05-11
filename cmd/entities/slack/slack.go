@@ -4,12 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
 /**
@@ -156,6 +158,10 @@ func (client SlackClient) PostMessage(message Message) error {
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
 	defer response.Body.Close()
+
+	body, _ := ioutil.ReadAll(response.Body)
+
+	logger.NewLogger().Info(string(body))
 
 	return nil
 }
