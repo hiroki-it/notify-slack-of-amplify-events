@@ -105,7 +105,7 @@ func (client *SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, br
 									os.Getenv("AWS_REGION"),
 									os.Getenv("AWS_REGION"),
 									eventDetail.AppId,
-									eventDetail.BranchName,
+									aws.StringValue(branch.DisplayName),
 									eventDetail.JobId,
 								),
 							},
