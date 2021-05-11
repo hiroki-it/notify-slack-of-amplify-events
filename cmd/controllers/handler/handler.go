@@ -26,14 +26,14 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprintln("Failed to handle request"), err
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprintln("Failed to handle request"), err
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
@@ -44,7 +44,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprintln("Failed to handle request"), err
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
 	slackClient := slack.NewSlackClient()
@@ -58,8 +58,8 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprintln("Failed to handle request"), err
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	return fmt.Sprintln("Succeed to handle request"), nil
+	return fmt.Sprint("Succeed to handle request"), nil
 }
