@@ -131,6 +131,10 @@ func (client *SlackClient) PostMessage(message Message) error {
 	if err != nil {
 		return err
 	}
+	
+	log := logger.NewLogger()
+
+	log.Info(string(json))
 
 	// リクエストメッセージを定義する．
 	request, err := http.NewRequest(
