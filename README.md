@@ -116,3 +116,11 @@ $ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 ```
+
+## RIEにソースコードを再反映
+
+LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
+
+```sh
+$ docker-compose up --build -d
+```
