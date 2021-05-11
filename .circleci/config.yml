@@ -32,10 +32,10 @@ jobs:
           command: |
             docker-compose config
       - run:
-          name: Build image & Create container
+          name: Build image & Go env
           command: |
             set -xe
-            docker-compose up --build -d
+            docker-compose build
             docker-compose run --rm  notify-slack-of-amplify-events go env
       - run:
           name: Go mod download
