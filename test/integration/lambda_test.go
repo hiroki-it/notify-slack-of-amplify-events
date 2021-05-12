@@ -24,11 +24,15 @@ func TestLambda(t *testing.T) {
 	}
 
 	// リクエストを作成する．
-	request, _ := http.NewRequest(
+	request, err := http.NewRequest(
 		"POST",
 		"http://lambda:9000/2015-03-31/functions/function/invocations",
 		bytes.NewBuffer(detail),
 	)
+
+	if err != nil {
+		log.Error(err.Error())
+	}
 
 	// クライアントを作成する．
 	client := &http.Client{}
