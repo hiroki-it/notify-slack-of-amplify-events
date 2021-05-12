@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Go test 
           command: |
-           docker-compose up -d lambda
+           docker-compose start lambda
            docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 
 workflows:
