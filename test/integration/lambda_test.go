@@ -2,6 +2,7 @@ package unit
 
 import (
 	"bytes"
+	"fmt"
 	"net/http"
 	"os"
 	"testing"
@@ -27,7 +28,7 @@ func TestLambda(t *testing.T) {
 	// リクエストを作成する．
 	request, err := http.NewRequest(
 		"POST",
-		os.Getenv("LAMBDA_ENDPOINT"),
+		fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
 		bytes.NewBuffer(detail),
 	)
 
