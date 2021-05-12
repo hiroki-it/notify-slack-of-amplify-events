@@ -49,10 +49,10 @@ jobs:
           name: Go vet
           command: |
             docker-compose run --rm  notify-slack-of-amplify-events go vet ./...
-#      - run:
-#          name: Go test
-#          command: |
-#           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+      - run:
+          name: Go test 
+          command: |
+           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 
 workflows:
 
