@@ -97,7 +97,9 @@ $ docker-compose exec notify-slack-of-amplify-events go mod download -x
 $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```
 
-## ホットリロード
+## リロード
+
+### ホットリロード
 
 ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
 
@@ -117,10 +119,20 @@ $ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 ```
 
-## RIEにソースコードを再反映
+### RIEにソースコードを再反映
 
 LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
 
 ```sh
 $ docker-compose up --build -d
+```
+
+## テスト
+
+### 統合テスト
+
+Lambdaサービスにリクエストを送信し，一連の処理をテストします．
+
+```sh
+$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 ```
