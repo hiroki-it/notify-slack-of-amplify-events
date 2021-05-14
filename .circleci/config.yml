@@ -10,6 +10,22 @@ commands:
       - slack/notify:
           template: basic_fail_1
           event: fail
+  
+  # go.sumファイルを復元します．
+  restore_modules:
+    steps:
+      - restore_cache:
+          keys:
+            - go-modules-{{ checksum "go.sum" }}
+            - go-modules-
+
+  # 最新のgo.sumを保存します．
+  save_modules:
+    steps:
+      - save_cache:
+          key: go-modules-{{ checksum "go.sum" }}
+          paths:
+            - /go/pkg/mod
 
 jobs:
   build_and_test:
@@ -49,10 +65,12 @@ jobs:
             set -xe
             docker-compose up -d
             docker-compose run --rm  notify-slack-of-amplify-events go env
+      - restore_modules
       - run:
           name: Go mod download
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go mod download -x
+      - save_modules
       - run:
           name: Go fmt
           command: |
