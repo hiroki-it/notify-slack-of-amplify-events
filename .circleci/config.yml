@@ -22,7 +22,8 @@ jobs:
           command: |
             cp .env.docker.example .env.docker
       - run:
-          name: Make env file # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにする．
+          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
+          name: Make env file
           command: |
             echo "APP_ENV=$APP_ENV" > .env.app
             echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
@@ -32,7 +33,8 @@ jobs:
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
-          name: Install Lambda RIE # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+          # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+          name: Install Lambda RIE
           command: |
             mkdir -p ~/.aws-lambda-rie
             curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
