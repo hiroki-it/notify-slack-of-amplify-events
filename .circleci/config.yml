@@ -22,9 +22,15 @@ jobs:
           command: |
             cp .env.docker.example .env.docker
       - run:
-          name: Copy env file
+          name: Make env file # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにする．
           command: |
-            cp .env.example .env
+            echo "APP_ENV=$APP_ENV" > .env.app
+            echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
+            echo "AWS_REGION=$AWS_REGION" >> .env.app
+            echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.app
+            echo "LAMBDA_HOST=$LAMBDA_HOST" >> .env.app
+            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
+            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
           name: Install Lambda RIE # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
           command: |
