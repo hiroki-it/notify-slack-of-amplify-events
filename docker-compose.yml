@@ -9,8 +9,9 @@ services:
       dockerfile: ./build/Dockerfile
       target: ${APP_ENV}
     container_name: notify-slack-of-amplify-events
-    env_file:
-      - .env
+    env_file:   
+      - .env.app
+      - .env.docker 
     image: notify-slack-of-amplify-events:latest
     networks:
       - default
@@ -28,7 +29,8 @@ services:
     container_name: lambda
     entrypoint: /aws-lambda/aws-lambda-rie
     env_file:
-      - .env
+      - .env.app
+      - .env.docker 
     image: notify-slack-of-amplify-events:latest
     networks:
       - default

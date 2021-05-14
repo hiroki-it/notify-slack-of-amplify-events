@@ -4,5 +4,6 @@
 
 # ファイル
 .docker.env
-.env
+.env.app
+.end.docker
 .air.toml
