@@ -123,17 +123,25 @@ $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 
 LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
 
-```sh
+```shell
 $ docker-compose up --build -d
 ```
 
 ## テスト
 
+### ユニットテスト
+
+Goサービスのユニットテストを実行します．
+
+```shell
+$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+```
+
 ### 統合テスト
 
-Lambdaサービスにリクエストを送信し，一連の処理をテストします．
+GoサービスからLambdaサービスにPOSTリクエストを送信し，一連の処理をテストします．
 
-```sh
+```shell
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 ```
 
