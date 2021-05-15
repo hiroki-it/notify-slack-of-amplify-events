@@ -10,7 +10,8 @@ import (
  * AmplifyClientインターフェースを構成します．
  */
 type AmplifyClientInterface interface {
-	GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error)
+	CreateGetBranchInput(*eventbridge.EventDetail) *aws_amplify.GetBranchInput
+	GetBranchFromAmplify(*eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error)
 }
 
 /**
@@ -18,5 +19,5 @@ type AmplifyClientInterface interface {
  */
 type AmplifyClient struct {
 	AmplifyClientInterface
-	Api amplifyiface.AmplifyAPI
+	api amplifyiface.AmplifyAPI
 }

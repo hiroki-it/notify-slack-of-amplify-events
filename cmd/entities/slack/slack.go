@@ -4,10 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
 /**
@@ -15,13 +19,13 @@ import (
  * SlackClientを作成します．
  */
 func NewSlackClient() *SlackClient {
-	return new(SlackClient)
+	return &SlackClient{}
 }
 
 /**
  * Slackに送信するメッセージを構成します．
  */
-func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amplifyBranch *AmplifyBranch) Message {
+func (client *SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch) Message {
 
 	status, color := client.jobStatusMessage(eventDetail.JobStatus)
 
@@ -85,7 +89,7 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amp
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
-									amplifyBranch.DisplayName,
+									aws.StringValue(branch.DisplayName),
 									eventDetail.AppId,
 								),
 							},
@@ -98,10 +102,10 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amp
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
-									os.Getenv("AWS_AMPLIFY_REGION"),
-									os.Getenv("AWS_AMPLIFY_REGION"),
+									os.Getenv("AWS_REGION"),
+									os.Getenv("AWS_REGION"),
 									eventDetail.AppId,
-									eventDetail.BranchName,
+									aws.StringValue(branch.DisplayName),
 									eventDetail.JobId,
 								),
 							},
@@ -117,21 +121,9 @@ func (client SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, amp
 }
 
 /**
- * ジョブ状態を表現するメッセージを返却します．
- */
-func (client SlackClient) jobStatusMessage(jobStatus string) (string, string) {
-
-	if jobStatus == "SUCCEED" {
-		return "成功", "#00FF00"
-	}
-
-	return "失敗", "#ff0000"
-}
-
-/**
  * メッセージを送信します．
  */
-func (client SlackClient) PostMessage(message Message) error {
+func (client *SlackClient) PostMessage(message Message) error {
 
 	// マッピングを元に，構造体をJSONに変換する．
 	json, err := json.Marshal(message)
@@ -139,6 +131,10 @@ func (client SlackClient) PostMessage(message Message) error {
 	if err != nil {
 		return err
 	}
+
+	log := logger.NewLogger()
+
+	log.Info(string(json))
 
 	// リクエストメッセージを定義する．
 	request, err := http.NewRequest(
@@ -167,7 +163,21 @@ func (client SlackClient) PostMessage(message Message) error {
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
 	defer response.Body.Close()
 
-	fmt.Printf("Success: %#v\n", response)
+	body, _ := ioutil.ReadAll(response.Body)
+
+	log.Info(string(body))
 
 	return nil
+}
+
+/**
+ * ジョブ状態を表現するメッセージを返却します．
+ */
+func (client *SlackClient) jobStatusMessage(jobStatus string) (string, string) {
+
+	if jobStatus == "SUCCEED" {
+		return "成功", "#00FF00"
+	}
+
+	return "失敗", "#ff0000"
 }

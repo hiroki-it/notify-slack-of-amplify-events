@@ -1,0 +1,17 @@
+{
+  "detail": {
+    "appId": [
+      "d3usjhdvdh3j7u"
+    ],
+    "jobStatus": [
+      "SUCCEED",
+      "FAILED"
+    ]
+  },
+  "detail-type": [
+    "Amplify Deployment Status Change"
+  ],
+  "source": [
+    "aws.amplify"
+  ]
+}

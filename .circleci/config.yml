@@ -10,6 +10,22 @@ commands:
       - slack/notify:
           template: basic_fail_1
           event: fail
+  
+  # go.sumファイルを復元します．
+  restore_modules:
+    steps:
+      - restore_cache:
+          keys:
+            - go-modules-{{ checksum "go.sum" }}
+            - go-modules-
+
+  # 最新のgo.sumを保存します．
+  save_modules:
+    steps:
+      - save_cache:
+          key: go-modules-{{ checksum "go.sum" }}
+          paths:
+            - /go/pkg/mod
 
 jobs:
   build_and_test:
@@ -20,28 +36,41 @@ jobs:
       - run:
           name: Copy env file
           command: |
-            cp .env.example .env
-            cp .docker.env.example .docker.env
+            cp .env.docker.example .env.docker
       - run:
-          name: Install Lambda RIE # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
+          name: Make env file
+          command: |
+            echo "APP_ENV=$APP_ENV" > .env.app
+            echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
+            echo "AWS_REGION=$AWS_REGION" >> .env.app
+            echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.app
+            echo "LAMBDA_HOST=$LAMBDA_HOST" >> .env.app
+            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
+            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
+      - run:
+          # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
+          name: Install lambda RIE
           command: |
             mkdir -p ~/.aws-lambda-rie
             curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
             chmod +x ~/.aws-lambda-rie/aws-lambda-rie
       - run:
-          name: Validate docker-compose.yml
+          name: Docker compose config
           command: |
             docker-compose config
       - run:
-          name: Build image & Create container
+          name: Docker compose up & Go env
           command: |
             set -xe
-            docker-compose up --build -d
+            docker-compose up -d
             docker-compose run --rm  notify-slack-of-amplify-events go env
+      - restore_modules
       - run:
           name: Go mod download
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go mod download -x
+      - save_modules
       - run:
           name: Go fmt
           command: |
@@ -50,10 +79,10 @@ jobs:
           name: Go vet
           command: |
             docker-compose run --rm  notify-slack-of-amplify-events go vet ./...
-#      - run:
-#          name: Go test
-#          command: |
-#           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./...
+      - run:
+          name: Go test 
+          command: |
+           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
 
 workflows:
 

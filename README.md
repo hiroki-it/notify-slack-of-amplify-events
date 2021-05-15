@@ -22,16 +22,16 @@ cmdディレクトリの構成は，クリーンアーキテクチャを参考�
 
 ```
 notify-slack-of-amplify-events
-├── build # ビルド処理
-├── cmd # エントリポイントを含む処理
+├── build   # ビルド処理
+├── cmd     # エントリポイントを含む処理
 |   ├── controllers # コントローラ
-|   ├── entities # エンティティ
-|   └── usecases # ユースケース
+|   ├── entities    # エンティティ
+|   └── usecases    # ユースケース
 |
-├── configs # セットアップ処理
 └── test
-    ├── mock # モック処理
-    └── unit # ユニットテスト処理
+    ├── mock     # モック処理
+    ├── testdata # テストデータ（JSON）
+    └── unit     # ユニットテスト処理
 ```
 
 ## 環境構築
@@ -97,7 +97,9 @@ $ docker-compose exec notify-slack-of-amplify-events go mod download -x
 $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```
 
-## ホットリロード
+## リロード
+
+### ホットリロード
 
 ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
 
@@ -116,3 +118,26 @@ $ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 ```
+
+### RIEにソースコードを再反映
+
+LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
+
+```sh
+$ docker-compose up --build -d
+```
+
+## テスト
+
+### 統合テスト
+
+Lambdaサービスにリクエストを送信し，一連の処理をテストします．
+
+```sh
+$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
+```
+
+## デプロイ
+
+デプロイには，[Serverless Framework](https://github.com/serverless/serverless) を使用します．
+

@@ -6,56 +6,60 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/exception"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/configs"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 )
 
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(event events.CloudWatchEvent) string {
+func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
-	config.LoadConfig()
+	log := logger.NewLogger()
 
-	var eventDetail *eventbridge.EventDetail
+	eventDetail := eventbridge.NewEventDetail()
 
-	// eventbridgeから転送されたイベントをマッピングします．
+	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(event.Detail), eventDetail)
 
 	if err != nil {
-		return exception.Error(err)
+		log.Error(err.Error())
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_LAMBDA_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
-		return exception.Error(err)
+		log.Error(err.Error())
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	response, err := amplifyClient.GetBranchFromAmplify(eventDetail)
+	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
+
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
 
 	if err != nil {
-		return exception.Error(err)
+		log.Error(err.Error())
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
 	slackClient := slack.NewSlackClient()
 
 	message := slackClient.BuildMessage(
 		eventDetail,
-		&slack.AmplifyBranch{DisplayName: aws.StringValue(response.Branch.DisplayName)},
+		getBranchOutput.Branch,
 	)
 
 	err = slackClient.PostMessage(message)
 
 	if err != nil {
-		return exception.Error(err)
+		log.Error(err.Error())
+		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	return fmt.Sprintln("Exit")
+	return fmt.Sprint("Succeed to handle request"), nil
 }

@@ -1,46 +1,70 @@
 package unit
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
 	"github.com/stretchr/testify/assert"
 )
 
 /**
- * 関数をテストします．
+ * GetBranchFromAmplifyメソッドをテストします．
  */
 func TestGetBranchFromAmplify(t *testing.T) {
 
-	input := aws_amplify.GetBranchInput{
-		AppId:      aws.String("123456789"),
-		BranchName: aws.String("feature/test"),
+	t.Helper()
+
+	log := logger.NewLogger()
+
+	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
+
+	if err != nil {
+		log.Error(err.Error())
 	}
 
-	mockedAPI := new(m_amplify.MockedAmplifyAPI)
+	eventDetail := eventbridge.NewEventDetail()
+
+	// eventbridgeから転送されたJSONを構造体にマッピングします．
+	err = json.Unmarshal(detail, eventDetail)
+
+	if err != nil {
+		log.Error(err.Error())
+	}
+
+	// AmplifyAPIのモックを作成する．
+	mockedAPI := &m_amplify.MockedAmplifyAPI{}
+
+	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
+
+	getBranchInput := amplifyClient.CreateGetBranchInput(eventDetail)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
-	mockedAPI.On("GetBranch", &input).Return(Branch{DisplayName: aws.String("feature-test")}, nil)
-
-	client := amplify.NewAmplifyClient(mockedAPI)
-
-	eventDetail := &eventbridge.EventDetail{
-		AppId:      "123456789",
-		BranchName: "feature/test",
-		JobId:      "123456789",
-		JobStatus:  "SUCCEED",
-	}
+	mockedAPI.On("GetBranch", getBranchInput).Return(
+		&aws_amplify.GetBranchOutput{
+			Branch: &aws_amplify.Branch{
+				DisplayName: aws.String("feature-test"),
+			},
+		},
+		nil,
+	)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	response, _ := client.GetBranchFromAmplify(eventDetail)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
+
+	if err != nil {
+		log.Error(err.Error())
+	}
 
 	//関数内部でスタブがコールされているかを検証する．
 	mockedAPI.AssertExpectations(t)
 
 	// 最終的な返却値が正しいかを検証する．
-	assert.Exactly(t, aws.String("feature-test"), response.Branch.DisplayName)
+	assert.Exactly(t, aws.String("feature-test"), getBranchOutput.Branch.DisplayName)
 }
