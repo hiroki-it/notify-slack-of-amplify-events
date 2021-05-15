@@ -50,17 +50,17 @@ jobs:
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
           # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
-          name: Install Lambda RIE
+          name: Install lambda RIE
           command: |
             mkdir -p ~/.aws-lambda-rie
             curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
             chmod +x ~/.aws-lambda-rie/aws-lambda-rie
       - run:
-          name: Validate docker-compose.yml
+          name: Docker compose config
           command: |
             docker-compose config
       - run:
-          name: Build image & Go env
+          name: Docker compose up & Go env
           command: |
             set -xe
             docker-compose up -d
