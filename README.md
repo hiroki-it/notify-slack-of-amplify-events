@@ -136,3 +136,8 @@ Lambdaサービスにリクエストを送信し，一連の処理をテスト�
 ```sh
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 ```
+
+## デプロイ
+
+デプロイには，[Serverless Framework](https://github.com/serverless/serverless) を使用します．
+
