@@ -23,7 +23,7 @@ functions:
     description: The function that notify slack of amplify events
     events:
       - eventBridge:
-          pattern: ${file(./templates/events/amplify_event.json)}      
+          pattern: ${file(./serverless_configs/events/amplify_event.json)}      
     lambdaHashingVersion: 20201221
     maximumRetryAttempts: 1
     memorySize: 512    
@@ -39,11 +39,11 @@ resources:
       Properties:
         RoleName: ${self:custom.env}-${self:custom.service}-lambda-role
         Description: The role for ${self:custom.env}-${self:custom.service}-lambda
-        AssumeRolePolicyDocument: ${file(./templates/policies/trust_policies/lambda_policy.json)}
+        AssumeRolePolicyDocument: ${file(./serverless_configs/policies/trust_policies/lambda_policy.json)}
         # インラインポリシー
         Policies:
           - PolicyName: ${self:custom.env}-${self:custom.service}-lambda-execution-policy
-            PolicyDocument: ${file(./templates/policies/custom_managed_policies/lambda_execution_policy.json)}
+            PolicyDocument: ${file(./serverless_configs/policies/custom_managed_policies/lambda_execution_policy.json)}
         # 管理ポリシー
         ManagedPolicyArns:
           - arn:aws:iam::aws:policy/AWSLambdaExecute    
