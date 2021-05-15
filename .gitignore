@@ -1,6 +1,7 @@
 # ディレクトリ
 **/.idea
 **/air_tmp
+**/.serverless
 
 # ファイル
 .docker.env
