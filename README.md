@@ -63,7 +63,7 @@ Dockerfileからイメージをビルドし，コンテナを構築します．
 イメージのビルドにおいては，マルチステージビルドを採用しております．
 
 ```shell
-$ docker-compose run --rm notify-slack-of-amplify-event
+$ docker-compose run -d --rm notify-slack-of-amplify-event
 ````
 
 ### 4. モジュールのインストール
@@ -83,14 +83,6 @@ $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
 
 ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
-
-```shell
-$ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
-```
-
-停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
-
-また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
 
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
