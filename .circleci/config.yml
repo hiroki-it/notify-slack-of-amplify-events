@@ -71,7 +71,7 @@ jobs:
           name: Docker compose run & Go env
           command: |
             set -xe
-            docker-compose run --rm notify-slack-of-amplify-events
+            docker-compose run -d --rm notify-slack-of-amplify-events
             docker-compose run --rm notify-slack-of-amplify-events go env
       - restore_modules
       - run:
