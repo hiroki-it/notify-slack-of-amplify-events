@@ -4,6 +4,7 @@ orbs:
   slack: circleci/slack@4.3.1
 
 commands:
+  
   # envファイルを準備します．
   setup_env_file:
     steps:
@@ -23,13 +24,6 @@ commands:
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
   
-  # 失敗をSlackに通知します．
-  notify_of_failure:
-    steps:
-      - slack/notify:
-          template: basic_fail_1
-          event: fail
-  
   # go.sumファイルを復元します．
   restore_modules:
     steps:
@@ -45,6 +39,13 @@ commands:
           key: go-modules-{{ checksum "go.sum" }}
           paths:
             - /go/pkg/mod
+
+  # 失敗をSlackに通知します．
+  notify_of_failure:
+    steps:
+      - slack/notify:
+          template: basic_fail_1
+          event: fail
 
 jobs:
   build_and_test:
