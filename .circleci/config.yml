@@ -4,9 +4,9 @@ orbs:
   slack: circleci/slack@4.3.1
 
 commands:
-  
-  # envファイルを準備します．
-  setup_env_file:
+
+  # 環境変数を準備します．
+  setup_env:
     steps:
       - run:
           name: Copy env file
@@ -17,10 +17,14 @@ commands:
           name: Make env file
           command: |
             echo "APP_ENV=$APP_ENV" > .env.app
-            echo "AWS_AMPLIFY_REGION=AWS_AMPLIFY_REGION" >> .env.app
+            echo "AWS_AMPLIFY_REGION=$AWS_AMPLIFY_REGION" >> .env.app
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
-  
+      - run:
+          name: Export AWS credentials
+          command: |
+            source ./ops/export_aws_credentials.sh
+
   # go.sumファイルを復元します．
   restore_modules:
     steps:
@@ -48,9 +52,15 @@ jobs:
   build_and_test:
     machine:
       image: ubuntu-1604:201903-01
+    parameters:
+      env:
+        type: enum
+        enum: [ "stg", "prd" ]
+    environment:
+      APP_ENV: << parameters.env >>
     steps:
       - checkout
-      - setup_env_file
+      - setup_env
       - run:
           name: Docker compose config
           command: |
@@ -85,7 +95,8 @@ workflows:
   develop:
     jobs:
       - build_and_test:
-          name: build_and_test_dev
+          name: build_and_test_stg
+          env: stg
           filters:
             branches:
               only: develop
@@ -94,6 +105,7 @@ workflows:
     jobs:
       - build_and_test:
           name: build_and_test_prd
+          env: prd
           post-steps:
             - notify_of_failure
           filters:
