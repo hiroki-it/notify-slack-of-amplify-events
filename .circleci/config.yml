@@ -49,22 +49,15 @@ jobs:
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
-          # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
-          name: Install lambda RIE
-          command: |
-            mkdir -p ~/.aws-lambda-rie
-            curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
-            chmod +x ~/.aws-lambda-rie/aws-lambda-rie
-      - run:
           name: Docker compose config
           command: |
             docker-compose config
       - run:
-          name: Docker compose up & Go env
+          name: Docker compose run & Go env
           command: |
             set -xe
-            docker-compose up -d
-            docker-compose run --rm  notify-slack-of-amplify-events go env
+            docker-compose run --rm notify-slack-of-amplify-events
+            docker-compose run --rm notify-slack-of-amplify-events go env
       - restore_modules
       - run:
           name: Go mod download
