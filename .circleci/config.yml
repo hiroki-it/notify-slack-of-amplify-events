@@ -4,6 +4,25 @@ orbs:
   slack: circleci/slack@4.3.1
 
 commands:
+  # envファイルを準備します．
+  setup_env_file:
+    steps:
+      - run:
+          name: Copy env file
+          command: |
+            cp .env.docker.example .env.docker
+      - run:
+          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
+          name: Make env file
+          command: |
+            echo "APP_ENV=$APP_ENV" > .env.app
+            echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
+            echo "AWS_REGION=$AWS_REGION" >> .env.app
+            echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.app
+            echo "LAMBDA_HOST=$LAMBDA_HOST" >> .env.app
+            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
+            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
+  
   # 失敗をSlackに通知します．
   notify_of_failure:
     steps:
@@ -33,21 +52,7 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run:
-          name: Copy env file
-          command: |
-            cp .env.docker.example .env.docker
-      - run:
-          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
-          name: Make env file
-          command: |
-            echo "APP_ENV=$APP_ENV" > .env.app
-            echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
-            echo "AWS_REGION=$AWS_REGION" >> .env.app
-            echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.app
-            echo "LAMBDA_HOST=$LAMBDA_HOST" >> .env.app
-            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
-            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
+      - setup_env_file
       - run:
           name: Docker compose config
           command: |
