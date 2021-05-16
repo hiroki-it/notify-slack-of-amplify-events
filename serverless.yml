@@ -13,6 +13,7 @@ provider:
   stage: ${self:custom.env}
 
 package:
+  # デプロイ対象のパッケージ
   patterns:
     - ./bin/**
 
