@@ -38,7 +38,9 @@ notify-slack-of-amplify-events
 
 ### 1. RIEのインストール
 
-Lambdaをローカルで擬似的に再現するために，RIEをインストールする必要があります．
+ローカルで統合テストを行うために，RIEをインストールする必要があります．
+
+RIEにより，ローカルで擬似的にLambdaを再現できます．
 
 いくつか方法が用意されており，Goソースコードの再利用性の観点から，ホストPCにRIEをインストールする方法を採用いたしました．
 
@@ -58,40 +60,15 @@ https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
 Dockerfileからイメージをビルドし，コンテナを構築します．
 
-イメージにおいては，マルチステージビルドを採用しております．
-
-デタッチモードを使用して起動します．
+イメージのビルドにおいては，マルチステージビルドを採用しております．
 
 ```shell
-$ docker-compose up -d
+$ docker-compose run --rm notify-slack-of-amplify-event
 ````
-
-### 3. 起動
-
-コンテナを起動します．また，起動時に```shell```を実行し，コンテナに接続します．
-
-また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
-
-```shell
-$ docker-compose run --rm  notify-slack-of-amplify-events sh
-
-# 接続中です．
-/go/src $
-# 接続を切断します．
-/go/src $ exit
-```
 
 ### 4. モジュールのインストール
 
-起動中のコンテナで，アプリケーションで使用するモジュールをインストールします．
-
-```shell
-$ docker-compose exec notify-slack-of-amplify-events go mod download -x
-```
-
-停止中のコンテナでこれを実行する場合は，```run```コマンドを使用します．
-
-また，```rm```オプションを使用して，処理後にコンテナを削除するようにします．
+コンテナで，アプリケーションで使用するモジュールをインストールします．
 
 ```shell
 $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
@@ -101,11 +78,11 @@ $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 
 ### ホットリロード
 
-ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
-
-ホスト側でソースコードを修正すると，コンテナ側のアーティファクトが随時更新されます．
+ホスト側のソースコードを修正に合わせて，コンテナ側のアーティファクトを随時更新します．
 
 また，ホットリロードの実行時に，合わせてソースコード整形と静的解析を実行します．
+
+ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
 
 ```shell
 $ docker-compose exec notify-slack-of-amplify-events air -c .air.toml
@@ -141,11 +118,14 @@ $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./tes
 
 GoサービスからLambdaサービスにPOSTリクエストを送信し，一連の処理をテストします．
 
+ローカルでLambdaの擬似的な再現するために，RIEを使用いたしました．
+
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 ```
 
 ## デプロイ
 
-デプロイには，[Serverless Framework](https://github.com/serverless/serverless) を使用します．
+CircleCIによるCDにて，ソースコードをLambdaにデプロイします．
 
+ツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
