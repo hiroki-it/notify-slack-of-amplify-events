@@ -98,6 +98,7 @@ jobs:
 
   deploy:
     executor: serverless/default
+    working_directory: ~/project
     steps:
       - attach_workspace: 
           at: .
