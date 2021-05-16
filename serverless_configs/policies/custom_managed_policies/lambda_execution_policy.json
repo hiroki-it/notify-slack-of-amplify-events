@@ -4,7 +4,7 @@
     {
       "Effect": "Allow",
       "Action": "amplify:GetBranch",
-      "Resource": "arn:aws:amplify:*:*:apps/*/branches/*"
+      "Resource": { "Fn::Sub" : "arn:aws:amplify:*:${AWS::AccountId}:apps/*/branches/*" }
     }
   ]
 }
