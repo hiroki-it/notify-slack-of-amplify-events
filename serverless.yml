@@ -1,7 +1,5 @@
 service: notify-slack-of-amplify-events
 
-app: notify-slack-of-amplify-events
-
 frameworkVersion: '2'
 
 custom:
