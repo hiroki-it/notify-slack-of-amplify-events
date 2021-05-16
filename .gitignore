@@ -1,10 +1,10 @@
 # ディレクトリ
-**/.idea
 **/air_tmp
+**/.idea
 **/.serverless
 
 # ファイル
+.air.toml
 .docker.env
 .env.app
 .env.docker
-.air.toml
