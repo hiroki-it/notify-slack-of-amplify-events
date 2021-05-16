@@ -23,7 +23,7 @@ commands:
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
-          name: Export AWS credentials
+          name: Make shell file to export env
           command: |
             source ./ops/export_aws_credentials.sh
 
@@ -101,6 +101,10 @@ jobs:
     steps:
       - attach_workspace: 
           at: .
+      - run:
+          name: Export AWS credentials
+          command: |
+            source aws_env.sh
       - aws-cli/setup
       - serverless/setup
       - run:
