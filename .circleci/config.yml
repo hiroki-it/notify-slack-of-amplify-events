@@ -1,6 +1,8 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@2.0.0
+  serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
 commands:
@@ -89,6 +91,22 @@ jobs:
           name: Go test 
           command: |
            docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+      - persist_to_workspace: 
+          root: .
+          paths:
+            - .
+
+  deploy:
+    executor: serverless/default
+    steps:
+      - attach_workspace: 
+          at: .
+      - aws-cli/setup
+      - serverless/setup
+      - run:
+          name: Serverless deploy
+          command: |
+            serverless deploy -v
 
 workflows:
 
@@ -100,6 +118,10 @@ workflows:
           filters:
             branches:
               only: develop
+      - deploy:
+          name: deploy_stg
+          requires:
+            - build_and_test_stg
 
   main:
     jobs:
@@ -113,3 +135,14 @@ workflows:
               ignore: /.*/
             tags:
               only: /release\/.*/
+      - deploy:
+          name: deploy_prd
+          requires:
+            - build_and_test_prd
+          post-steps:
+            - notify_of_failure
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /release\/.*/ 
