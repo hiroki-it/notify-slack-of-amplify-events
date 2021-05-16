@@ -4,6 +4,7 @@
 **/.serverless
 
 # ファイル
+process.yml
 .air.toml
 .docker.env
 .env.app
