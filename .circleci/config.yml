@@ -25,7 +25,7 @@ commands:
       - run:
           name: Make shell file to export env
           command: |
-            source ./ops/export_aws_credentials.sh
+            source ./ops/make_aws_envs.sh
 
   # go.sumファイルを復元します．
   restore_modules:
