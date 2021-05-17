@@ -106,7 +106,7 @@ jobs:
           name: Export AWS credentials
           command: |
             ls -la
-            source aws_envs.sh
+            source aws_envs.sh >> $BASH_ENV
       - aws-cli/setup
       - serverless/setup
       - run:
