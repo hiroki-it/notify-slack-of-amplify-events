@@ -107,7 +107,6 @@ jobs:
           command: |
             ls -la
             source aws_envs.sh >> $BASH_ENV
-      - aws-cli/setup
       - serverless/setup
       - run:
           name: Serverless deploy
