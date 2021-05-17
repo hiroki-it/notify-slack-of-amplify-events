@@ -95,7 +95,7 @@ jobs:
       - run:
           name: Docker save image
           command: |
-            docker save notify-slack-of-amplify-events > notify-slack-of-amplify-events.tar.gz
+            docker save notify-slack-of-amplify-events > image.tar.gz
             ls -la
       - persist_to_workspace: 
           root: .
@@ -111,7 +111,7 @@ jobs:
           name: Docker load image
           command: |
             ls -la
-            docker load < notify-slack-of-amplify-events.tar.gz
+            docker load < image.tar.gz
       - run:
           name: Export AWS env values
           command: |
