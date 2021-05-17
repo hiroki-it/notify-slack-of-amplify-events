@@ -105,6 +105,7 @@ jobs:
   deploy:
     executor: serverless/default
     steps:
+      - setup_remote_docker
       - attach_workspace: 
           at: .
       - run:
