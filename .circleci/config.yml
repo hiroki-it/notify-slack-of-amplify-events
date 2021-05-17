@@ -113,7 +113,6 @@ jobs:
       - run:
           name: Export AWS env values
           command: |
-            ls -la
             source aws_envs.sh >> $BASH_ENV
       - aws-ecr/push-image:
           account-url: AWS_ECR_ACCOUNT_URL
