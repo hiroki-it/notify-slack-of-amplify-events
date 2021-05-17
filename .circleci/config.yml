@@ -119,8 +119,8 @@ jobs:
             source aws_envs.sh >> $BASH_ENV
       - aws-ecr/push-image:
           account-url: AWS_ECR_ACCOUNT_URL
-          repo: ${AWS_ECR_REPOSITORY}
-          tag: ${CIRCLE_SHA1}
+          repo: $AWS_ECR_REPOSITORY
+          tag: $CIRCLE_SHA1
       - serverless/setup
       - run:
           name: Serverless deploy
