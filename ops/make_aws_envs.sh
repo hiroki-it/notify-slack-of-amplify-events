@@ -23,4 +23,6 @@ cat << EOT > "aws_envs.sh"
 export AWS_ACCOUNT_ID
 export AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY
+export AWS_ECR_ACCOUNT_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+export AWS_ECR_REPOSITORY="${APP_ENV}-notify-slack-of-amplify-events-repository"
 EOT
