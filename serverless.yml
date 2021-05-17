@@ -2,21 +2,24 @@ service: notify-slack-of-amplify-events
 
 frameworkVersion: '2'
 
+# 変数
 custom:
   env: dev
   service: notify-slack-of-amplify-events
 
+# プロバイダー
 provider:
   name: aws
   region: ap-northeast-1
   stackName: ${self:custom.env}-${self:custom.service}-stack
   stage: ${self:custom.env}
 
+# デプロイ対象のパッケージ
 package:
-  # デプロイ対象のパッケージ
   patterns:
     - ./bin/**
 
+# Lambda
 functions:
   main: 
     description: The function that notify slack of amplify events
