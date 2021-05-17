@@ -91,7 +91,7 @@ jobs:
       - run:
           name: Go test 
           command: |
-           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+            docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
       - persist_to_workspace: 
           root: .
           paths:
