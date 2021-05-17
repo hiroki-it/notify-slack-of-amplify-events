@@ -92,6 +92,10 @@ jobs:
           name: Go test 
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+      - run:
+          name: Docker save image
+          command: |
+            docker save -o . notify-slack-of-amplify-events
       - persist_to_workspace: 
           root: .
           paths:
@@ -102,6 +106,10 @@ jobs:
     steps:
       - attach_workspace: 
           at: .
+      - run:
+          name: Docker load image
+          command: |
+            docker load -i .
       - run:
           name: Export AWS credentials
           command: |
