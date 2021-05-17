@@ -25,15 +25,23 @@ functions:
     description: The function that notify slack of amplify events
     events:
       - eventBridge:
-          pattern: ${file(./serverless_configs/events/amplify_event.json)}      
+          pattern: ${file(./serverless_configs/events/amplify_event.json)}
+    image: baseImage
     lambdaHashingVersion: 20201221
     maximumRetryAttempts: 1
     memorySize: 512    
     name: ${self:custom.env}-${self:custom.service}
     role: !GetAtt LambdaRole.Arn
     runtime: go1.x  
-    handler: bin/cmd
 
+# ECR
+ecr:
+  scanOnPush: true
+  images:
+    baseImage:
+      uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/${self:custom.env}-${self:custom.service}-repository@${env:CIRCLE_SHA1}
+
+# 追加AWSリソース
 resources:
   Resources:
     LambdaRole:
