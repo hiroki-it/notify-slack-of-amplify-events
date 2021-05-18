@@ -1,8 +1,6 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.0
-  aws-ecr: circleci/aws-ecr@7.0.0
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
@@ -117,10 +115,10 @@ jobs:
           name: Export AWS env values
           command: |
             source aws_envs.sh >> $BASH_ENV
-      - aws-ecr/push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: "${APP_ENV}-notify-slack-of-amplify-events-repository"
-          tag: ${CIRCLE_SHA1}
+      - run:
+          name: Docker push
+          command: |
+            docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
       - serverless/setup
       - run:
           name: Serverless deploy
