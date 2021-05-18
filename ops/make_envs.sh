@@ -19,7 +19,14 @@ case $APP_ENV in
     ;;
 esac
 
-cat << EOT > "aws_envs.sh"
+aws configure --profile "${APP_ENV}-notify-slack-of-amplify-events" << EOF
+echo AWS_ACCOUNT_ID
+echo AWS_ACCESS_KEY_ID
+echo AWS_SECRET_ACCESS_KEY
+json
+EOF
+
+cat << EOT > "envs.sh"
 export APP_ENV="$APP_ENV"
 export AWS_ACCOUNT_ID
 export AWS_ACCESS_KEY_ID
