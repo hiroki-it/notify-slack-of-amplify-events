@@ -118,9 +118,9 @@ jobs:
           command: |
             source aws_envs.sh >> $BASH_ENV
       - aws-ecr/push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: $AWS_ECR_REPOSITORY
-          tag: $CIRCLE_SHA1
+          account-url: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+          repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
+          tag: ${CIRCLE_SHA1}
       - serverless/setup
       - run:
           name: Serverless deploy
