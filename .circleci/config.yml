@@ -119,7 +119,7 @@ jobs:
             source aws_envs.sh >> $BASH_ENV
       - aws-ecr/push-image:
           account-url: AWS_ECR_ACCOUNT_URL
-          repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
+          repo: "${APP_ENV}-notify-slack-of-amplify-events-repository"
           tag: ${CIRCLE_SHA1}
       - serverless/setup
       - run:
