@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@2.0.0
-  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-ecr: circleci/aws-ecr@7.0.0
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
