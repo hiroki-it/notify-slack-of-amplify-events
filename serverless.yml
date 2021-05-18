@@ -1,6 +1,5 @@
 # 変数
 custom:
-  env: dev
   service: notify-slack-of-amplify-events
 
 # サービス名
@@ -12,8 +11,8 @@ frameworkVersion: '2'
 provider:
   name: aws
   region: ap-northeast-1
-  stackName: ${self:custom.env}-${self:custom.service}-stack
-  stage: ${self:custom.env}
+  stackName: ${env:APP_ENV}-${self:custom.service}-stack
+  stage: ${env:APP_ENV}
 
 # デプロイ対象のパッケージ
 package:
@@ -31,7 +30,7 @@ functions:
     lambdaHashingVersion: 20201221
     maximumRetryAttempts: 1
     memorySize: 512
-    name: ${self:custom.env}-${self:custom.service}
+    name: ${env:APP_ENV}-${self:custom.service}
     role: !GetAtt LambdaRole.Arn
     runtime: go1.x
 
@@ -48,12 +47,12 @@ resources:
     LambdaRole:
       Type: AWS::IAM::Role
       Properties:
-        RoleName: ${self:custom.env}-${self:custom.service}-lambda-role
-        Description: The role for ${self:custom.env}-${self:custom.service}-lambda
+        RoleName: ${env:APP_ENV}-${self:custom.service}-lambda-role
+        Description: The role for ${env:APP_ENV}-${self:custom.service}-lambda
         AssumeRolePolicyDocument: ${file(./serverless_configs/policies/trust_policies/lambda_policy.json)}
         # インラインポリシー
         Policies:
-          - PolicyName: ${self:custom.env}-${self:custom.service}-lambda-execution-policy
+          - PolicyName: ${env:APP_ENV}-${self:custom.service}-lambda-execution-policy
             PolicyDocument: ${file(./serverless_configs/policies/custom_managed_policies/lambda_execution_policy.json)}
         # 管理ポリシー
         ManagedPolicyArns:
