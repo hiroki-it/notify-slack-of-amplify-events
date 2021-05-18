@@ -121,7 +121,6 @@ jobs:
           path: .
           repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
           repo-scan-on-push: true
-          setup-remote-docker: true
           tag: ${CIRCLE_SHA1}
 
   # サーバレスアプリケーションをデプロイします．
