@@ -87,7 +87,7 @@ jobs:
           command: |
             docker-compose run --rm  notify-slack-of-amplify-events go vet ./...
       - run:
-          name: Go test 
+          name: Go test
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
       - run:

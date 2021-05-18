@@ -22,7 +22,7 @@ package:
 
 # Lambda
 functions:
-  main: 
+  main:
     description: The function that notify slack of amplify events
     events:
       - eventBridge:
@@ -30,10 +30,10 @@ functions:
     image: baseImage
     lambdaHashingVersion: 20201221
     maximumRetryAttempts: 1
-    memorySize: 512    
+    memorySize: 512
     name: ${self:custom.env}-${self:custom.service}
     role: !GetAtt LambdaRole.Arn
-    runtime: go1.x  
+    runtime: go1.x
 
 # ECR
 ecr:
