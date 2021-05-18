@@ -1,11 +1,12 @@
-service: notify-slack-of-amplify-events
-
-frameworkVersion: '2'
-
 # 変数
 custom:
   env: dev
   service: notify-slack-of-amplify-events
+
+# サービス名
+service: ${self:custom.service}
+
+frameworkVersion: '2'
 
 # プロバイダー
 provider:
