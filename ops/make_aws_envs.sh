@@ -20,6 +20,7 @@ case $APP_ENV in
 esac
 
 cat << EOT > "aws_envs.sh"
+export APP_ENV="$APP_ENV"
 export AWS_ACCOUNT_ID
 export AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY
