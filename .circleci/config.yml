@@ -59,6 +59,7 @@ commands:
           event: fail
 
 jobs:
+  # ビルドとテストを実行します．
   build_and_test:
     machine:
       image: ubuntu-1604:201903-01
@@ -137,7 +138,7 @@ jobs:
             serverless deploy -v
 
 workflows:
-
+  # deveplopブランチフロー
   develop:
     jobs:
       - build_and_test:
@@ -146,11 +147,15 @@ workflows:
           filters:
             branches:
               only: develop
+      - push_image:
+          name: push_image_stg
+          requires:
+            - build_and_test_stg
       - deploy:
           name: deploy_stg
           requires:
-            - build_and_test_stg
-
+            - push_image_stg
+  # mainブランチフロー
   main:
     jobs:
       - build_and_test:
@@ -163,12 +168,23 @@ workflows:
               ignore: /.*/
             tags:
               only: /release\/.*/
-      - deploy:
-          name: deploy_prd
-          requires:
-            - build_and_test_prd
+      - push_image:
+          name: push_image_prd
           post-steps:
             - notify_of_failure
+          requires:
+            - build_and_test_prd
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /release\/.*/
+      - deploy:
+          name: deploy_prd
+          post-steps:
+            - notify_of_failure
+          requires:
+            - push_image_prd
           filters:
             branches:
               ignore: /.*/
