@@ -27,9 +27,9 @@ commands:
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
       - run:
-          name: Make shell file to export env
+          name: Make shell file for env values
           command: |
-            source ./ops/make_aws_envs.sh
+            source ./ops/make_envs.sh
 
   # go.sumファイルを復元します．
   restore_modules:
@@ -48,12 +48,12 @@ commands:
             - /go/pkg/mod
 
   # AWSに接続するための環境変数を出力します．
-  export_aws_envs:
+  export_envs:
     steps:
       - run:
           name: Export AWS env values
           command: |
-            source aws_envs.sh >> $BASH_ENV
+            source envs.sh >> $BASH_ENV
 
   # 失敗をSlackに通知します．
   notify_of_failure:
@@ -114,7 +114,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - export_aws_envs
+      - export_envs
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
           create-repo: true
@@ -132,7 +132,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - export_aws_envs
+      - export_envs
       - serverless/setup
       - run:
           name: Serverless deploy
