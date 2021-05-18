@@ -122,7 +122,7 @@ jobs:
           extra-build-args: --target ${APP_ENV}
           path: .
           # プロファイル名を空文字とすることで，クレデンシャルの参照時にプロファイルを利用せずに，環境変数を利用するようにする．
-          profile: "''"
+          profile-name: "''"
           repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
           repo-scan-on-push: true
           tag: ${CIRCLE_SHA1}
