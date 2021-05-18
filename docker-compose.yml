@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: dev
     container_name: notify-slack-of-amplify-events
     env_file:   
       - .env.app
