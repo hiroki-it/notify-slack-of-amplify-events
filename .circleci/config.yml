@@ -42,6 +42,14 @@ commands:
           paths:
             - /go/pkg/mod
 
+  # AWSに接続するための環境変数を出力します．
+  export_aws_envs:
+    steps:
+      - run:
+          name: Export AWS env values
+          command: |
+            source aws_envs.sh >> $BASH_ENV
+
   # 失敗をSlackに通知します．
   notify_of_failure:
     steps:
