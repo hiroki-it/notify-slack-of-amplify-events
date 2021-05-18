@@ -39,7 +39,7 @@ ecr:
   scanOnPush: true
   images:
     baseImage:
-      uri: ${env:AWS_ACCOUNT_ID}.dkr.ecr.${env:AWS_REGION}.amazonaws.com/${self:custom.env}-${self:custom.service}-repository@${env:CIRCLE_SHA1}
+      uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:AWS_ECR_REPOSITORY}@${env:CIRCLE_SHA1}
 
 # 追加AWSリソース
 resources:
