@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  aws-ecr: circleci/aws-ecr@7.0.0
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
@@ -98,35 +99,37 @@ jobs:
           name: Go test
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
-      - run:
-          name: Docker save image
-          command: |
-            docker save notify-slack-of-amplify-events > image.tar.gz
-            ls -la
-      - persist_to_workspace: 
+      - persist_to_workspace:
           root: .
           paths:
             - .
 
+  # ECRにイメージをプッシュします．
+  push_image:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - attach_workspace:
+          at: .
+      - export_aws_envs
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          create-repo: true
+          dockerfile: ./build/Dockerfile
+          extra-build-args: --target ${APP_ENV}
+          path: .
+          repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
+          repo-scan-on-push: true
+          setup-remote-docker: true
+          tag: ${CIRCLE_SHA1}
+
+  # サーバレスアプリケーションをデプロイします．
   deploy:
     executor: serverless/default
     steps:
-      - setup_remote_docker
-      - attach_workspace: 
+      - attach_workspace:
           at: .
-      - run:
-          name: Docker load image
-          command: |
-            ls -la
-            docker load < image.tar.gz
-      - run:
-          name: Export AWS env values
-          command: |
-            source aws_envs.sh >> $BASH_ENV
-      - run:
-          name: Docker push
-          command: |
-            docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+      - export_aws_envs
       - serverless/setup
       - run:
           name: Serverless deploy
