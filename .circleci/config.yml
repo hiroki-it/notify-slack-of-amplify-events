@@ -12,7 +12,7 @@ executors:
 
 commands:
   # 環境変数を準備します．
-  setup_env:
+  setup_envs:
     steps:
       - run:
           name: Copy env file
@@ -75,7 +75,7 @@ jobs:
       APP_ENV: << parameters.env >>
     steps:
       - checkout
-      - setup_env
+      - setup_envs
       - run:
           name: Docker compose config
           command: |
