@@ -53,7 +53,7 @@ commands:
       - run:
           name: Export AWS env values
           command: |
-            source export_envs.sh >> $BASH_ENV
+            source export_envs.sh
             printenv
 
   # 失敗をSlackに通知します．
