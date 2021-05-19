@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: dev
     command: /go/bin/cmd
     container_name: lambda
     entrypoint: /aws-lambda/aws-lambda-rie
