@@ -22,7 +22,6 @@ commands:
           # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
           name: Make env file
           command: |
-            echo "APP_ENV=$APP_ENV" > .env.app
             echo "AWS_REGION=$AWS_REGION" >> .env.app
             echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
             echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
