@@ -19,8 +19,10 @@ case $APP_ENV in
     ;;
 esac
 
+cat << EOT > "export_envs.sh"
 echo "export APP_ENV=$APP_ENV" >> $BASH_ENV
 echo "export AWS_ACCOUNT_ID" >> $BASH_ENV
 echo "export AWS_ACCESS_KEY_ID" >> $BASH_ENV
 echo "export AWS_SECRET_ACCESS_KEY" >> $BASH_ENV
 echo "export AWS_ECR_ACCOUNT_URL=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com" >> $BASH_ENV
+EOT
