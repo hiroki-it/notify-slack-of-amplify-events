@@ -47,7 +47,7 @@ commands:
           paths:
             - /go/pkg/mod
 
-  # AWSに接続するための環境変数を出力します．
+  # 出力する環境変数を用意します．
   export_envs:
     steps:
       - run:
