@@ -29,6 +29,7 @@ commands:
       - run:
           name: Make shell file for env values
           command: |
+            printenv | sort -f
             source ./ops/setup_envs.sh
 
   # go.sumファイルを復元します．
@@ -54,7 +55,6 @@ commands:
           name: Export envs
           command: |
             source export_envs.sh >> $BASH_ENV
-            printenv | sort -f
   
   # 環境変数からcredentialsファイルを用意します．
   aws_configure:
