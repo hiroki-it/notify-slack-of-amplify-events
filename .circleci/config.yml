@@ -133,6 +133,7 @@ jobs:
       - run:
           name: Docker login
           command: |
+            aws configure list
             aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_ACCOUNT_URL}
       - run:
           name: Docker tag
