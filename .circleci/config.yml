@@ -116,7 +116,8 @@ jobs:
 
   # ECRにイメージをプッシュします．
   push_image:
-    executor: primary_container
+    executor: aws-cli/default
+      - python-version: 3.9-node
     steps:
       - setup_remote_docker
       - attach_workspace:
