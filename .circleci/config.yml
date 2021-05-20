@@ -5,11 +5,6 @@ orbs:
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
-executors:
-  primary_container:
-    machine:
-      image: ubuntu-1604:201903-01
-
 commands:
   # 環境変数を準備します．
   setup_env_files:
@@ -75,7 +70,8 @@ commands:
 jobs:
   # ビルドとテストを実行します．
   build_and_test:
-    executor: primary_container
+    machine:
+      image: ubuntu-1604:201903-01
     parameters:
       env:
         type: enum
