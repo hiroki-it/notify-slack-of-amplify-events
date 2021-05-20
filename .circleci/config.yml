@@ -129,8 +129,7 @@ jobs:
             ls -la
             docker load < image.tar.gz
       - export_envs
-      - aws-cli/install:
-          version: "2.1"
+      - aws-cli/install
       - run:
           name: Docker login
           command: |
