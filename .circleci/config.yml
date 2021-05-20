@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-cli: circleci/aws-cli@2.0.2
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
@@ -104,6 +104,11 @@ jobs:
           name: Go test
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+      - run:
+          name: Docker save image
+          command: |
+            docker save notify-slack-of-amplify-events > image.tar.gz
+            ls -la
       - persist_to_workspace:
           root: .
           paths:
@@ -113,19 +118,29 @@ jobs:
   push_image:
     executor: primary_container
     steps:
+      - setup_remote_docker
       - attach_workspace:
           at: .
+      - run:
+          name: Docker load image
+          command: |
+            ls -la
+            docker load < image.tar.gz
       - export_envs
-      - aws-ecr/build-and-push-image:
-          checkout: false
-          create-repo: true
-          dockerfile: ./build/Dockerfile
-          extra-build-args: --target ${APP_ENV}
-          path: .
-          profile-name: "''"
-          repo: ${APP_ENV}-notify-slack-of-amplify-events-repository
-          repo-scan-on-push: true
-          tag: ${CIRCLE_SHA1}
+      - aws-cli/install:
+          version: "2.1"
+      - run:
+          name: Docker login
+          command: |
+            aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin {$AWS_ECR_ACCOUNT_URL}
+      - run:
+          name: Docker tag
+          command: |
+            docker tag notify-slack-of-amplify-events-repository:latest ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+      - run:
+          name: Docker push
+          command: |
+            docker push ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
 
   # サーバレスアプリケーションをデプロイします．
   deploy:
