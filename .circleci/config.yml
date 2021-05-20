@@ -55,6 +55,14 @@ commands:
           command: |
             source export_envs.sh >> $BASH_ENV
             printenv | sort -f
+  
+  # 環境変数からcredentialsファイルを用意します．
+  aws_configure:
+    steps:
+      - run:
+          name: Setup credentials
+          command:
+            source setup_credentials.sh
 
   # 失敗をSlackに通知します．
   notify_of_failure:
@@ -129,7 +137,8 @@ jobs:
             ls -la
             docker load < image.tar.gz
       - export_envs
-      - aws-cli/setup
+      - aws-cli/install
+      - aws_configure
       - run:
           name: Docker login
           command: |
