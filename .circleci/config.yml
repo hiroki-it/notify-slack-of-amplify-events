@@ -130,6 +130,7 @@ jobs:
             docker load < image.tar.gz
       - export_envs
       - aws-cli/install
+      - aws-cli/setup
       - run:
           name: Docker login
           command: |
