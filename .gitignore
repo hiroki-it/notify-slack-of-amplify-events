@@ -7,5 +7,5 @@
 process.yml
 .air.toml
 .docker.env
-.env.app
+.env
 .env.docker
