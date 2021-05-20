@@ -29,7 +29,7 @@ commands:
       - run:
           name: Make shell file for env values
           command: |
-            source ./ops/setup_by_app_env.sh
+            source ./ops/setup_envs.sh
 
   # go.sumファイルを復元します．
   restore_modules:
