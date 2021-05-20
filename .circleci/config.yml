@@ -51,7 +51,7 @@ commands:
   export_envs:
     steps:
       - run:
-          name: Export AWS env values
+          name: Export envs
           command: |
             source export_envs.sh >> $BASH_ENV
             printenv | sort -f
