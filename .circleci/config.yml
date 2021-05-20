@@ -95,11 +95,11 @@ jobs:
       - run:
           name: Go fmt
           command: |
-            docker-compose run --rm  notify-slack-of-amplify-events go fmt ./... >&2
+            docker-compose run --rm notify-slack-of-amplify-events go fmt ./... >&2
       - run:
           name: Go vet
           command: |
-            docker-compose run --rm  notify-slack-of-amplify-events go vet ./...
+            docker-compose run --rm notify-slack-of-amplify-events go vet ./...
       - run:
           name: Go test
           command: |
