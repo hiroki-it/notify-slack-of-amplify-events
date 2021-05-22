@@ -39,10 +39,10 @@ commands:
             - /go/pkg/mod
 
   # 必要な環境変数を用意します．
-  export_envs:
+  setup_envs:
     steps:
       - run:
-          name: Export envs
+          name: Setup envs
           command: |
             source ./ops/setup_envs.sh
   
@@ -133,7 +133,7 @@ jobs:
           command: |
             ls -la
             docker load < image.tar.gz
-      - export_envs
+      - setup_envs
       - aws-cli/install
       - aws_configure
       - run:
@@ -161,7 +161,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - export_envs
+      - setup_envs
       - serverless/setup
       - run:
           name: Serverless deploy
