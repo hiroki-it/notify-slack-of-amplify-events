@@ -138,6 +138,10 @@ jobs:
             source ./ops/export_envs.sh
             docker tag notify-slack-of-amplify-events:latest ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
             docker push ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   # サーバレスアプリケーションをデプロイします．
   deploy:
@@ -151,7 +155,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - setup_aws_credentials
       - serverless/setup
       - run:
           name: Serverless deploy
