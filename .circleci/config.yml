@@ -132,12 +132,10 @@ jobs:
           command: |
             aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_ACCOUNT_URL}
       - run:
-          name: Docker tag
-          command: |
-            docker tag notify-slack-of-amplify-events-repository:latest ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
-      - run:
           name: Docker push
           command: |
+            source ./ops/export_envs.sh
+            docker tag notify-slack-of-amplify-events-repository:latest ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
             docker push ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
 
   # サーバレスアプリケーションをデプロイします．
