@@ -50,7 +50,7 @@ commands:
   aws_configure:
     steps:
       - run:
-          name: Setup credentials
+          name: Setup AWS credentials
           command:
             source ./ops/setup_aws_credentials.sh
 
