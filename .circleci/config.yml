@@ -47,7 +47,7 @@ commands:
             source ./ops/setup_envs.sh
   
   # 環境変数からcredentialsファイルを用意します．
-  aws_configure:
+  setup_aws_credentials:
     steps:
       - run:
           name: Setup AWS credentials
