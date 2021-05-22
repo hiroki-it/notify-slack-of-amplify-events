@@ -18,3 +18,8 @@ case "$APP_ENV" in
         exit 1
     ;;
 esac
+
+echo 'export AWS_ACCOUNT_ID="$AWS_ACCOUNT_ID"' >> $BASH_ENV
+echo 'export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"' >> $BASH_ENV
+echo 'export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"' >> $BASH_ENV
+echo 'export AWS_ECR_ACCOUNT_URL="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"' >> $BASH_ENV
