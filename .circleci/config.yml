@@ -156,6 +156,8 @@ jobs:
       - run:
           name: Serverless deploy
           command: |
+            source ./ops/export_envs.sh
+            sls print
             serverless deploy -v
 
 workflows:
