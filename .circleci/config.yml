@@ -52,7 +52,7 @@ commands:
       - run:
           name: Setup credentials
           command:
-            source ./ops/setup_credentials.sh
+            source ./ops/setup_aws_credentials.sh
 
   # 失敗をSlackに通知します．
   notify_of_failure:
