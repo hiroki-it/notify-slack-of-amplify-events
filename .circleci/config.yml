@@ -151,7 +151,10 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - serverless/setup
+      - aws-cli/install
+      - setup_aws_credentials
+      - serverless/setup:
+          provider: AWS
       - run:
           name: Serverless deploy
           command: |
