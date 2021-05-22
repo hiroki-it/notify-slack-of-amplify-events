@@ -45,6 +45,7 @@ commands:
           name: Setup envs
           command: |
             source ./ops/setup_envs.sh
+            source $BASH_ENV
 
   # 環境変数からcredentialsファイルを用意します．
   setup_aws_credentials:
@@ -52,7 +53,6 @@ commands:
       - run:
           name: Setup AWS credentials
           command:
-            source $BASH_ENV
             source ./ops/setup_aws_credentials.sh
 
   # 失敗をSlackに通知します．
