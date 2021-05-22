@@ -38,15 +38,6 @@ commands:
           paths:
             - /go/pkg/mod
 
-  # 必要な環境変数を用意します．
-  setup_envs:
-    steps:
-      - run:
-          name: Setup envs
-          command: |
-            source ./ops/setup_envs.sh
-            source $BASH_ENV
-
   # 環境変数からcredentialsファイルを用意します．
   setup_aws_credentials:
     steps:
@@ -134,7 +125,6 @@ jobs:
           command: |
             ls -la
             docker load < image.tar.gz
-      - setup_envs
       - aws-cli/install
       - setup_aws_credentials
       - run:
@@ -162,7 +152,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - setup_envs
       - serverless/setup
       - run:
           name: Serverless deploy
