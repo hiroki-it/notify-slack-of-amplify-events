@@ -126,7 +126,7 @@ jobs:
             ls -la
             docker load < image.tar.gz
       - aws-cli/install:
-          version: "2.2"
+          version: "2.2.5"
       - setup_aws_credentials
       - run:
           name: Docker login
@@ -153,7 +153,7 @@ jobs:
       - attach_workspace:
           at: .
       - aws-cli/install:
-          version: "2.2"
+          version: "2.2.5"
       - setup_aws_credentials
       - serverless/setup:
           provider: AWS
