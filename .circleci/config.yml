@@ -45,6 +45,10 @@ commands:
           name: Setup envs
           command: |
             source ./ops/setup_envs.sh
+            echo 'export AWS_ACCOUNT_ID' >> $BASH_ENV
+            echo 'export AWS_ACCESS_KEY_ID' >> $BASH_ENV
+            echo 'export AWS_SECRET_ACCESS_KEY' >> $BASH_ENV
+            printenv | sort -f
   
   # 環境変数からcredentialsファイルを用意します．
   setup_aws_credentials:
