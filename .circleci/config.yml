@@ -136,8 +136,8 @@ jobs:
           name: Docker push
           command: |
             source ./ops/export_envs.sh
-            docker tag notify-slack-of-amplify-events:latest ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
-            docker push ${AWS_ECR_ACCOUNT_URL}/{$APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+            docker tag notify-slack-of-amplify-events:latest ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+            docker push ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
 
   # サーバレスアプリケーションをデプロイします．
   deploy:
