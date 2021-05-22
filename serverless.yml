@@ -13,6 +13,12 @@ provider:
   region: ap-northeast-1
   stackName: ${env:APP_ENV}-${self:custom.service}-stack
   stage: ${env:APP_ENV}
+  # ECR
+  ecr:
+    scanOnPush: true
+    images:
+      baseImage:
+        uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:custom.service}-repository@${env:CIRCLE_SHA1}
 
 # デプロイ対象のパッケージ
 package:
@@ -33,13 +39,6 @@ functions:
     name: ${env:APP_ENV}-${self:custom.service}
     role: !GetAtt LambdaRole.Arn
     runtime: go1.x
-
-# ECR
-ecr:
-  scanOnPush: true
-  images:
-    baseImage:
-      uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:custom.service}-repository@${env:CIRCLE_SHA1}
 
 # 追加AWSリソース
 resources:
