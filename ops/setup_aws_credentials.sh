@@ -14,7 +14,7 @@ case "$APP_ENV" in
         AWS_SECRET_ACCESS_KEY="$PRD_AWS_SECRET_ACCESS_KEY"
     ;;
     *)
-        echo "The parameter ${ENV} is invalid."
+        echo "The parameter ${APP_ENV} is invalid."
         exit 1
     ;;
 esac
