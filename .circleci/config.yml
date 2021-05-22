@@ -151,6 +151,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - setup_aws_credentials
       - serverless/setup
       - run:
           name: Serverless deploy
