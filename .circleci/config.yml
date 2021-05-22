@@ -103,7 +103,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - ./build_and_test
+            - .
 
   # ECRにイメージをプッシュします．
   push_image:
@@ -119,7 +119,7 @@ jobs:
     steps:
       - setup_remote_docker
       - attach_workspace:
-          at: ./build_and_test
+          at: .
       - run:
           name: Docker load image
           command: |
@@ -138,10 +138,6 @@ jobs:
             source ./ops/export_envs.sh
             docker tag notify-slack-of-amplify-events:latest ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
             docker push ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./push_image
 
   # サーバレスアプリケーションをデプロイします．
   deploy:
@@ -154,7 +150,7 @@ jobs:
       APP_ENV: << parameters.env >>
     steps:
       - attach_workspace:
-          at: ./push_image
+          at: .
       - serverless/setup
       - run:
           name: Serverless deploy
