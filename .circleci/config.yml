@@ -135,7 +135,7 @@ jobs:
             docker load < image.tar.gz
       - setup_envs
       - aws-cli/install
-      - aws_configure
+      - setup_aws_credentials
       - run:
           name: Docker login
           command: |
