@@ -7,7 +7,7 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: ${APP_ENV} # .envファイルから参照．
     container_name: notify-slack-of-amplify-events
     env_file:
       # .envファイルは自動的に読み込まれるため設定しない．
@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: ${APP_ENV} # .envファイルから参照．
     command: /go/bin/cmd
     container_name: lambda
     entrypoint: /aws-lambda/aws-lambda-rie
