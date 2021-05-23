@@ -2,7 +2,7 @@
 custom:
   appEnv: ${env:APP_ENV, "dev"}
   ecrAccountUrl: ${env:AWS_ECR_ACCOUNT_URL, "dev"}
-  imageTag: ${env:CIRCLE_SHA1, "dev"}
+  ecrImageDigest: ${env:CIRCLE_SHA1, "dev"}
   service: notify-slack-of-amplify-events
 
 # サービス名
@@ -21,7 +21,7 @@ provider:
     scanOnPush: true
     images:
       baseImage:
-        uri: ${self:custom.ecrAccountUrl}/${self:custom.appEnv}-${self:custom.service}-repository@${self:custom.imageTag}
+        uri: ${self:custom.ecrAccountUrl}/${self:custom.appEnv}-${self:custom.service}-repository@${self:custom.ecrImageDigest}
 
 # デプロイ対象のパッケージ
 package:
