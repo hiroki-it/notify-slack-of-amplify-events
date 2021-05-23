@@ -1,8 +1,3 @@
-# 変数
-# NOTE: 開発環境で静的解析しやすいように，デフォルト値を設定する．
-custom:
-  ecrImageDigest: ${opt:ECR_IMAGE_DIGEST, "sha256:dev"}
-
 # サービス名
 service: notify-slack-of-amplify-events
 
@@ -18,6 +13,16 @@ useDotenv: true
 configValidationMode: warn
 variablesResolutionMode: null
 
+# 変数
+# NOTE: 開発環境で静的解析しやすいように，デフォルト値を設定する．
+custom:
+  ecrImageDigest: ${opt:ECR_IMAGE_DIGEST, "sha256:dev"}
+
+# デプロイ対象のパッケージ
+package:
+  patterns:
+    - ./bin/**
+
 # プロバイダー
 provider:
   name: aws
@@ -31,11 +36,6 @@ provider:
       base:
         uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:service}-repository@${self:custom.ecrImageDigest}
   lambdaHashingVersion: 20201221
-
-# デプロイ対象のパッケージ
-package:
-  patterns:
-    - ./bin/**
 
 # Lambda
 functions:
