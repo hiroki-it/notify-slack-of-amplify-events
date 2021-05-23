@@ -106,11 +106,13 @@ Goサービスのユニットテストを実行します．
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
 ```
 
-### 統合テスト
+### 統合テスト（ローカル環境のみ対応）
 
 GoサービスからLambdaサービスにPOSTリクエストを送信し，一連の処理をテストします．
 
-ローカルでLambdaの擬似的な再現するために，RIEを使用いたしました．
+ローカル環境でLambdaを擬似的に再現するために，RIEを使用いたしました．
+
+CI/CD中にLambdaのホストを指定できないため，ローカル環境でのみ実行可能です．
 
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
@@ -118,7 +120,7 @@ $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./tes
 
 ## デプロイ
 
-原則として，ローカルPCからソースコードをLambdaにデプロイしないようにします．
+原則として，ローカル環境からソースコードをLambdaにデプロイしないようにします．
 
 CircleCIによるCDにて，これをLambdaにデプロイします．
 
