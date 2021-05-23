@@ -1,5 +1,8 @@
 # 変数
 custom:
+  appEnv: ${env:APP_ENV, "dev"}
+  ecrAccountUrl: ${env:AWS_ECR_ACCOUNT_URL, "dev"}
+  imageTag: ${env:CIRCLE_SHA1, "dev"}
   service: notify-slack-of-amplify-events
 
 # サービス名
@@ -11,14 +14,14 @@ frameworkVersion: '2'
 provider:
   name: aws
   region: ap-northeast-1
-  stackName: ${env:APP_ENV}-${self:custom.service}-stack
-  stage: ${env:APP_ENV}
+  stackName: ${self:custom.appEnv}-${self:custom.service}-stack
+  stage: ${self:custom.appEnv}
   # ECR
   ecr:
     scanOnPush: true
     images:
       baseImage:
-        uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:custom.service}-repository@${env:CIRCLE_SHA1}
+        uri: ${self:custom.ecrAccountUrl}/${self:custom.appEnv}-${self:custom.service}-repository@${self:custom.imageTag}
 
 # デプロイ対象のパッケージ
 package:
@@ -36,7 +39,7 @@ functions:
     lambdaHashingVersion: 20201221
     maximumRetryAttempts: 1
     memorySize: 512
-    name: ${env:APP_ENV}-${self:custom.service}
+    name: ${self:custom.appEnv}-${self:custom.service}
     role: !GetAtt LambdaRole.Arn
     runtime: go1.x
 
@@ -46,14 +49,14 @@ resources:
     LambdaRole:
       Type: AWS::IAM::Role
       Properties:
-        RoleName: ${env:APP_ENV}-${self:custom.service}-lambda-role
-        Description: The role for ${env:APP_ENV}-${self:custom.service}-lambda
+        RoleName: ${self:custom.appEnv}-${self:custom.service}-lambda-role
+        Description: The role for ${self:custom.appEnv}-${self:custom.service}-lambda
         AssumeRolePolicyDocument: ${file(./serverless_configs/policies/trust_policies/lambda_policy.json)}
         # インラインポリシー
         Policies:
-          - PolicyName: ${env:APP_ENV}-${self:custom.service}-lambda-execution-policy
+          - PolicyName: ${self:custom.appEnv}-${self:custom.service}-lambda-execution-policy
             PolicyDocument: ${file(./serverless_configs/policies/custom_managed_policies/lambda_execution_policy.json)}
         # 管理ポリシー
         ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/AWSLambdaExecute    
+          - arn:aws:iam::aws:policy/AWSLambdaExecute
           
