@@ -10,6 +10,11 @@ service: ${self:custom.service}
 
 frameworkVersion: '2'
 
+# 静的解析ルール．
+# NOTE: 開発環境で静的解析しやすいように，ルールを弱める．
+configValidationMode: warn
+variablesResolutionMode: null
+
 # プロバイダー
 provider:
   name: aws
