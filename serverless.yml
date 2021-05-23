@@ -3,7 +3,7 @@
 custom:
   appEnv: ${env:APP_ENV, "dev"}
   ecrAccountUrl: ${env:AWS_ECR_ACCOUNT_URL, "dev"}
-  ecrImageDigest: ${env:CIRCLE_SHA1, "sha256:dev"}
+  ecrImageDigest: ${opt:ECR_IMAGE_DIGEST, "sha256:dev"}
   service: notify-slack-of-amplify-events
 
 # サービス名

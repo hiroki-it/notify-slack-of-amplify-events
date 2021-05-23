@@ -158,11 +158,12 @@ jobs:
       - serverless/setup:
           provider: AWS
       - run:
-          name: Serverless deploy
+          name: Serverless print & deploy
           command: |
             source ./ops/export_envs.sh
-            sls print
-            serverless deploy -v
+            source ./ops/get_ecr_image_digest.sh
+            sls print --ECR_IMAGE_DIGEST $ECR_IMAGE_DIGEST
+            serverless deploy -v --ECR_IMAGE_DIGEST $ECR_IMAGE_DIGEST
 
 workflows:
   # deveplopブランチフロー
