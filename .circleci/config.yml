@@ -1,16 +1,27 @@
 version: 2.1
 
 orbs:
+  aws-cli: circleci/aws-cli@2.0.2
+  serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
 commands:
-  # 失敗をSlackに通知します．
-  notify_of_failure:
+  # 環境変数を準備します．
+  setup_env_files:
     steps:
-      - slack/notify:
-          template: basic_fail_1
-          event: fail
-  
+      - run:
+          name: Copy env file
+          command: |
+            cp .env.docker.example .env.docker
+      - run:
+          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
+          name: Make env file
+          command: |
+            echo "APP_ENV=$APP_ENV" >> .env
+            echo "$AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION" >> .env
+            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env
+            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env
+
   # go.sumファイルを復元します．
   restore_modules:
     steps:
@@ -27,44 +38,45 @@ commands:
           paths:
             - /go/pkg/mod
 
+  # 環境変数からcredentialsファイルを用意します．
+  setup_aws_credentials:
+    steps:
+      - run:
+          name: Setup AWS credentials
+          command:
+            source ./ops/setup_aws_credentials.sh
+
+  # 失敗をSlackに通知します．
+  notify_of_failure:
+    steps:
+      - slack/notify:
+          template: basic_fail_1
+          event: fail
+
 jobs:
+  # ビルドとテストを実行します．
   build_and_test:
     machine:
       image: ubuntu-1604:201903-01
+    parameters:
+      env:
+        type: enum
+        enum: [ "stg", "prd" ]
+    environment:
+      APP_ENV: << parameters.env >>
     steps:
       - checkout
-      - run:
-          name: Copy env file
-          command: |
-            cp .env.docker.example .env.docker
-      - run:
-          # CircleCIコンテナに出力された環境変数をDockerコンテナで使用できるようにします．
-          name: Make env file
-          command: |
-            echo "APP_ENV=$APP_ENV" > .env.app
-            echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.app
-            echo "AWS_REGION=$AWS_REGION" >> .env.app
-            echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.app
-            echo "LAMBDA_HOST=$LAMBDA_HOST" >> .env.app
-            echo "SLACK_API_TOKEN=$SLACK_API_TOKEN" >> .env.app
-            echo "SLACK_CHANNEL_ID=$SLACK_CHANNEL_ID" >> .env.app
-      - run:
-          # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
-          name: Install lambda RIE
-          command: |
-            mkdir -p ~/.aws-lambda-rie
-            curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie
-            chmod +x ~/.aws-lambda-rie/aws-lambda-rie
+      - setup_env_files
       - run:
           name: Docker compose config
           command: |
             docker-compose config
       - run:
-          name: Docker compose up & Go env
+          name: Docker compose run & Go env
           command: |
             set -xe
-            docker-compose up -d
-            docker-compose run --rm  notify-slack-of-amplify-events go env
+            docker-compose run -d --rm notify-slack-of-amplify-events
+            docker-compose run --rm notify-slack-of-amplify-events go env
       - restore_modules
       - run:
           name: Go mod download
@@ -74,30 +86,111 @@ jobs:
       - run:
           name: Go fmt
           command: |
-            docker-compose run --rm  notify-slack-of-amplify-events go fmt ./... >&2
+            docker-compose run --rm notify-slack-of-amplify-events go fmt ./... >&2
       - run:
           name: Go vet
           command: |
-            docker-compose run --rm  notify-slack-of-amplify-events go vet ./...
+            docker-compose run --rm notify-slack-of-amplify-events go vet ./...
       - run:
-          name: Go test 
+          name: Go test
           command: |
-           docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+            docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+      - run:
+          name: Docker save image
+          command: |
+            docker save notify-slack-of-amplify-events > image.tar.gz
+            ls -la
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  # ECRにイメージをプッシュします．
+  push_image:
+    executor:
+      name: aws-cli/default
+      python-version: "3.9-node"
+    parameters:
+      env:
+        type: enum
+        enum: [ "stg", "prd" ]
+    environment:
+      APP_ENV: << parameters.env >>
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: .
+      - run:
+          name: Docker load image
+          command: |
+            ls -la
+            docker load < image.tar.gz
+      - aws-cli/install:
+          version: "2.2.5"
+      - setup_aws_credentials
+      - run:
+          name: Docker login
+          command: |
+            source ./ops/export_envs.sh
+            aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_ACCOUNT_URL}
+      - run:
+          name: Docker push
+          command: |
+            source ./ops/export_envs.sh
+            docker tag notify-slack-of-amplify-events:latest ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+            docker push ${AWS_ECR_ACCOUNT_URL}/${APP_ENV}-notify-slack-of-amplify-events-repository:${CIRCLE_SHA1}
+
+  # サーバレスアプリケーションをデプロイします．
+  deploy:
+    executor: serverless/default
+    parameters:
+      env:
+        type: enum
+        enum: [ "stg", "prd" ]
+    environment:
+      APP_ENV: << parameters.env >>
+    steps:
+      - attach_workspace:
+          at: .
+      - aws-cli/install:
+          version: "2.2.5"
+      - setup_aws_credentials
+      - serverless/setup:
+          provider: AWS
+      - run:
+          name: Serverless print & deploy
+          command: |
+            source ./ops/export_envs.sh
+            source ./ops/get_ecr_image_digest.sh
+            sls print --ECR_IMAGE_DIGEST "$ECR_IMAGE_DIGEST"
+            serverless deploy -v --ECR_IMAGE_DIGEST "$ECR_IMAGE_DIGEST"
 
 workflows:
-
+  # deveplopブランチフロー
   develop:
     jobs:
       - build_and_test:
-          name: build_and_test_dev
+          name: build_and_test_stg
+          env: stg
           filters:
             branches:
               only: develop
-
+      - push_image:
+          name: push_image_stg
+          env: stg
+          requires:
+            - build_and_test_stg
+      - deploy:
+          name: deploy_stg
+          env: stg
+          requires:
+            - push_image_stg
+  # mainブランチフロー
   main:
     jobs:
       - build_and_test:
           name: build_and_test_prd
+          env: prd
           post-steps:
             - notify_of_failure
           filters:
@@ -105,3 +198,27 @@ workflows:
               ignore: /.*/
             tags:
               only: /release\/.*/
+      - push_image:
+          name: push_image_prd
+          env: prd
+          post-steps:
+            - notify_of_failure
+          requires:
+            - build_and_test_prd
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /release\/.*/
+      - deploy:
+          name: deploy_prd
+          env: prd
+          post-steps:
+            - notify_of_failure
+          requires:
+            - push_image_prd
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /release\/.*/ 

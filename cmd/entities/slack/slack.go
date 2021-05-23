@@ -102,8 +102,8 @@ func (client *SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, br
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
-									os.Getenv("AWS_REGION"),
-									os.Getenv("AWS_REGION"),
+									os.Getenv("AWS_DEFAULT_REGION"),
+									os.Getenv("AWS_DEFAULT_REGION"),
 									eventDetail.AppId,
 									aws.StringValue(branch.DisplayName),
 									eventDetail.JobId,

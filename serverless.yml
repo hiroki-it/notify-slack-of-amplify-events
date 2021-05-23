@@ -1,50 +1,74 @@
+# サービス名
 service: notify-slack-of-amplify-events
 
-app: notify-slack-of-amplify-events
-
+# バージョン
+# NOTE: v3以降の実験的機能について（https://www.serverless.com/framework/docs/deprecations/）
 frameworkVersion: '2'
 
+# envファイルの有効化
+useDotenv: true
+
+# 静的解析ルール．
+# NOTE: 開発環境で静的解析しやすいように，ルールを弱める．
+configValidationMode: warn
+variablesResolutionMode: null
+
+# 変数
+# NOTE: 開発環境で静的解析しやすいように，デフォルト値を設定する．
 custom:
-  env: dev
-  service: notify-slack-of-amplify-events
+  ecrImageDigest: ${opt:ECR_IMAGE_DIGEST, "sha256:dev"}
 
-provider:
-  name: aws
-  region: ap-northeast-1
-  stackName: ${self:custom.env}-${self:custom.service}-stack
-  stage: ${self:custom.env}
-
+# デプロイ対象のパッケージ
 package:
   patterns:
     - ./bin/**
 
+# プロバイダー
+provider:
+  name: aws
+  region: ap-northeast-1
+  stackName: ${env:APP_ENV}-${self:service}-stack
+  stage: ${env:APP_ENV}
+  ecr:
+    scanOnPush: true
+    images:
+      base:
+        uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:service}-repository@${self:custom.ecrImageDigest}
+  lambdaHashingVersion: 20201221
+
+# Lambda
 functions:
-  main: 
+  main:
     description: The function that notify slack of amplify events
+#    environment:
+#      AWS_DEFAULT_REGION: ${env:AWS_DEFAULT_REGION}
+#      SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
+#      SLACK_CHANNEL_ID: ${env:AWS_ECR_ACCOUNT_URL}
     events:
       - eventBridge:
-          pattern: ${file(./serverless_configs/events/amplify_event.json)}      
-    lambdaHashingVersion: 20201221
+          pattern: ${file(./serverless_configs/events/amplify_event.json)}
+    image: 
+      name: base
     maximumRetryAttempts: 1
-    memorySize: 512    
-    name: ${self:custom.env}-${self:custom.service}
+    memorySize: 512
+    name: ${env:APP_ENV}-${self:service}
     role: !GetAtt LambdaRole.Arn
-    runtime: go1.x  
-    handler: bin/cmd
+    runtime: go1.x
 
+# 追加AWSリソース
 resources:
   Resources:
     LambdaRole:
       Type: AWS::IAM::Role
       Properties:
-        RoleName: ${self:custom.env}-${self:custom.service}-lambda-role
-        Description: The role for ${self:custom.env}-${self:custom.service}-lambda
+        RoleName: ${env:APP_ENV}-${self:service}-lambda-role
+        Description: The role for ${env:APP_ENV}-${self:service}-lambda
         AssumeRolePolicyDocument: ${file(./serverless_configs/policies/trust_policies/lambda_policy.json)}
         # インラインポリシー
         Policies:
-          - PolicyName: ${self:custom.env}-${self:custom.service}-lambda-execution-policy
+          - PolicyName: ${env:APP_ENV}-${self:service}-lambda-execution-policy
             PolicyDocument: ${file(./serverless_configs/policies/custom_managed_policies/lambda_execution_policy.json)}
         # 管理ポリシー
         ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/AWSLambdaExecute    
+          - arn:aws:iam::aws:policy/AWSLambdaExecute
           

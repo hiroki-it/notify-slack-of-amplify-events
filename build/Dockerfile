@@ -46,6 +46,14 @@ LABEL maintainer=${LABEL}
 CMD ["/go/bin/cmd"]
 
 #===================
+# Staging Stage
+#===================
+FROM base as stg
+LABEL maintainer=${LABEL}
+
+CMD ["/go/bin/cmd"]
+
+#===================
 # Production Stage
 #===================
 FROM base as prd

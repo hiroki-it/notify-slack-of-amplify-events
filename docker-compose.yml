@@ -7,11 +7,11 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: ${APP_ENV} # .envファイルから参照．
     container_name: notify-slack-of-amplify-events
-    env_file:   
-      - .env.app
-      - .env.docker 
+    env_file:
+      - .env
+      - .env.docker
     image: notify-slack-of-amplify-events:latest
     networks:
       - default
@@ -24,13 +24,13 @@ services:
     build:
       context: .
       dockerfile: ./build/Dockerfile
-      target: ${APP_ENV}
+      target: ${APP_ENV} # .envファイルから参照．
     command: /go/bin/cmd
     container_name: lambda
     entrypoint: /aws-lambda/aws-lambda-rie
     env_file:
-      - .env.app
-      - .env.docker 
+      - .env
+      - .env.docker
     image: notify-slack-of-amplify-events:latest
     networks:
       - default
