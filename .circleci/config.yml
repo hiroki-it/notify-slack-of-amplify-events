@@ -162,8 +162,8 @@ jobs:
           command: |
             source ./ops/export_envs.sh
             source ./ops/get_ecr_image_digest.sh
-            sls print --ECR_IMAGE_DIGEST $ECR_IMAGE_DIGEST
-            serverless deploy -v --ECR_IMAGE_DIGEST $ECR_IMAGE_DIGEST
+            sls print --ECR_IMAGE_DIGEST "$ECR_IMAGE_DIGEST"
+            serverless deploy -v --ECR_IMAGE_DIGEST "$ECR_IMAGE_DIGEST"
 
 workflows:
   # deveplopブランチフロー
