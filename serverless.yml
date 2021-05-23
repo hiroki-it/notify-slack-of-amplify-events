@@ -1,8 +1,6 @@
 # 変数
 # NOTE: 開発環境で静的解析しやすいように，デフォルト値を設定する．
 custom:
-  appEnv: ${env:APP_ENV, "dev"}
-  ecrAccountUrl: ${env:AWS_ECR_ACCOUNT_URL, "dev"}
   ecrImageDigest: ${opt:ECR_IMAGE_DIGEST, "sha256:dev"}
   service: notify-slack-of-amplify-events
 
@@ -12,6 +10,9 @@ service: ${self:custom.service}
 # バージョン
 # NOTE: v3以降の実験的機能について（https://www.serverless.com/framework/docs/deprecations/）
 frameworkVersion: '2'
+
+# envファイルの有効化
+useDotenv: true
 
 # 静的解析ルール．
 # NOTE: 開発環境で静的解析しやすいように，ルールを弱める．
@@ -29,7 +30,7 @@ provider:
     scanOnPush: true
     images:
       base:
-        uri: ${self:custom.ecrAccountUrl}/${self:custom.appEnv}-${self:custom.service}-repository@${self:custom.ecrImageDigest}
+        uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:service}-repository@${self:custom.ecrImageDigest}
   lambdaHashingVersion: 20201221
 
 # デプロイ対象のパッケージ
@@ -41,6 +42,10 @@ package:
 functions:
   main:
     description: The function that notify slack of amplify events
+    environment:
+      AWS_DEFAULT_REGION: ${env:AWS_DEFAULT_REGION}
+      SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
+      SLACK_CHANNEL_ID: ${env:AWS_ECR_ACCOUNT_URL}
     events:
       - eventBridge:
           pattern: ${file(./serverless_configs/events/amplify_event.json)}
