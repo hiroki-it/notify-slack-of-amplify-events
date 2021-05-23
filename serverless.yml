@@ -41,7 +41,7 @@ functions:
   main:
     description: The function that notify slack of amplify events
     environment:
-      AWS_REGION: ${env:AWS_REGION}
+      AWS_AMPLIFY_REGION: ${env:AWS_AMPLIFY_REGION}
       SLACK_API_TOKEN: ${env:SLACK_API_TOKEN}
       SLACK_CHANNEL_ID: ${env:AWS_ECR_ACCOUNT_URL}
     events:
