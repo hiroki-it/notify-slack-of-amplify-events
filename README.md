@@ -118,9 +118,11 @@ $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./tes
 
 ## デプロイ
 
-CircleCIによるCDにて，ソースコードをLambdaにデプロイします．
+原則として，ローカルPCからソースコードをLambdaにデプロイしないようにします．
 
-ツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
+CircleCIによるCDにて，これをLambdaにデプロイします．
+
+デプロイツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
 
 ## Amplifyについて
 
