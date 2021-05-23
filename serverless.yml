@@ -29,7 +29,6 @@ provider:
   region: ap-northeast-1
   stackName: ${env:APP_ENV}-${self:service}-stack
   stage: ${env:APP_ENV}
-  # ECR
   ecr:
     scanOnPush: true
     images:
