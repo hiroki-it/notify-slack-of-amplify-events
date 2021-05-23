@@ -121,3 +121,11 @@ $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./tes
 CircleCIによるCDにて，ソースコードをLambdaにデプロイします．
 
 ツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
+
+## Amplifyについて
+
+Amplifyを用いて，SSGアプリのCI/CDを構築します．
+
+AmplifyがS3にSSGアプリをデプロイし，このイベントをEventBridgeがキャッチします．
+
+AmplifyのCI/CDにつきましては，[こちらのリポジトリ](https://github.com/hiroki-it/deploy-ssg-to-amplify) を参考に．
