@@ -29,7 +29,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_DEFAULT_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_REGION"))
 
 	if err != nil {
 		log.Error(err.Error())
