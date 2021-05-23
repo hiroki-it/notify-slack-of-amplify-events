@@ -1,4 +1,5 @@
 # 変数
+# NOTE: 開発環境で静的解析しやすいように，デフォルト値を設定する．
 custom:
   appEnv: ${env:APP_ENV, "dev"}
   ecrAccountUrl: ${env:AWS_ECR_ACCOUNT_URL, "dev"}
@@ -8,6 +9,8 @@ custom:
 # サービス名
 service: ${self:custom.service}
 
+# バージョン
+# NOTE: v3以降の実験的機能について（https://www.serverless.com/framework/docs/deprecations/）
 frameworkVersion: '2'
 
 # 静的解析ルール．
