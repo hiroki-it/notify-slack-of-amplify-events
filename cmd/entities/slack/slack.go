@@ -39,11 +39,9 @@ func (client *SlackClient) BuildMessage(eventDetail *eventbridge.EventDetail, br
 				Blocks: []Block{
 					Block{
 						Type: "section",
-						Elements: []Element{
-							Element{
-								Type: "mrkdwn",
-								Text: "*検証用dev環境*",
-							},
+						Text: &Text{
+							Type: "mrkdwn",
+							Text: "*検証用dev環境*",
 						},
 					},
 					Block{
