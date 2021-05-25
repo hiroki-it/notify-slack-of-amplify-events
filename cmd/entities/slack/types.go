@@ -23,7 +23,7 @@ type Attachment struct {
 /**/
 type Block struct {
 	Type string `json:"type"`
-	Text struct {
+	Text *struct {
 		Type string `json:"type"`
 		Text string `json:"text"`
 	} `json:"text,omitempty"`
