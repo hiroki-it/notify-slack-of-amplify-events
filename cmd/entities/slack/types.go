@@ -22,12 +22,15 @@ type Attachment struct {
 
 /**/
 type Block struct {
-	Type string `json:"type"`
-	Text *struct {
-		Type string `json:"type"`
-		Text string `json:"text"`
-	} `json:"text,omitempty"`
+	Type     string    `json:"type"`
+	Text     *Text     `json:"text,omitempty"`
 	Elements []Element `json:"elements,omitempty"`
+}
+
+/**/
+type Text struct {
+	Type string `json:"type"`
+	Text string `json:"text"`
 }
 
 /**/
