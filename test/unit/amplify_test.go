@@ -23,16 +23,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	log := logger.NewLogger()
 
-	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
-
-	if err != nil {
-		log.Error(err.Error())
-	}
-
-	eventDetail := eventbridge.NewEventDetail()
-
-	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err = json.Unmarshal(detail, eventDetail)
+	eventDetail, err := dataTestGetBranchFromAmplify()
 
 	if err != nil {
 		log.Error(err.Error())
@@ -67,4 +58,27 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	// 最終的な返却値が正しいかを検証する．
 	assert.Exactly(t, aws.String("feature-test"), getBranchOutput.Branch.DisplayName)
+}
+
+/**
+ * GetBranchFromAmplifyテストデータ
+ */
+func dataTestGetBranchFromAmplify() (*eventbridge.EventDetail, error) {
+
+	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
+
+	if err != nil {
+		return nil, err
+	}
+
+	eventDetail := eventbridge.NewEventDetail()
+
+	// eventbridgeから転送されたJSONを構造体にマッピングします．
+	json.Unmarshal(detail, eventDetail)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return eventDetail, err
 }
