@@ -43,13 +43,6 @@ type Element struct {
 }
 
 /**
- * ジョブステータスを構成します．
- */
-type JobStatusColor struct {
-	Status string
-}
-
-/**
  * SlackClientインターフェースを構成します．
  */
 type SlackClientInterface interface {

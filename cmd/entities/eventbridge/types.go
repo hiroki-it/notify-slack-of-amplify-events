@@ -16,3 +16,10 @@ type EventDetail struct {
 	JobId      string `json:"jobId"`
 	JobStatus  string `json:"jobStatus"`
 }
+
+/**
+ * ジョブステータスを構成します．
+ */
+type JobStatusColor struct {
+	Status string
+}
