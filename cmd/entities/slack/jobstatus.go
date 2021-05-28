@@ -2,10 +2,10 @@ package slack
 
 /**
  * コンストラクタ
- * JobStatusを作成します．
+ * JobStatusColorを作成します．
  */
-func NewJobStatus(status string) *JobStatus {
-	return &JobStatus{
+func NewJobStatusColor(status string) *JobStatusColor {
+	return &JobStatusColor{
 		Status: status,
 	}
 }
@@ -13,9 +13,9 @@ func NewJobStatus(status string) *JobStatus {
 /**
  * ジョブ状態を表現するメッセージを返却します．
  */
-func (jobStatus *JobStatus) PrintJobStatus() (string, string) {
+func (jobStatusColor *JobStatusColor) PrintJobStatusColor() (string, string) {
 
-	if jobStatus.Status == "SUCCEED" {
+	if jobStatusColor.Status == "SUCCEED" {
 		return "成功", "#00FF00"
 	}
 

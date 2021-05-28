@@ -45,7 +45,7 @@ type Element struct {
 /**
  * ジョブステータスを構成します．
  */
-type JobStatus struct {
+type JobStatusColor struct {
 	Status string
 }
 
