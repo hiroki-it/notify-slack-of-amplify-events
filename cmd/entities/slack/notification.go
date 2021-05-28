@@ -17,8 +17,8 @@ import (
  */
 func NewSlackNotification(slackClient SlackClient, slackMessage SlackMessage) *SlackNotification {
 	return &SlackNotification{
-		SlackClient:  slackClient,
-		SlackMessage: slackMessage,
+		slackClient:  slackClient,
+		slackMessage: slackMessage,
 	}
 }
 
@@ -28,7 +28,7 @@ func NewSlackNotification(slackClient SlackClient, slackMessage SlackMessage) *S
 func (slackNotification *SlackNotification) PostMessage() error {
 
 	// マッピングを元に，構造体をJSONに変換する．
-	json, err := json.Marshal(slackNotification.SlackMessage)
+	json, err := json.Marshal(slackNotification.slackMessage)
 
 	if err != nil {
 		return err

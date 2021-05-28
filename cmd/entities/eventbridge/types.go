@@ -21,5 +21,5 @@ type EventDetail struct {
  * ジョブステータスを構成します．
  */
 type JobStatusColor struct {
-	Status string
+	status string
 }

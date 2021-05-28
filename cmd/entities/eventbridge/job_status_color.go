@@ -6,7 +6,7 @@ package eventbridge
  */
 func NewJobStatusColor(status string) *JobStatusColor {
 	return &JobStatusColor{
-		Status: status,
+		status: status,
 	}
 }
 
@@ -15,7 +15,7 @@ func NewJobStatusColor(status string) *JobStatusColor {
  */
 func (jobStatusColor *JobStatusColor) PrintStatus() string {
 
-	if jobStatusColor.Status == "SUCCEED" {
+	if jobStatusColor.status == "SUCCEED" {
 		return "成功"
 	}
 
@@ -27,7 +27,7 @@ func (jobStatusColor *JobStatusColor) PrintStatus() string {
  */
 func (jobStatusColor *JobStatusColor) PrintColor() string {
 
-	if jobStatusColor.Status == "SUCCEED" {
+	if jobStatusColor.status == "SUCCEED" {
 		return "#00FF00"
 	}
 
