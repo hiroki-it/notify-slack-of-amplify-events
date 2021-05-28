@@ -52,8 +52,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 	slackMessage := slack.NewSlackMessage(
 		eventDetail,
 		getBranchOutput.Branch,
-		jobStatusColor.PrintStatus(),
-		jobStatusColor.PrintColor(),
+		jobStatusColor,
 	)
 
 	slackClient := slack.NewSlackClient()
