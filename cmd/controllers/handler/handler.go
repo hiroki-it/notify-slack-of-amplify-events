@@ -47,14 +47,25 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	slackClient := slack.NewSlackClient()
+	jobStatus := slack.NewJobStatus(eventDetail.JobStatus)
 
-	message := slackClient.BuildMessage(
+	status, color := jobStatus.PrintJobStatus()
+
+	message := slack.NewMessage(
 		eventDetail,
 		getBranchOutput.Branch,
+		status,
+		color,
 	)
 
-	err = slackClient.PostMessage(message)
+	slackClient := slack.NewSlackClient()
+
+	slackNotification := slack.NewSlackNotification(
+		*slackClient,
+		*message,
+	)
+
+	err = slackNotification.PostMessage()
 
 	if err != nil {
 		log.Error(err.Error())
