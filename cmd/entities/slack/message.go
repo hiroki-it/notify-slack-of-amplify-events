@@ -14,10 +14,10 @@ import (
  * コンストラクタ
  * Messageを作成します．
  */
-func NewMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, status string, color string) *Message {
+func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, status string, color string) *SlackMessage {
 
 	// メッセージを構成します．
-	return &Message{
+	return &SlackMessage{
 		Channel: os.Getenv("SLACK_CHANNEL_ID"),
 		Text:    "検証用dev環境",
 		Attachments: []Attachment{

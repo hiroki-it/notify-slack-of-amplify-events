@@ -15,10 +15,10 @@ import (
  * コンストラクタ
  * SlackNotificationを作成します．
  */
-func NewSlackNotification(slackClient SlackClient, message Message) *SlackNotification {
+func NewSlackNotification(slackClient SlackClient, slackMessage SlackMessage) *SlackNotification {
 	return &SlackNotification{
-		SlackClient: slackClient,
-		Message:     message,
+		SlackClient:  slackClient,
+		SlackMessage: slackMessage,
 	}
 }
 
@@ -28,7 +28,7 @@ func NewSlackNotification(slackClient SlackClient, message Message) *SlackNotifi
 func (slackNotification *SlackNotification) PostMessage() error {
 
 	// マッピングを元に，構造体をJSONに変換する．
-	json, err := json.Marshal(slackNotification.Message)
+	json, err := json.Marshal(slackNotification.SlackMessage)
 
 	if err != nil {
 		return err

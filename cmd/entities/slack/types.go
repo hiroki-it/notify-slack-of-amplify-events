@@ -4,14 +4,14 @@ package slack
  * Slack通知を構成します．
  */
 type SlackNotification struct {
-	SlackClient SlackClient
-	Message     Message
+	SlackClient  SlackClient
+	SlackMessage SlackMessage
 }
 
 /**
  * Slackメッセージを構成します．
  */
-type Message struct {
+type SlackMessage struct {
 	Channel     string       `json:"channel"`
 	Text        string       `json:"text"`
 	Attachments []Attachment `json:"attachments"`
