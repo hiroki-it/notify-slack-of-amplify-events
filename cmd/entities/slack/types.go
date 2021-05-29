@@ -4,8 +4,8 @@ package slack
  * Slack通知を構成します．
  */
 type SlackNotification struct {
-	slackClient  SlackClient
-	slackMessage SlackMessage
+	slackClient  *SlackClient
+	slackMessage *SlackMessage
 }
 
 /**

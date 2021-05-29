@@ -58,8 +58,8 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 	slackClient := slack.NewSlackClient()
 
 	slackNotification := slack.NewSlackNotification(
-		*slackClient,
-		*slackMessage,
+		slackClient,
+		slackMessage,
 	)
 
 	err = slackNotification.PostMessage()

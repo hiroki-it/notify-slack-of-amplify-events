@@ -15,7 +15,7 @@ import (
  * コンストラクタ
  * SlackNotificationを作成します．
  */
-func NewSlackNotification(slackClient SlackClient, slackMessage SlackMessage) *SlackNotification {
+func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) *SlackNotification {
 	return &SlackNotification{
 		slackClient:  slackClient,
 		slackMessage: slackMessage,
