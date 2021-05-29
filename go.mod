@@ -5,8 +5,6 @@ go 1.15
 require (
 	github.com/aws/aws-lambda-go v1.23.0
 	github.com/aws/aws-sdk-go v1.25.40
-	github.com/aws/aws-sdk-go-v2 v1.3.4
-	github.com/aws/aws-sdk-go-v2/service/amplify v1.1.5
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.16.0
 )
