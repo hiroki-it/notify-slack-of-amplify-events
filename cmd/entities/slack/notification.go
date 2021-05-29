@@ -25,10 +25,10 @@ func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) 
 /**
  * メッセージを送信します．
  */
-func (slackNotification *SlackNotification) PostMessage() error {
+func (no *SlackNotification) PostMessage() error {
 
 	// マッピングを元に，構造体をJSONに変換する．
-	json, err := json.Marshal(slackNotification.slackMessage)
+	json, err := json.Marshal(no.slackMessage)
 
 	if err != nil {
 		return err
