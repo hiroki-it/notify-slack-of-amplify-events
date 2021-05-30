@@ -74,9 +74,7 @@ $ docker-compose run -d --rm notify-slack-of-amplify-event
 $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```
 
-## リロード
-
-### ホットリロード
+## ホットリロード
 
 ホスト側のソースコードを修正に合わせて，コンテナ側のアーティファクトを随時更新します．
 
@@ -86,14 +84,6 @@ $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
-```
-
-### RIEにソースコードを再反映
-
-LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
-
-```shell
-$ docker-compose up --build -d
 ```
 
 ## テスト
@@ -114,7 +104,11 @@ GoサービスからLambdaサービスにPOSTリクエストを送信し，一�
 
 CI/CD中にLambdaのホストを指定できないため，ローカル環境でのみ実行可能です．
 
+なお，LambdaのRIEにソースコードを反映するためには，イメージを再ビルドする必要があります．
+
 ```shell
+$ docker-compose up --build -d
+
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
 ```
 
