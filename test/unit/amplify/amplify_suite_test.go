@@ -6,7 +6,6 @@ import (
 
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -23,12 +22,10 @@ type SuiteAmplify struct {
  */
 func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
-	log := logger.NewLogger()
-
 	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
 
 	if err != nil {
-		log.Error(err.Error())
+		suite.T().Fatal(err.Error())
 	}
 
 	eventDetail := eventbridge.NewEventDetail()
@@ -37,7 +34,7 @@ func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 	err = json.Unmarshal(detail, &eventDetail)
 
 	if err != nil {
-		log.Error(err.Error())
+		suite.T().Fatal(err.Error())
 	}
 
 	suite.eventDetail = eventDetail
