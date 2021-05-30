@@ -22,7 +22,7 @@ type SuiteAmplify struct {
  */
 func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
-	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
+	detail, err := file.ReadTestDataFile("../../testdata/request/event.json")
 
 	if err != nil {
 		suite.T().Fatal(err.Error())
