@@ -10,7 +10,7 @@ import (
 )
 
 /**
- * Lambdaをテストします．．
+ * Lambdaをテストします．
  */
 func (suite *SuiteLambda) TestLambda() {
 

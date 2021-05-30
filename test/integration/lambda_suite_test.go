@@ -16,7 +16,7 @@ type SuiteLambda struct {
 }
 
 /**
- * Lambdaの統合テストの前にテストデータを読み込みます．
+ * Lambdaの統合テストの事前処理を実行します．
  */
 func (suite *SuiteLambda) BeforeTest(suiteName string, testName string) {
 

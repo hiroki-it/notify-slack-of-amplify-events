@@ -18,7 +18,7 @@ type SuiteAmplify struct {
 }
 
 /**
- * Amplifyの単体テストの前にテストデータを読み込みます．
+ * Amplifyの単体テストの事前処理を実行します．
  */
 func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
