@@ -11,7 +11,7 @@ import (
 )
 
 /**
- * Amplifyのテストスイートを構成します．
+ * Amplifyの単体テストのテストスイートを構成します．
  */
 type SuiteAmplify struct {
 	suite.Suite
@@ -19,7 +19,7 @@ type SuiteAmplify struct {
 }
 
 /**
- * Amplifyのテストの前にテストデータを読み込みます．
+ * Amplifyの単体テストの前にテストデータを読み込みます．
  */
 func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
