@@ -21,7 +21,7 @@ type SuiteAmplify struct {
 /**
  * Amplifyのテストの前にテストデータを読み込みます．
  */
-func (suite SuiteAmplify) BeforeTest() {
+func (suite *SuiteAmplify) BeforeTest() {
 
 	log := logger.NewLogger()
 
