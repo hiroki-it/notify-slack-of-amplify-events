@@ -34,7 +34,7 @@ func (suite SuiteAmplify) BeforeTest() {
 	eventDetail := eventbridge.NewEventDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	json.Unmarshal(detail, eventDetail)
+	err = json.Unmarshal(detail, &eventDetail)
 
 	if err != nil {
 		log.Error(err.Error())
