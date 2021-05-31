@@ -14,7 +14,7 @@ import (
  * コンストラクタ
  * Messageを作成します．
  */
-func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, jobStatusColor *eventbridge.JobStatusColor) *SlackMessage {
+func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, jobStatusColor *JobStatusColor) *SlackMessage {
 
 	// メッセージを構成します．
 	return &SlackMessage{

@@ -54,3 +54,10 @@ type SlackClientInterface interface {
 type SlackClient struct {
 	SlackClientInterface
 }
+
+/**
+ * ジョブステータスを構成します．
+ */
+type JobStatusColor struct {
+	status string
+}
