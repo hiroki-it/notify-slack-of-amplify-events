@@ -19,9 +19,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 	// AmplifyAPIのモックを作成する．
 	mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
-	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
-
-	getBranchInput := amplifyClient.CreateGetBranchInput(suite.eventDetail)
+	getBranchInput := amplify.NewGetBranchInput(suite.eventDetail)
 
 	// スタブに引数として渡される値と，その時の返却値を定義する．
 	mockedAPI.On("GetBranch", getBranchInput).Return(

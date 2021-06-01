@@ -20,17 +20,10 @@ func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 }
 
 /**
- * ゲッター
- * AmplifyAPIを返却します．
- */
-func (cl *AmplifyClient) GetAmplifyAPI() amplifyiface.AmplifyAPI {
-	return cl.api
-}
-
-/**
+ * コンストラクタ
  * GetBranchInputを作成します．
  */
-func (cl *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.EventDetail) *aws_amplify.GetBranchInput {
+func NewGetBranchInput(eventDetail *eventbridge.EventDetail) *aws_amplify.GetBranchInput {
 
 	return &aws_amplify.GetBranchInput{
 		AppId:      aws.String(eventDetail.AppId),
