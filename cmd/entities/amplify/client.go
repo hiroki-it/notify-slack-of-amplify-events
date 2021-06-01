@@ -39,6 +39,14 @@ func (cl *AmplifyClient) CreateGetBranchInput(eventDetail *eventbridge.EventDeta
 }
 
 /**
+ * ゲッター
+ * AmplifyAPIを返却します．
+ */
+func (cl *AmplifyClient) GetAmplifyAPI() amplifyiface.AmplifyAPI {
+	return cl.api
+}
+
+/**
  * Amplifyからブランチ情報を取得します．
  */
 func (cl *AmplifyClient) GetBranchFromAmplify(getBranchInput *aws_amplify.GetBranchInput) (*aws_amplify.GetBranchOutput, error) {
