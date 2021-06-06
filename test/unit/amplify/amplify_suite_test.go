@@ -29,6 +29,9 @@ func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 	suite.getBranchFromAmplifyData = eventDetail
 }
 
+/**
+ * ユニットテストのテストスイートを実行します．
+ */
 func TestSuiteAmplify(t *testing.T) {
 	suite.Run(t, &SuiteAmplify{})
 }
