@@ -39,7 +39,7 @@ func (no *SlackNotification) PostMessage() error {
 	log.Info(string(json))
 
 	// リクエストメッセージを定義する．
-	request, err := http.NewRequest(
+	req, err := http.NewRequest(
 		"POST",
 		"https://slack.com/api/chat.postMessage",
 		bytes.NewBuffer(json),
@@ -50,22 +50,22 @@ func (no *SlackNotification) PostMessage() error {
 	}
 
 	// ヘッダーを定義する．
-	request.Header.Set("Content-Type", "application/json")
-	request.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
 
 	httpClient := &http.Client{}
 
 	// HTTPリクエストを送信する．
-	response, err := httpClient.Do(request)
+	res, err := httpClient.Do(req)
 
-	if err != nil || response.StatusCode != 200 {
+	if err != nil || res.StatusCode != 200 {
 		return err
 	}
 
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにする．
-	defer response.Body.Close()
+	defer res.Body.Close()
 
-	body, _ := ioutil.ReadAll(response.Body)
+	body, _ := ioutil.ReadAll(res.Body)
 
 	log.Info(string(body))
 
