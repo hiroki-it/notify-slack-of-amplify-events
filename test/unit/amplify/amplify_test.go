@@ -33,7 +33,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(suite.eventDetail)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(suite.getBranchFromAmplifyData)
 
 	if err != nil {
 		suite.T().Fatal(err.Error())
