@@ -12,7 +12,7 @@ import (
  */
 type SuiteAmplify struct {
 	suite.Suite
-	getBranchFromAmplifyData *eventbridge.EventDetail
+	eventDetail *eventbridge.EventDetail
 }
 
 /**
@@ -26,7 +26,7 @@ func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 	eventDetail.BranchName = "test"
 
 	// テストデータを準備します．
-	suite.getBranchFromAmplifyData = eventDetail
+	suite.eventDetail = eventDetail
 }
 
 /**
