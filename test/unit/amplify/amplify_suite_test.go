@@ -22,10 +22,10 @@ func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
 	eventDetail := eventbridge.NewEventDetail()
 
-	// テストデータを準備します．
 	eventDetail.AppId = "test"
 	eventDetail.BranchName = "test"
 
+	// テストデータを準備します．
 	suite.getBranchFromAmplifyData = eventDetail
 }
 
