@@ -8,7 +8,7 @@ import (
 )
 
 /**
- * Amplifyの単体テストのテストスイートを構成します．
+ * ユニットテストのテストスイートを構成します．
  */
 type SuiteAmplify struct {
 	suite.Suite
@@ -16,7 +16,7 @@ type SuiteAmplify struct {
 }
 
 /**
- * Amplifyの単体テストの事前処理を実行します．
+ * ユニットテストの事前処理を実行します．
  */
 func (suite *SuiteAmplify) BeforeTest(suiteName string, testName string) {
 
