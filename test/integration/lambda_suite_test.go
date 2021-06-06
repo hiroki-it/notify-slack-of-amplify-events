@@ -20,7 +20,7 @@ type SuiteLambda struct {
  */
 func (suite *SuiteLambda) BeforeTest(suiteName string, testName string) {
 
-	detail, err := file.ReadTestDataFile("../testdata/request/event.json")
+	detail, err := file.ReadTestDataFile("./testdata/event.json")
 
 	if err != nil {
 		suite.T().Fatal(err.Error())
