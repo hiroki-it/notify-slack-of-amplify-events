@@ -23,9 +23,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 	// スタブのメソッドに処理の内容を定義する．
 	mockedAPI.On("GetBranch", mock.Anything).Return(
 		&aws_amplify.GetBranchOutput{
-			Branch: &aws_amplify.Branch{
-				DisplayName: aws.String("feature-test"),
-			},
+			Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 		},
 		nil,
 	)
