@@ -16,12 +16,12 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 
 	suite.T().Helper()
 
-	// AmplifyAPIのモックを作成する．
+	// AmplifyAPIのスタブを作成する．
 	mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
 	getBranchInput := amplify.NewGetBranchInput(suite.eventDetail)
 
-	// スタブに引数として渡される値と，その時の返却値を定義する．
+	// スタブのメソッドに処理の内容を定義する．
 	mockedAPI.On("GetBranch", getBranchInput).Return(
 		&aws_amplify.GetBranchOutput{
 			Branch: &aws_amplify.Branch{
@@ -40,7 +40,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 		suite.T().Fatal(err.Error())
 	}
 
-	//関数内部でスタブがコールされているかを検証する．
+	//関数内部でスタブのメソッドがコールされているかを検証する．
 	mockedAPI.AssertExpectations(suite.T())
 
 	// 最終的な返却値が正しいかを検証する．
