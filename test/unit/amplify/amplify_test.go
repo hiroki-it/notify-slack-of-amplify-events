@@ -39,7 +39,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 		suite.T().Fatal(err.Error())
 	}
 
-	//関数内部でスタブのメソッドがコールされているかを検証する．
+	// 関数内部でスタブのメソッドがコールされているかを検証する．
 	mockedAPI.AssertExpectations(suite.T())
 
 	// 最終的な返却値が正しいかを検証する．
