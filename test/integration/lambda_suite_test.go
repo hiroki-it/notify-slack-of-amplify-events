@@ -12,7 +12,7 @@ import (
  */
 type SuiteLambda struct {
 	suite.Suite
-	detail []byte
+	lambdaData []byte
 }
 
 /**
@@ -26,7 +26,7 @@ func (suite *SuiteLambda) BeforeTest(suiteName string, testName string) {
 		suite.T().Fatal(err.Error())
 	}
 
-	suite.detail = detail
+	suite.lambdaData = detail
 }
 
 func TestSuiteLambda(t *testing.T) {

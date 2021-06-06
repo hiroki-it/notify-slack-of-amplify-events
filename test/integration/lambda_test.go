@@ -20,7 +20,7 @@ func (suite *SuiteLambda) TestLambda() {
 	request, err := http.NewRequest(
 		"POST",
 		fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
-		bytes.NewBuffer(suite.detail),
+		bytes.NewBuffer(suite.lambdaData),
 	)
 
 	if err != nil {
