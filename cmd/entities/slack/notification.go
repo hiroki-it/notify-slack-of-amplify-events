@@ -41,7 +41,7 @@ func (no *SlackNotification) PostMessage() error {
 	// リクエストメッセージを定義する．
 	req, err := http.NewRequest(
 		"POST",
-		"https://slack.com/api/chat.postMessage",
+		no.slackClient.url,
 		bytes.NewBuffer(json),
 	)
 
@@ -53,10 +53,8 @@ func (no *SlackNotification) PostMessage() error {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("SLACK_API_TOKEN")))
 
-	httpClient := &http.Client{}
-
 	// HTTPリクエストを送信する．
-	res, err := httpClient.Do(req)
+	res, err := no.slackClient.httpClient.Do(req)
 
 	if err != nil || res.StatusCode != 200 {
 		return err

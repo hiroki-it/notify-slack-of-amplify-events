@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -53,7 +54,10 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		jobStatusColor,
 	)
 
-	slackClient := slack.NewSlackClient()
+	slackClient := slack.NewSlackClient(
+		&http.Client{},
+		"https://slack.com/api/chat.postMessage",
+	)
 
 	slackNotification := slack.NewSlackNotification(
 		slackClient,

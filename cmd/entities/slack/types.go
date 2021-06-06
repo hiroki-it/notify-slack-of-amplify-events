@@ -1,5 +1,9 @@
 package slack
 
+import (
+	"net/http"
+)
+
 /**
  * Slack通知を構成します．
  */
@@ -53,6 +57,8 @@ type SlackClientInterface interface {
  */
 type SlackClient struct {
 	SlackClientInterface
+	httpClient *http.Client
+	url        string
 }
 
 /**
