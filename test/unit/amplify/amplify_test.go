@@ -4,6 +4,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/test/mock/amplify"
@@ -19,10 +20,8 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 	// AmplifyAPIのスタブを作成する．
 	mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
-	getBranchInput := amplify.NewGetBranchInput(suite.eventDetail)
-
 	// スタブのメソッドに処理の内容を定義する．
-	mockedAPI.On("GetBranch", getBranchInput).Return(
+	mockedAPI.On("GetBranch", mock.Anything).Return(
 		&aws_amplify.GetBranchOutput{
 			Branch: &aws_amplify.Branch{
 				DisplayName: aws.String("feature-test"),
@@ -34,7 +33,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
 	amplifyClient := amplify.NewAmplifyClient(mockedAPI)
 
 	// 検証対象の関数を実行する．スタブを含む一連の処理が実行される．
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(getBranchInput)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(suite.eventDetail)
 
 	if err != nil {
 		suite.T().Fatal(err.Error())
