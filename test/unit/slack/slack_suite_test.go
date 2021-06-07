@@ -37,7 +37,7 @@ func (suite *SuiteSlack) BeforeTest(suiteName string, testName string) {
 	suite.getBranchOutput = &aws_amplify.GetBranchOutput{
 		Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 	}
-	suite.jobStatusColor = slack.NewJobStatusColor("SUCCESS")
+	suite.jobStatusColor = slack.NewJobStatusColor("SUCCEED")
 }
 
 /**
