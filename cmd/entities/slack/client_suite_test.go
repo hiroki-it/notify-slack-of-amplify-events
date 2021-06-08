@@ -1,11 +1,10 @@
-package unit
+package slack
 
 import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
 	"github.com/stretchr/testify/suite"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -18,7 +17,7 @@ type SuiteSlack struct {
 	suite.Suite
 	eventDetail     *eventbridge.EventDetail
 	getBranchOutput *aws_amplify.GetBranchOutput
-	jobStatusColor  *slack.JobStatusColor
+	jobStatusColor  *JobStatusColor
 }
 
 /**
@@ -37,7 +36,7 @@ func (suite *SuiteSlack) BeforeTest(suiteName string, testName string) {
 	suite.getBranchOutput = &aws_amplify.GetBranchOutput{
 		Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 	}
-	suite.jobStatusColor = slack.NewJobStatusColor("SUCCEED")
+	suite.jobStatusColor = NewJobStatusColor("SUCCEED")
 }
 
 /**

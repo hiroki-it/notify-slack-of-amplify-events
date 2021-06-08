@@ -1,4 +1,4 @@
-package unit
+package amplify
 
 import (
 	"testing"

@@ -1,11 +1,10 @@
-package unit
+package slack
 
 import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -23,18 +22,18 @@ func (suite *SuiteSlack) TestPostMessage() {
 
 	defer ts.Close()
 
-	slackMessage := slack.NewSlackMessage(
+	slackMessage := NewSlackMessage(
 		suite.eventDetail,
 		suite.getBranchOutput.Branch,
 		suite.jobStatusColor,
 	)
 
-	slackClient := slack.NewSlackClient(
+	slackClient := NewSlackClient(
 		&http.Client{},
 		ts.URL, // モックサーバのURLに差し替えます．
 	)
 
-	slackNotification := slack.NewSlackNotification(
+	slackNotification := NewSlackNotification(
 		slackClient,
 		slackMessage,
 	)
