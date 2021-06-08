@@ -9,4 +9,4 @@ process.yml
 .docker.env
 .env
 .env.docker
-coverage.out
+*.out
