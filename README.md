@@ -27,14 +27,11 @@ notify-slack-of-amplify-events
 |   ├── controllers # コントローラ
 |   ├── entities    # エンティティ
 |   └── usecases    # ユースケース
-|
-└── test
-    ├── integration  # 統合テスト
-    |   └── testdata # テストデータ
-    |
-    ├── mock         # モック
-    └── unit         # ユニットテスト
-        └── testdata # テストデータ
+| 
+├── integration_test
+|   └── testdata # テストデータ
+| 
+└── mock # モック
 ```
 
 ## 環境構築
