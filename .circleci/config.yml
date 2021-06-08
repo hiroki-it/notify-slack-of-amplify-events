@@ -95,8 +95,7 @@ jobs:
           name: Go test & Generate coverage report
           command: |
             docker-compose run --rm notify-slack-of-amplify-events sh \
-              -c "set -x \
-                && go test -v -cover -coverprofile=c.out ./cmd/... \
+              -c "go test -v -cover -coverprofile=c.out ./cmd/... \
                 && go tool cover -html=c.out -o coverage.html \
                 && mkdir -p ./tmp/artifacts \
                 && mv coverage.html ./tmp/artifacts"
