@@ -20,14 +20,6 @@ func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 }
 
 /**
- * ゲッター
- * AmplifyAPIを返却します．
- */
-func (cl *AmplifyClient) GetAmplifyAPI() amplifyiface.AmplifyAPI {
-	return cl.api
-}
-
-/**
  * Amplifyからブランチ情報を取得します．
  */
 func (cl *AmplifyClient) GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error) {
