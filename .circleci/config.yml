@@ -99,7 +99,7 @@ jobs:
               && mkdir -p /tmp/artifacts \
               && mv coverage.html /tmp/artifacts
       - store_artifacts:
-          name: Store coverage.html
+          name: Store coverage report
           path: /tmp/artifacts
       - run:
           name: Docker save image
