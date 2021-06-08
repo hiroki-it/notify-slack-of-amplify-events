@@ -98,11 +98,11 @@ jobs:
               -c "set -x \
                 && go test -v -cover -coverprofile=c.out ./cmd/... \
                 && go tool cover -html=c.out -o coverage.html \
-                && mkdir -p /tmp/artifacts \
-                && mv coverage.html /tmp/artifacts"
+                && mkdir -p ./tmp/artifacts \
+                && mv coverage.html ./tmp/artifacts"
       - store_artifacts:
           name: Store coverage report
-          path: /tmp/artifacts
+          path: ./tmp/artifacts
       - run:
           name: Docker save image
           command: |
