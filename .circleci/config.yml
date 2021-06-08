@@ -92,12 +92,14 @@ jobs:
           command: |
             docker-compose run --rm notify-slack-of-amplify-events go vet ./...
       - run:
-          name: Go test
+          name: Go test & Report coverage
           command: |
-            docker-compose run --rm notify-slack-of-amplify-events go test -v -cover -coverprofile=c.out ./cmd/... \
-              && go tool cover -html=c.out -o coverage.html \
-              && mkdir -p /tmp/artifacts \
-              && mv coverage.html /tmp/artifacts
+            docker-compose run --rm notify-slack-of-amplify-events sh \
+              -c "set -x \
+                && go test -v -cover -coverprofile=c.out ./cmd/... \
+                && go tool cover -html=c.out -o coverage.html \
+                && mkdir -p /tmp/artifacts \
+                && mv coverage.html /tmp/artifacts"
       - store_artifacts:
           name: Store coverage report
           path: /tmp/artifacts
