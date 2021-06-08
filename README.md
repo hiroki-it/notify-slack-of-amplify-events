@@ -93,7 +93,7 @@ $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 Goサービスのユニットテストを実行します．
 
 ```shell
-$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/unit/...
+$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./cmd/...
 ```
 
 ### 統合テスト（ローカル環境のみ対応）
@@ -109,7 +109,7 @@ CI/CD中にLambdaのホストを指定できないため，ローカル環境で
 ```shell
 $ docker-compose up --build -d
 
-$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./test/integration/...
+$ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./integration_test/...
 ```
 
 ## デプロイ
