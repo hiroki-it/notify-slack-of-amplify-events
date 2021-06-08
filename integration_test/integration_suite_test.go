@@ -8,17 +8,17 @@ import (
 )
 
 /**
- * Lambdaの統合テストのテストスイートを構成します．
+ * 統合テストのテストスイートを構成します．
  */
-type SuiteLambda struct {
+type SuiteIntegration struct {
 	suite.Suite
 	detail []byte
 }
 
 /**
- * Lambdaの統合テストの事前処理を実行します．
+ * 統合テストの事前処理を実行します．
  */
-func (suite *SuiteLambda) BeforeTest(suiteName string, testName string) {
+func (suite *SuiteIntegration) BeforeTest(suiteName string, testName string) {
 
 	detail, err := file.ReadTestDataFile("./testdata/event.json")
 
@@ -29,6 +29,6 @@ func (suite *SuiteLambda) BeforeTest(suiteName string, testName string) {
 	suite.detail = detail
 }
 
-func TestSuiteLambda(t *testing.T) {
-	suite.Run(t, &SuiteLambda{})
+func TestSuiteIntegration(t *testing.T) {
+	suite.Run(t, &SuiteIntegration{})
 }

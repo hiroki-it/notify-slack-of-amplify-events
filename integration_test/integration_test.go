@@ -10,9 +10,9 @@ import (
 )
 
 /**
- * Lambdaをテストします．
+ * 統合テストを実行します．
  */
-func (suite *SuiteLambda) TestLambda() {
+func (suite *SuiteIntegration) TestIntegration() {
 
 	suite.T().Helper()
 
