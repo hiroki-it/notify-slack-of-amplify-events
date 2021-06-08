@@ -10,3 +10,4 @@ process.yml
 .env
 .env.docker
 *.out
+*.html
