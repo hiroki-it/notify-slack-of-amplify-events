@@ -20,7 +20,7 @@ type SuiteIntegration struct {
  */
 func (suite *SuiteIntegration) BeforeTest(suiteName string, testName string) {
 
-	detail, err := file.ReadTestDataFile("./testdata/event.json")
+	detail, err := file.ReadDataFile("./testdata/event.json")
 
 	if err != nil {
 		suite.T().Fatal(err.Error())

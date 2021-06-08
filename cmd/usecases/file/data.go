@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 )
 
-func ReadTestDataFile(path string) ([]byte, error) {
+func ReadDataFile(path string) ([]byte, error) {
 
 	data, err := ioutil.ReadFile(path)
 
