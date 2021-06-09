@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@2.0.2
+  codecov: codecov/codecov@1.2.3
   serverless: circleci/serverless-framework@1.0.1
   slack: circleci/slack@4.3.1
 
@@ -101,8 +102,11 @@ jobs:
                 && mkdir -p ./tmp/artifacts \
                 && mv coverage.html ./tmp/artifacts"
       - store_artifacts:
-          name: Store coverage report
+          name: Upload coverage report to CircleCI
           path: ./tmp/artifacts
+      - codecov/upload:
+          file: ./tmp/artifacts
+          upload_name: ${CIRCLE_SHA1}
       - run:
           name: Docker save image
           command: |
