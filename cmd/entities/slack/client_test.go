@@ -11,7 +11,7 @@ import (
 /**
  * PostMessageメソッドをテストします．
  */
-func (suite *SuiteSlack) TestPostMessage() {
+func (suite *SuiteSlack) TestPostMessage_SlackMessage_ReturnNil() {
 
 	suite.T().Helper()
 

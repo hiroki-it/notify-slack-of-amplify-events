@@ -12,7 +12,7 @@ import (
 /**
  * GetBranchFromAmplifyメソッドをテストします．
  */
-func (suite *SuiteAmplify) TestGetBranchFromAmplify() {
+func (suite *SuiteAmplify) TestGetBranchFromAmplify_EventDetail_ReturnDisplayName() {
 
 	suite.T().Helper()
 
