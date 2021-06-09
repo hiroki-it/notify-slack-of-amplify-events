@@ -18,7 +18,7 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 cmdディレクトリの構成は，クリーンアーキテクチャを参考にいたしました．
 
-参考：https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+参考リンク：https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
 
 ```
 notify-slack-of-amplify-events
@@ -52,7 +52,7 @@ $ curl -Lo ~/.aws-lambda-rie/aws-lambda-rie https://github.com/aws/aws-lambda-ru
 $ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
 ```
 
-その他のインストール方法につきましては，以下を参考に．
+その他のインストール方法につきましては，以下のリンクを参考に．
 
 https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
@@ -115,6 +115,12 @@ $ docker-compose up --build -d
 
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./integration_test/...
 ```
+
+### テスト関数の命名
+
+Roy Osherove氏の命名戦略を参考にいたしました．
+
+参考リンク：https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html
 
 ## デプロイ
 
