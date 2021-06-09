@@ -96,10 +96,6 @@ Goサービスのユニットテストを実行します．
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./cmd/...
 ```
 
-なお，CircleCIにおける build_and_test ジョブにて，Goのカバレッジレポートをアーティファクトとしてアップロードするようにしています．
-
-CirlcleCIのアーティファクトタブにて，カバレッジレポートを確認できます．
-
 ### 統合テスト（ローカル環境のみ対応）
 
 GoサービスからLambdaサービスにPOSTリクエストを送信し，一連の処理をテストします．
@@ -115,6 +111,12 @@ $ docker-compose up --build -d
 
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./integration_test/...
 ```
+
+### カバレッジレポート
+
+CircleCIにおける build_and_test ジョブにて，命令網羅のカバレッジレポートをアーティファクトとしてアップロードするようにしています．
+
+CirlcleCIのアーティファクトタブにて，カバレッジレポートを確認できます．
 
 ### テスト関数の命名
 
