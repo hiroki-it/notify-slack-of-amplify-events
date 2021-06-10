@@ -9,7 +9,7 @@ import (
 )
 
 /**
- * PostMessageメソッドをテストします．
+ * PostMessageメソッドが成功することをテストします．
  */
 func (suite *SuiteSlack) TestPostMessage_SlackMessage_ReturnNil() {
 

@@ -10,7 +10,7 @@ import (
 )
 
 /**
- * GetBranchFromAmplifyメソッドをテストします．
+ * GetBranchFromAmplifyメソッドが成功することをテストします．
  */
 func (suite *SuiteAmplify) TestGetBranchFromAmplify_EventDetail_ReturnDisplayName() {
 
