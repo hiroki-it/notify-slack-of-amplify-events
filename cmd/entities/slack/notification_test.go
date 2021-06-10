@@ -9,7 +9,7 @@ import (
 )
 
 /**
- * PostMessageメソッドが成功することをテストします．
+ * ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
  */
 func (suite *SuiteSlack) TestPostMessage_EventDetailSucceed_ReturnNil() {
 
