@@ -10,6 +10,13 @@ import (
 )
 
 /**
+ * アサーションで使用する値
+ */
+const (
+	DISPLAY_NAME string = "feature-test"
+)
+
+/**
  * GetBranchFromAmplifyメソッドが成功することをテストします．
  */
 func (suite *SuiteAmplify) TestGetBranchFromAmplify_EventDetail_ReturnDisplayName() {
@@ -22,7 +29,7 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify_EventDetail_ReturnDisplayNam
 	// スタブのメソッドに処理の内容を定義する．
 	mockedAPI.On("GetBranch", mock.Anything).Return(
 		&aws_amplify.GetBranchOutput{
-			Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
+			Branch: &aws_amplify.Branch{DisplayName: aws.String(DISPLAY_NAME)},
 		},
 		nil,
 	)
@@ -40,5 +47,5 @@ func (suite *SuiteAmplify) TestGetBranchFromAmplify_EventDetail_ReturnDisplayNam
 	mockedAPI.AssertExpectations(suite.T())
 
 	// 最終的な返却値が正しいかを検証する．
-	assert.Exactly(suite.T(), aws.String("feature-test"), getBranchOutput.Branch.DisplayName)
+	assert.Exactly(suite.T(), aws.String(DISPLAY_NAME), getBranchOutput.Branch.DisplayName)
 }
