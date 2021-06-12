@@ -28,8 +28,11 @@ func TestGetBranchFromAmplify(t *testing.T) {
 
 	// テストケース
 	cases := []struct {
-		name        string
-		expected    error
+		// テストケース名
+		name string
+		// 期待値
+		expected error
+		// テストデータ
 		eventDetail *eventbridge.EventDetail
 	}{
 		{
