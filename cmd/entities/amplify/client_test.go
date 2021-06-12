@@ -9,7 +9,6 @@ import (
 	"github.com/stretchr/testify/mock"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
-	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify"
 )
 
 /**
@@ -18,6 +17,9 @@ import (
 func TestGetBranchFromAmplify(t *testing.T) {
 
 	t.Helper()
+
+	mockedAPI, teardown := setup()
+	defer teardown()
 
 	// テストケース
 	cases := []struct {
@@ -41,9 +43,6 @@ func TestGetBranchFromAmplify(t *testing.T) {
 	// 反復処理で全てのテストケースを検証する．
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
-
-			// AmplifyAPIのスタブを作成する．
-			mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
 			// スタブのメソッドに処理の内容を定義する．
 			mockedAPI.On("GetBranch", mock.Anything).Return(
