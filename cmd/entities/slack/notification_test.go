@@ -32,7 +32,7 @@ func TestPostMessage(t *testing.T) {
 		jobStatusColor  *JobStatusColor
 	}{
 		{
-			name:     "TestPostMessage_EventDetailSucceed_ReturnNil",
+			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
 			expected: nil,
 			eventDetail: &eventbridge.EventDetail{
 				AppId:      "1",
