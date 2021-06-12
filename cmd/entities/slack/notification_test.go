@@ -44,6 +44,19 @@ func TestPostMessage(t *testing.T) {
 			},
 			jobStatusColor: NewJobStatusColor("SUCCEED"),
 		},
+		{
+			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
+			expected: nil,
+			eventDetail: &eventbridge.EventDetail{
+				AppId:      "1",
+				BranchName: "test",
+				JobId:      "1",
+			},
+			getBranchOutput: &aws_amplify.GetBranchOutput{
+				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
+			},
+			jobStatusColor: NewJobStatusColor("FAILED"),
+		},
 	}
 
 	// 外部サーバのモックを構築します．
