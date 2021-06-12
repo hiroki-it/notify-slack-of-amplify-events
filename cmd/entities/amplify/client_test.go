@@ -31,13 +31,13 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		// テストケース名
 		name string
 		// 期待値
-		expected error
+		expected string
 		// テストデータ
 		eventDetail *eventbridge.EventDetail
 	}{
 		{
 			name:     "TestGetBranchFromAmplify_EventDetail_ReturnDisplayName",
-			expected: nil,
+			expected: "feature-test",
 			eventDetail: &eventbridge.EventDetail{
 				AppId:      "1",
 				BranchName: "test",
@@ -73,7 +73,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 			mockedAPI.AssertExpectations(t)
 
 			// 最終的な返却値が正しいかを検証する．
-			assert.Exactly(t, aws.String(DISPLAY_NAME), getBranchOutput.Branch.DisplayName)
+			assert.Exactly(t, aws.String(tt.expected), getBranchOutput.Branch.DisplayName)
 		})
 	}
 }
