@@ -5,7 +5,7 @@ import (
 )
 
 /**
- * 前処理の結果と，後処理の関数を返却します．
+ * ユニットテストの前処理の結果と，後処理の関数を返却します．
  */
 func setup() (*m_amplify.MockedAmplifyAPI, func()) {
 
