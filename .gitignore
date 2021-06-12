@@ -6,7 +6,6 @@
 # ファイル
 process.yml
 .air.toml
-.docker.env
 .env
 .env.docker
 *.out
