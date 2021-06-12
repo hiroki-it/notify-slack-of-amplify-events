@@ -6,7 +6,7 @@ import (
 )
 
 /**
- * Mockを構成します．
+ * モックを構成します．
  */
 type MockedAmplifyAPI struct {
 	amplifyiface.AmplifyAPI

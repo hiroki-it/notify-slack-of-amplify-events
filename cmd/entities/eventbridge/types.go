@@ -1,7 +1,7 @@
 package eventbridge
 
 /**
- * EventDetailインターフェースの実装を構成します．
+ * EventDetailを構成します．
  */
 type EventDetail struct {
 	AppId      string `json:"appId"`
