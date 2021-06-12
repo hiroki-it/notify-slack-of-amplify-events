@@ -14,6 +14,7 @@ func ReadDataFile(path string) []byte {
 
 	if err != nil {
 		log.Error(err.Error())
+		return nil
 	}
 
 	return data
