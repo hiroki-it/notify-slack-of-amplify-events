@@ -22,7 +22,7 @@ func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.B
 		Text:    "検証用dev環境",
 		Attachments: []Attachment{
 			Attachment{
-				Color: jobStatusColor.PrintStatusColor(),
+				Color: jobStatusColor.PrintStatusColorCode(),
 				Blocks: []Block{
 					Block{
 						Type: "section",

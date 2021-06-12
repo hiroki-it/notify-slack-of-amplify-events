@@ -49,9 +49,9 @@ func TestPrintStatusWord(t *testing.T) {
 }
 
 /**
- * 特定のステータスの場合に，PrintStatusColorメソッドが対応するカラーコードを返却することテストします．
+ * 特定のステータスの場合に，PrintStatusColorCodeメソッドが対応するカラーコードを返却することテストします．
  */
-func TestPrintStatusColor(t *testing.T) {
+func TestPrintStatusColorCode(t *testing.T) {
 
 	// テストケース
 	cases := []struct {
@@ -63,14 +63,14 @@ func TestPrintStatusColor(t *testing.T) {
 		eventDetail *eventbridge.EventDetail
 	}{
 		{
-			name:     "TestPrintStatusColor_Succeed_Return#00FF00",
+			name:     "TestPrintStatusColorCode_Succeed_Return#00FF00",
 			expected: "#00FF00",
 			eventDetail: &eventbridge.EventDetail{
 				JobStatus: "SUCCEED",
 			},
 		},
 		{
-			name:     "TestPrintStatusColor_Failed_Return#ff0000",
+			name:     "TestPrintStatusColorCode_Failed_Return#ff0000",
 			expected: "#ff0000",
 			eventDetail: &eventbridge.EventDetail{
 				JobStatus: "FAILED",
@@ -84,7 +84,7 @@ func TestPrintStatusColor(t *testing.T) {
 
 			jobStatusColor := NewJobStatusColor(tt.eventDetail.JobStatus)
 
-			assert.Exactly(t, tt.expected, jobStatusColor.PrintStatusColor())
+			assert.Exactly(t, tt.expected, jobStatusColor.PrintStatusColorCode())
 		})
 	}
 }
