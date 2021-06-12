@@ -11,7 +11,7 @@ import (
 /**
  * ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
  */
-func (suite *SuiteSlack) TestPostMessage_EventDetailSucceed_ReturnNil() {
+func (suite *NotificationSuite) TestPostMessage_EventDetailSucceed_ReturnNil() {
 
 	suite.T().Helper()
 

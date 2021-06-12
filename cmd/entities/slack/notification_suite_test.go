@@ -13,7 +13,7 @@ import (
 /**
  * ユニットテストのテストスイートを構成します．
  */
-type SuiteSlack struct {
+type NotificationSuite struct {
 	suite.Suite
 	eventDetail     *eventbridge.EventDetail
 	getBranchOutput *aws_amplify.GetBranchOutput
@@ -23,7 +23,7 @@ type SuiteSlack struct {
 /**
  * ユニットテストの事前処理を実行します．
  */
-func (suite *SuiteSlack) BeforeTest(suiteName string, testName string) {
+func (suite *NotificationSuite) BeforeTest(suiteName string, testName string) {
 
 	eventDetail := eventbridge.NewEventDetail()
 
@@ -42,6 +42,6 @@ func (suite *SuiteSlack) BeforeTest(suiteName string, testName string) {
 /**
  * ユニットテストのテストスイートを実行します．
  */
-func TestSuiteSlack(t *testing.T) {
-	suite.Run(t, &SuiteSlack{})
+func TestNotificationSuite(t *testing.T) {
+	suite.Run(t, &NotificationSuite{})
 }
