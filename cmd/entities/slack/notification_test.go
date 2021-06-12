@@ -4,16 +4,44 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"testing"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
 	"github.com/stretchr/testify/assert"
+
+	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
 /**
  * ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
  */
-func (suite *NotificationSuite) TestPostMessage_EventDetailSucceed_ReturnNil() {
+func TestPostMessage(t *testing.T) {
 
-	suite.T().Helper()
+	t.Helper()
+
+	// テストケース
+	cases := []struct {
+		name            string
+		expected        error
+		eventDetail     *eventbridge.EventDetail
+		getBranchOutput *aws_amplify.GetBranchOutput
+		jobStatusColor  *JobStatusColor
+	}{
+		{
+			name:     "TestPostMessage_EventDetailSucceed_ReturnNil",
+			expected: nil,
+			eventDetail: &eventbridge.EventDetail{
+				AppId:      "1",
+				BranchName: "test",
+				JobId:      "1",
+			},
+			getBranchOutput: &aws_amplify.GetBranchOutput{
+				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
+			},
+			jobStatusColor: NewJobStatusColor("SUCCEED"),
+		},
+	}
 
 	// 外部サーバのモックを構築します．
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -22,27 +50,33 @@ func (suite *NotificationSuite) TestPostMessage_EventDetailSucceed_ReturnNil() {
 
 	defer ts.Close()
 
-	slackMessage := NewSlackMessage(
-		suite.eventDetail,
-		suite.getBranchOutput.Branch,
-		suite.jobStatusColor,
-	)
+	// 反復処理で全てのテストケースを検証する．
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
 
-	slackClient := NewSlackClient(
-		&http.Client{},
-		ts.URL, // モックサーバのURLに差し替えます．
-	)
+			slackMessage := NewSlackMessage(
+				tt.eventDetail,
+				tt.getBranchOutput.Branch,
+				tt.jobStatusColor,
+			)
 
-	slackNotification := NewSlackNotification(
-		slackClient,
-		slackMessage,
-	)
+			slackClient := NewSlackClient(
+				&http.Client{},
+				ts.URL, // モックサーバのURLに差し替えます．
+			)
 
-	err := slackNotification.PostMessage()
+			slackNotification := NewSlackNotification(
+				slackClient,
+				slackMessage,
+			)
 
-	if err != nil {
-		suite.T().Fatal(err.Error())
+			err := slackNotification.PostMessage()
+
+			if err != nil {
+				t.Fatal(err.Error())
+			}
+
+			assert.Nil(t, err)
+		})
 	}
-
-	assert.Nil(suite.T(), err)
 }
