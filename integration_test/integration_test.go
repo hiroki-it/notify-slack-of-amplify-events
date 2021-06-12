@@ -7,6 +7,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,31 +18,54 @@ func TestIntegration(t *testing.T) {
 
 	t.Helper()
 
-	detail, teardown := setup(t)
-	defer teardown()
-
-	// リクエストを作成する．
-	req, err := http.NewRequest(
-		"POST",
-		fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
-		bytes.NewBuffer(detail),
-	)
-
-	if err != nil {
-		t.Fatal(err.Error())
+	// テストケース
+	cases := []struct {
+		// テストケース名
+		name string
+		// 期待値
+		expected int
+		// テストデータ
+		detail []byte
+	}{
+		{
+			name:     "TestIntegration_Succeed_ReturnOk",
+			expected: http.StatusOK,
+			detail:   file.ReadDataFile("./testdata/event.json"),
+		},
+		{
+			name:     "TestIntegration_Failed_ReturnOk",
+			expected: http.StatusOK,
+			detail:   file.ReadDataFile("./testdata/failed.json"),
+		},
 	}
 
-	// クライアントを作成する．
-	client := &http.Client{}
+	for _, tt := range cases {
+		t.Run(tt.name, func(t *testing.T) {
 
-	// lambdaにリクエストを送信する．
-	res, err := client.Do(req)
+			// リクエストを作成する．
+			req, err := http.NewRequest(
+				"POST",
+				fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
+				bytes.NewBuffer(tt.detail),
+			)
 
-	if err != nil {
-		t.Fatal(err.Error())
+			if err != nil {
+				t.Fatal(err.Error())
+			}
+
+			// クライアントを作成する．
+			client := &http.Client{}
+
+			// lambdaにリクエストを送信する．
+			res, err := client.Do(req)
+
+			if err != nil {
+				t.Fatal(err.Error())
+			}
+
+			defer res.Body.Close()
+
+			assert.Exactly(t, tt.expected, res.StatusCode)
+		})
 	}
-
-	defer res.Body.Close()
-
-	assert.Exactly(t, http.StatusOK, res.StatusCode)
 }
