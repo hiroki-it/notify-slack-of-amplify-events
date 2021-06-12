@@ -13,13 +13,6 @@ import (
 )
 
 /**
- * アサーションで使用する値
- */
-const (
-	DISPLAY_NAME string = "feature-test"
-)
-
-/**
  * GetBranchFromAmplifyメソッドが成功することをテストします．
  */
 func TestGetBranchFromAmplify(t *testing.T) {
@@ -55,7 +48,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 			// スタブのメソッドに処理の内容を定義する．
 			mockedAPI.On("GetBranch", mock.Anything).Return(
 				&aws_amplify.GetBranchOutput{
-					Branch: &aws_amplify.Branch{DisplayName: aws.String(DISPLAY_NAME)},
+					Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 				},
 				nil,
 			)
