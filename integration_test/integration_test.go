@@ -1,10 +1,11 @@
-package handler
+package integration
 
 import (
 	"bytes"
 	"fmt"
 	"net/http"
 	"os"
+	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -12,19 +13,22 @@ import (
 /**
  * 統合テストを実行します．
  */
-func (suite *SuiteIntegration) TestIntegration() {
+func TestIntegration(t *testing.T) {
 
-	suite.T().Helper()
+	t.Helper()
+
+	detail, teardown := setup(t)
+	defer teardown()
 
 	// リクエストを作成する．
 	req, err := http.NewRequest(
 		"POST",
 		fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
-		bytes.NewBuffer(suite.detail),
+		bytes.NewBuffer(detail),
 	)
 
 	if err != nil {
-		suite.T().Fatal(err.Error())
+		t.Fatal(err.Error())
 	}
 
 	// クライアントを作成する．
@@ -34,10 +38,10 @@ func (suite *SuiteIntegration) TestIntegration() {
 	res, err := client.Do(req)
 
 	if err != nil {
-		suite.T().Fatal(err.Error())
+		t.Fatal(err.Error())
 	}
 
 	defer res.Body.Close()
 
-	assert.Exactly(suite.T(), http.StatusOK, res.StatusCode)
+	assert.Exactly(t, http.StatusOK, res.StatusCode)
 }
