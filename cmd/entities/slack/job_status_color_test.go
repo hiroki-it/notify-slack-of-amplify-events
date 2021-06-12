@@ -49,7 +49,7 @@ func TestPrintStatusWord(t *testing.T) {
 }
 
 /**
- * 特定のステータスの場合に，PrintStatusColorメソッドが対応する文言を返却することテストします．
+ * 特定のステータスの場合に，PrintStatusColorメソッドが対応するカラーコードを返却することテストします．
  */
 func TestPrintStatusColor(t *testing.T) {
 
