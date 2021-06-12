@@ -11,9 +11,9 @@ func NewJobStatusColor(status string) *JobStatusColor {
 }
 
 /**
- * ジョブ状態を表現するステータスを返却します．
+ * ジョブステータスを表現する文言を返却します．
  */
-func (sc *JobStatusColor) PrintStatus() string {
+func (sc *JobStatusColor) PrintStatusWord() string {
 
 	if sc.status == "SUCCEED" {
 		return "成功"
@@ -23,9 +23,9 @@ func (sc *JobStatusColor) PrintStatus() string {
 }
 
 /**
- * ジョブ状態を表現する色を返却します．
+ * ジョブステータスを表現する色を返却します．
  */
-func (sc *JobStatusColor) PrintColor() string {
+func (sc *JobStatusColor) PrintStatusColor() string {
 
 	if sc.status == "SUCCEED" {
 		return "#00FF00"

@@ -22,7 +22,7 @@ func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.B
 		Text:    "検証用dev環境",
 		Attachments: []Attachment{
 			Attachment{
-				Color: jobStatusColor.PrintColor(),
+				Color: jobStatusColor.PrintStatusColor(),
 				Blocks: []Block{
 					Block{
 						Type: "section",
@@ -38,7 +38,7 @@ func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.B
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
-									jobStatusColor.PrintStatus(),
+									jobStatusColor.PrintStatusWord(),
 								),
 							},
 						},
