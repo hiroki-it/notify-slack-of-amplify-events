@@ -53,7 +53,7 @@ func TestPostMessage(t *testing.T) {
 
 	defer ts.Close()
 
-	// 反復処理で全てのテストケースを検証する．
+	// 反復処理で全てのテストケースを検証します．
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 

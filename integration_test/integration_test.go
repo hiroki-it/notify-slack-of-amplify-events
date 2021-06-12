@@ -42,7 +42,7 @@ func TestIntegration(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			// リクエストを作成する．
+			// リクエストを作成します．
 			req, err := http.NewRequest(
 				"POST",
 				fmt.Sprint("http://", os.Getenv("LAMBDA_HOST"), ":9000/2015-03-31/functions/function/invocations"),
@@ -53,10 +53,10 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err.Error())
 			}
 
-			// クライアントを作成する．
+			// クライアントを作成します．
 			client := &http.Client{}
 
-			// lambdaにリクエストを送信する．
+			// lambdaにリクエストを送信します．
 			res, err := client.Do(req)
 
 			if err != nil {

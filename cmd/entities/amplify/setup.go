@@ -5,11 +5,11 @@ import (
 )
 
 /**
- * 事前処理を実行し，事後処理を返却します．
+ * 前処理の結果と，後処理の関数を返却します．
  */
 func setup() (*m_amplify.MockedAmplifyAPI, func()) {
 
-	// AmplifyAPIのスタブを作成する．
+	// AmplifyAPIのスタブを作成します．
 	mockedAPI := &m_amplify.MockedAmplifyAPI{}
 
 	return mockedAPI, func() {
