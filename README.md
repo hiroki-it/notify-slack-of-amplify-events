@@ -18,6 +18,8 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 今回，これらには当てはまりませんが，Goを採用し，環境構築からデプロイまでの一連の流れを学習しようと考えました．
 
+<br>
+
 ## Goのディレクトリ構造
 
 本リポジトリのGoのディレクトリ構造は以下の通りに構成しております．
@@ -40,9 +42,11 @@ notify-slack-of-amplify-events
 └── mock # モック
 ```
 
+<br>
+
 ## 環境構築
 
-### 1. RIEのインストール
+### RIEのインストール
 
 ローカルで統合テストを行うために，RIEをインストールする必要があります．
 
@@ -62,7 +66,7 @@ $ chmod +x ~/.aws-lambda-rie/aws-lambda-rie
 
 https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/go-image.html#go-image-other
 
-### 2. ビルドイメージ & コンテナ構築
+### ビルドイメージ & コンテナ構築
 
 Dockerfileからイメージをビルドし，コンテナを構築します．
 
@@ -72,13 +76,15 @@ Dockerfileからイメージをビルドし，コンテナを構築します．
 $ docker-compose run -d --rm notify-slack-of-amplify-event
 ````
 
-### 4. モジュールのインストール
+### モジュールのインストール
 
 コンテナで，アプリケーションで使用するモジュールをインストールします．
 
 ```shell
 $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```
+
+<br>
 
 ## ホットリロード
 
@@ -91,6 +97,8 @@ $ docker-compose run --rm  notify-slack-of-amplify-events go mod download -x
 ```shell
 $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 ```
+
+<br>
 
 ## テスト
 
@@ -130,6 +138,8 @@ Roy Osherove氏の命名戦略を参考にいたしました．
 
 参考リンク：https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html
 
+<br>
+
 ## デプロイ
 
 原則として，ローカル環境からソースコードをLambdaにデプロイしないようにします．
@@ -137,6 +147,8 @@ Roy Osherove氏の命名戦略を参考にいたしました．
 CircleCIによるCDにて，これをLambdaにデプロイします．
 
 デプロイツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
+
+<br>
 
 ## Amplifyについて
 
