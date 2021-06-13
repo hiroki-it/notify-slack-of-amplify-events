@@ -25,12 +25,12 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 本リポジトリのGoのディレクトリ構造は以下の通りに構成しております．
 
 ```
-notify-slack-of-amplify-events
+project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
-|   ├── controllers # コントローラ
-|   ├── entities    # エンティティ
-|   └── usecases    # ユースケース
+|   ├── application    # アプリケーション層
+|   ├── domain         # ドメイン層
+|   └── infrastructure # インフラストラクチャ層
 | 
 ├── integration_test # 統合テスト
 |   └── testdata # テストデータ
