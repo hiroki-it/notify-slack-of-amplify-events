@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/application/service/api"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/slack"
@@ -30,7 +31,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
+	amplifyApi, err := api.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
 
 	if err != nil {
 		log.Error(err.Error())
