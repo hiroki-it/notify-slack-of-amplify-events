@@ -24,10 +24,6 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 本リポジトリのGoのディレクトリ構造は以下の通りに構成しております．
 
-cmdディレクトリの構成は，クリーンアーキテクチャを参考にいたしました．
-
-参考リンク：https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
-
 ```
 notify-slack-of-amplify-events
 ├── build # ビルド処理
