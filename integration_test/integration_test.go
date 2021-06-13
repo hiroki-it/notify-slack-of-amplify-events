@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file"
 	"github.com/stretchr/testify/assert"
 )
 

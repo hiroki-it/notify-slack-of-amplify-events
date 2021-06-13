@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
 /**

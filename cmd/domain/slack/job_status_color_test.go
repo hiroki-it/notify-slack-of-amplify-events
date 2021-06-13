@@ -3,7 +3,7 @@ package slack
 import (
 	"testing"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge"
 	"github.com/stretchr/testify/assert"
 )
 

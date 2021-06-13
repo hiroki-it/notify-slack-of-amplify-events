@@ -7,10 +7,10 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/slack"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
 /**

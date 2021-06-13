@@ -10,10 +10,10 @@ require (
 )
 
 replace (
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/controllers/handler => /cmd/controllers/handler
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/amplify => /cmd/entities/amplify
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/eventbridge => /cmd/entities/eventbridge
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/entities/slack => /cmd/entities/slack
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/file => /cmd/usecases/file
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/application/controllers => /cmd/application/controllers
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/amplify => /cmd/domain/amplify
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge => /cmd/domain/eventbridge
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/slack => /cmd/domain/slack
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file => /cmd/infrastructure/file
 	github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify => /mock/amplify
 )

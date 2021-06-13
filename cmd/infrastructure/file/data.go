@@ -3,7 +3,7 @@ package file
 import (
 	"io/ioutil"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecases/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
 func ReadDataFile(path string) []byte {
