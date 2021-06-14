@@ -96,7 +96,19 @@ $ docker-compose run --rm notify-slack-of-amplify-events air -c .air.toml
 
 <br>
 
-## テスト
+## ユニットテスト
+
+### テスト関数の命名
+
+Roy Osherove氏の命名戦略を参考にいたしました．
+
+参考リンク：https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html
+
+### テスト設計
+
+テーブル駆動テストを採用しました．
+
+参考リンク：https://github.com/golang/go/wiki/TableDrivenTests
 
 ### ユニットテスト
 
@@ -106,7 +118,9 @@ Goサービスのユニットテストを実行します．
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./cmd/...
 ```
 
-### 統合テスト（ローカル環境のみ対応）
+<br>
+
+## 統合テスト（ローカル環境のみ対応）
 
 GoサービスからLambdaサービスにPOSTリクエストを送信し，一連の処理をテストします．
 
@@ -122,25 +136,29 @@ $ docker-compose up --build -d
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./integration_test/...
 ```
 
-### カバレッジレポート
-
-CircleCIにおける build_and_test ジョブにて，命令網羅のカバレッジレポートをアーティファクトとしてアップロードするようにしています．
-
-CirlcleCIのアーティファクトタブにて，カバレッジレポートを確認できます．
-
-### テスト関数の命名
-
-Roy Osherove氏の命名戦略を参考にいたしました．
-
-参考リンク：https://osherove.com/blog/2005/4/3/naming-standards-for-unit-tests.html
-
 <br>
 
-## デプロイ
+## CI/CD
+
+### CI
+
+以下を行います．
+
+1. docker-compose.ymlの静的解析
+2. コンテナ構築
+3. パッケージのダウンロード
+4. Goの静的解析
+5. ユニットテスト
+6. カバレッジレポートの作成
+7. カバレッジレポートを，CircleCIのアーティファクトとしてアップロード
+
+カバレッジレポートは，irlcleCIのアーティファクトタブで確認できます．
+
+### CD
 
 原則として，ローカル環境からソースコードをLambdaにデプロイしないようにします．
 
-CircleCIによるCDにて，これをLambdaにデプロイします．
+代わりに，CircleCIのCDにて，事前にイメージをECRにプッシュし，またソースをLambdaにデプロイします．
 
 デプロイツールとして，[Serverless Framework](https://github.com/serverless/serverless) を使用いたしました．
 
