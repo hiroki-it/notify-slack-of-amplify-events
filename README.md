@@ -150,9 +150,9 @@ $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./int
 4. Goの静的解析
 5. ユニットテスト
 6. カバレッジレポートの作成
-7. カバレッジレポートを，CircleCIのアーティファクトとしてアップロード
+7. CircleCIのアーティファクトとして，カバレッジレポートをアップロード
 
-カバレッジレポートは，irlcleCIのアーティファクトタブで確認できます．
+カバレッジレポートは，CirlcleCIのアーティファクトタブで確認できます．
 
 ### CD
 
