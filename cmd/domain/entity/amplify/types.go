@@ -2,7 +2,7 @@ package amplify
 
 import (
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )

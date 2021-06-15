@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
