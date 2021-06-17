@@ -11,6 +11,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/slack"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api"
 )
 
 /**
