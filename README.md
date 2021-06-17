@@ -28,9 +28,14 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
-|   ├── application    # アプリケーション層
 |   ├── domain         # ドメイン層
-|   └── infrastructure # インフラストラクチャ層
+|   |   └── entity
+|   |
+|   ├── infrastructure # インフラストラクチャ層 
+|   ├── presentation   # プレゼンテーション層
+|   |   └── controller
+|   |     
+|   └── usecase        # ユースケース層
 | 
 ├── integration_test # 統合テスト
 |   └── testdata # テストデータ
