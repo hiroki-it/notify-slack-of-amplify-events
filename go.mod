@@ -16,5 +16,6 @@ replace (
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge => /cmd/domain/entity/eventbridge
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/slack => /cmd/domain/entity/slack
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/file => /cmd/infrastructure/file
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/controllers => /cmd/presentation/controllers
 	github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify => /mock/amplify
 )

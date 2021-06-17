@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/application/service/api"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/slack"
