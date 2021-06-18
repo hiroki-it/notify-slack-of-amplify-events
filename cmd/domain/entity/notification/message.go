@@ -10,6 +10,9 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
+/**
+ * メッセージを構成します．
+ */
 type Message struct {
 	eventDetail *eventbridge.EventDetail
 	branch      *aws_amplify.Branch
@@ -50,6 +53,10 @@ type Element struct {
 	Text string `json:"text"`
 }
 
+/**
+ * コンストラクタ
+ * Messageを作成します．
+ */
 func NewMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, jobStatus *eventbridge.JobStatus) *Message {
 
 	return &Message{
