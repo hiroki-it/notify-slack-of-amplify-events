@@ -9,7 +9,20 @@ import (
 	"github.com/stretchr/testify/mock"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
+	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify"
 )
+
+/**
+ * ユニットテストの前処理の結果と，後処理の関数を返却します．
+ */
+func setup() (*m_amplify.MockedAmplifyAPI, func()) {
+
+	// AmplifyAPIのスタブを作成します．
+	mockedAPI := &m_amplify.MockedAmplifyAPI{}
+
+	return mockedAPI, func() {
+	}
+}
 
 /**
  * GetBranchFromAmplifyメソッドが成功することをテストします．
