@@ -70,7 +70,7 @@ func TestPostMessage(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			slackMessage := NewSlackMessage(
+			message := NewMessage(
 				tt.eventDetail,
 				tt.getBranchOutput.Branch,
 				tt.jobStatus,
@@ -80,6 +80,8 @@ func TestPostMessage(t *testing.T) {
 				&http.Client{},
 				ts.URL, // モックサーバのURLに差し替えます．
 			)
+
+			slackMessage := message.BuildSlackMessage()
 
 			slackNotification := NewSlackNotification(
 				slackClient,
