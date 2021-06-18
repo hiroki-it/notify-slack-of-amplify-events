@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/slack"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/notification"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api"
 )
@@ -49,7 +49,7 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	jobStatus := eventbridge.NewJobStatus(eventDetail.JobStatus)
 
-	message := slack.NewMessage(
+	message := notification.NewMessage(
 		eventDetail,
 		getBranchOutput.Branch,
 		jobStatus,
@@ -57,12 +57,12 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 
 	slackMessage := message.BuildSlackMessage()
 
-	slackClient := slack.NewSlackClient(
+	slackClient := notification.NewSlackClient(
 		&http.Client{},
-		"https://slack.com/api/chat.postMessage",
+		"https://notification.com/api/chat.postMessage",
 	)
 
-	slackNotification := slack.NewSlackNotification(
+	slackNotification := notification.NewSlackNotification(
 		slackClient,
 		slackMessage,
 	)
