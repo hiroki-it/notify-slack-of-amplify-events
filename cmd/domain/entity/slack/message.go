@@ -48,7 +48,7 @@ type Element struct {
  * コンストラクタ
  * Messageを作成します．
  */
-func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, jobStatusColor *JobStatusColor) *SlackMessage {
+func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.Branch, jobStatus *JobStatus) *SlackMessage {
 
 	// メッセージを構成します．
 	return &SlackMessage{
@@ -56,7 +56,7 @@ func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.B
 		Text:    "検証用dev環境",
 		Attachments: []Attachment{
 			Attachment{
-				Color: jobStatusColor.PrintStatusColorCode(),
+				Color: jobStatus.PrintStatusColorCode(),
 				Blocks: []Block{
 					Block{
 						Type: "section",
@@ -72,7 +72,7 @@ func NewSlackMessage(eventDetail *eventbridge.EventDetail, branch *aws_amplify.B
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
-									jobStatusColor.PrintStatusWord(),
+									jobStatus.PrintStatusWord(),
 								),
 							},
 						},

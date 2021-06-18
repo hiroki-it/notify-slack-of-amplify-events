@@ -3,26 +3,26 @@ package slack
 /**
  * ジョブステータスを構成します．
  */
-type JobStatusColor struct {
-	status string
+type JobStatus struct {
+	name string
 }
 
 /**
  * コンストラクタ
- * JobStatusColorを作成します．
+ * JobStatusを作成します．
  */
-func NewJobStatusColor(status string) *JobStatusColor {
-	return &JobStatusColor{
-		status: status,
+func NewJobStatus(name string) *JobStatus {
+	return &JobStatus{
+		name: name,
 	}
 }
 
 /**
  * ジョブステータスを表現する文言を返却します．
  */
-func (sc *JobStatusColor) PrintStatusWord() string {
+func (js *JobStatus) PrintStatusWord() string {
 
-	if sc.status == "SUCCEED" {
+	if js.name == "SUCCEED" {
 		return "成功"
 	}
 
@@ -32,9 +32,9 @@ func (sc *JobStatusColor) PrintStatusWord() string {
 /**
  * ジョブステータスを表現する色を返却します．
  */
-func (sc *JobStatusColor) PrintStatusColorCode() string {
+func (js *JobStatus) PrintStatusColorCode() string {
 
-	if sc.status == "SUCCEED" {
+	if js.name == "SUCCEED" {
 		return "#00FF00"
 	}
 

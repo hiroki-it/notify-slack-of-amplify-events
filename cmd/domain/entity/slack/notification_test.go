@@ -29,7 +29,7 @@ func TestPostMessage(t *testing.T) {
 		// テストデータ
 		eventDetail     *eventbridge.EventDetail
 		getBranchOutput *aws_amplify.GetBranchOutput
-		jobStatusColor  *JobStatusColor
+		jobStatus       *JobStatus
 	}{
 		{
 			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
@@ -42,7 +42,7 @@ func TestPostMessage(t *testing.T) {
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 			},
-			jobStatusColor: NewJobStatusColor("SUCCEED"),
+			jobStatus: NewJobStatus("SUCCEED"),
 		},
 		{
 			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
@@ -55,7 +55,7 @@ func TestPostMessage(t *testing.T) {
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 			},
-			jobStatusColor: NewJobStatusColor("FAILED"),
+			jobStatus: NewJobStatus("FAILED"),
 		},
 	}
 
@@ -73,7 +73,7 @@ func TestPostMessage(t *testing.T) {
 			slackMessage := NewSlackMessage(
 				tt.eventDetail,
 				tt.getBranchOutput.Branch,
-				tt.jobStatusColor,
+				tt.jobStatus,
 			)
 
 			slackClient := NewSlackClient(

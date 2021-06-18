@@ -41,9 +41,9 @@ func TestPrintStatusWord(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			jobStatusColor := NewJobStatusColor(tt.eventDetail.JobStatus)
+			jobStatus := NewJobStatus(tt.eventDetail.JobStatus)
 
-			assert.Exactly(t, tt.expected, jobStatusColor.PrintStatusWord())
+			assert.Exactly(t, tt.expected, jobStatus.PrintStatusWord())
 		})
 	}
 }
@@ -82,9 +82,9 @@ func TestPrintStatusColorCode(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			jobStatusColor := NewJobStatusColor(tt.eventDetail.JobStatus)
+			jobStatus := NewJobStatus(tt.eventDetail.JobStatus)
 
-			assert.Exactly(t, tt.expected, jobStatusColor.PrintStatusColorCode())
+			assert.Exactly(t, tt.expected, jobStatus.PrintStatusColorCode())
 		})
 	}
 }

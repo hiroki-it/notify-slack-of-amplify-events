@@ -47,12 +47,12 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	jobStatusColor := slack.NewJobStatusColor(eventDetail.JobStatus)
+	jobStatus := slack.NewJobStatus(eventDetail.JobStatus)
 
 	slackMessage := slack.NewSlackMessage(
 		eventDetail,
 		getBranchOutput.Branch,
-		jobStatusColor,
+		jobStatus,
 	)
 
 	slackClient := slack.NewSlackClient(
