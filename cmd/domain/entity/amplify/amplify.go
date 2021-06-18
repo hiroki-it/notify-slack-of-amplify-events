@@ -9,6 +9,22 @@ import (
 )
 
 /**
+ * AmplifyClientインターフェースを構成します．
+ */
+type AmplifyClientInterface interface {
+	CreateGetBranchInput(*eventbridge.EventDetail) *aws_amplify.GetBranchInput
+	GetBranchFromAmplify(*eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error)
+}
+
+/**
+ * AmplifyClientインターフェースの実装を構成します．
+ */
+type AmplifyClient struct {
+	AmplifyClientInterface
+	api amplifyiface.AmplifyAPI
+}
+
+/**
  * コンストラクタ
  * AmplifyClientを作成します．
  */

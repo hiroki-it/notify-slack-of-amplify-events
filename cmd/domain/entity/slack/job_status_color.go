@@ -1,6 +1,13 @@
 package slack
 
 /**
+ * ジョブステータスを構成します．
+ */
+type JobStatusColor struct {
+	status string
+}
+
+/**
  * コンストラクタ
  * JobStatusColorを作成します．
  */
