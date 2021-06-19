@@ -10,7 +10,6 @@ require (
 )
 
 replace (
-	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api => /cmd/usecase/service/api
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify => /cmd/usecase/service/amplify
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification => /cmd/usecase/service/notification
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event => /cmd/domain/entity/event

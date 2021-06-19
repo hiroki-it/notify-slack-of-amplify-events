@@ -10,7 +10,6 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
 )
 
@@ -31,7 +30,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyApi, err := api.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
+	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
 
 	if err != nil {
 		log.Error(err.Error())
