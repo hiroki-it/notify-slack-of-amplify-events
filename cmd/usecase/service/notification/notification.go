@@ -24,6 +24,7 @@ type SlackNotification struct {
  * SlackNotificationを作成します．
  */
 func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) *SlackNotification {
+
 	return &SlackNotification{
 		slackClient:  slackClient,
 		slackMessage: slackMessage,
