@@ -8,7 +8,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/notification"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api"
@@ -17,14 +17,14 @@ import (
 /**
  * Lambdaハンドラー関数
  */
-func HandleRequest(event events.CloudWatchEvent) (string, error) {
+func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()
 
-	eventDetail := &eventbridge.EventDetail{}
+	eventDetail := &event.EventDetail{}
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(event.Detail), eventDetail)
+	err := json.Unmarshal([]byte(eventBridge.Detail), eventDetail)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -47,12 +47,11 @@ func HandleRequest(event events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	jobStatus := eventbridge.NewJobStatus(eventDetail.JobStatus)
+	event := event.NewEvent(eventDetail)
 
 	message := notification.NewMessage(
-		eventDetail,
+		event,
 		getBranchOutput.Branch,
-		jobStatus,
 	)
 
 	slackMessage := message.BuildSlackMessage()

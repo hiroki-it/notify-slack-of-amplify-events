@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -27,35 +27,34 @@ func TestPostMessage(t *testing.T) {
 		// 期待値
 		expected error
 		// テストデータ
-		eventDetail     *eventbridge.EventDetail
+		eventDetail     *event.EventDetail
 		getBranchOutput *aws_amplify.GetBranchOutput
-		jobStatus       *eventbridge.JobStatus
 	}{
 		{
 			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
 			expected: nil,
-			eventDetail: &eventbridge.EventDetail{
+			eventDetail: &event.EventDetail{
 				AppId:      "1",
 				BranchName: "test",
 				JobId:      "1",
+				JobStatus:  "SUCCEED",
 			},
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 			},
-			jobStatus: eventbridge.NewJobStatus("SUCCEED"),
 		},
 		{
 			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
 			expected: nil,
-			eventDetail: &eventbridge.EventDetail{
+			eventDetail: &event.EventDetail{
 				AppId:      "1",
 				BranchName: "test",
 				JobId:      "1",
+				JobStatus:  "FAILED",
 			},
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
 			},
-			jobStatus: eventbridge.NewJobStatus("FAILED"),
 		},
 	}
 
@@ -70,10 +69,11 @@ func TestPostMessage(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
+			event := event.NewEvent(tt.eventDetail)
+
 			message := NewMessage(
-				tt.eventDetail,
+				event,
 				tt.getBranchOutput.Branch,
-				tt.jobStatus,
 			)
 
 			slackClient := NewSlackClient(

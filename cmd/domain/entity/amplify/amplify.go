@@ -3,7 +3,7 @@ package amplify
 import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
@@ -12,8 +12,8 @@ import (
  * AmplifyClientインターフェースを構成します．
  */
 type AmplifyClientInterface interface {
-	CreateGetBranchInput(*eventbridge.EventDetail) *aws_amplify.GetBranchInput
-	GetBranchFromAmplify(*eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error)
+	CreateGetBranchInput(*event.EventDetail) *aws_amplify.GetBranchInput
+	GetBranchFromAmplify(*event.EventDetail) (*aws_amplify.GetBranchOutput, error)
 }
 
 /**
@@ -38,7 +38,7 @@ func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 /**
  * Amplifyからブランチ情報を取得します．
  */
-func (cl *AmplifyClient) GetBranchFromAmplify(eventDetail *eventbridge.EventDetail) (*aws_amplify.GetBranchOutput, error) {
+func (cl *AmplifyClient) GetBranchFromAmplify(eventDetail *event.EventDetail) (*aws_amplify.GetBranchOutput, error) {
 
 	getBranchInput := &aws_amplify.GetBranchInput{
 		AppId:      aws.String(eventDetail.AppId),

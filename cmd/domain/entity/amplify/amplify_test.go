@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/eventbridge"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
@@ -41,12 +41,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		// 期待値
 		expected string
 		// テストデータ
-		eventDetail *eventbridge.EventDetail
+		eventDetail *event.EventDetail
 	}{
 		{
 			name:     "TestGetBranchFromAmplify_EventDetail_ReturnDisplayName",
 			expected: "feature-test",
-			eventDetail: &eventbridge.EventDetail{
+			eventDetail: &event.EventDetail{
 				AppId:      "1",
 				BranchName: "test",
 			},
