@@ -11,6 +11,15 @@ type EventDetail struct {
 }
 
 /**
+ * コンストラクタ
+ * EventDetailを作成します．
+ */
+func NewEventDetail() *EventDetail {
+
+	return &EventDetail{}
+}
+
+/**
  * JobStatusを返却します．
  */
 func (eventDetail *EventDetail) GetJobStatus() string {
