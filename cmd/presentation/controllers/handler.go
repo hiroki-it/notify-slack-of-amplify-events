@@ -8,10 +8,10 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/notification"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/api"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
 )
 
 /**
@@ -58,7 +58,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	slackClient := notification.NewSlackClient(
 		&http.Client{},
-		"https://notification.com/api/chat.postMessage",
+		"https://slack.com/api/chat.postMessage",
 	)
 
 	slackNotification := notification.NewSlackNotification(
