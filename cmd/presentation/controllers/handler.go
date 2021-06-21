@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
@@ -20,10 +20,10 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()
 
-	eventDetail := event.NewEventDetail()
+	Detail := detail.NewDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(eventBridge.Detail), eventDetail)
+	err := json.Unmarshal([]byte(eventBridge.Detail), Detail)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -39,7 +39,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(eventDetail)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(Detail)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -47,7 +47,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 	}
 
 	message := notification.NewMessage(
-		eventDetail,
+		Detail,
 		getBranchOutput.Branch,
 	)
 

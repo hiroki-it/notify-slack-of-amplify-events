@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/detail"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
@@ -41,12 +41,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		// 期待値
 		expected string
 		// テストデータ
-		eventDetail *event.EventDetail
+		Detail *detail.Detail
 	}{
 		{
-			name:     "TestGetBranchFromAmplify_EventDetail_ReturnDisplayName",
+			name:     "TestGetBranchFromAmplify_Detail_ReturnDisplayName",
 			expected: "feature-test",
-			eventDetail: &event.EventDetail{
+			Detail: &detail.Detail{
 				AppId:      "1",
 				BranchName: "test",
 			},
@@ -68,7 +68,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 			amplifyClient := NewAmplifyClient(mockedAPI)
 
 			// 検証対象の関数を実行します．スタブを含む一連の処理が実行されます．
-			getBranchOutput, err := amplifyClient.GetBranchFromAmplify(tt.eventDetail)
+			getBranchOutput, err := amplifyClient.GetBranchFromAmplify(tt.Detail)
 
 			if err != nil {
 				t.Fatal(err.Error())

@@ -1,9 +1,9 @@
-package event
+package detail
 
 /**
- * EventDetailを構成します．
+ * Detailを構成します．
  */
-type EventDetail struct {
+type Detail struct {
 	AppId      string `json:"appId"`
 	BranchName string `json:"branchName"`
 	JobId      string `json:"jobId"`
@@ -12,26 +12,26 @@ type EventDetail struct {
 
 /**
  * コンストラクタ
- * EventDetailを作成します．
+ * Detailを作成します．
  */
-func NewEventDetail() *EventDetail {
+func NewDetail() *Detail {
 
-	return &EventDetail{}
+	return &Detail{}
 }
 
 /**
  * JobStatusを返却します．
  */
-func (eventDetail *EventDetail) GetJobStatus() string {
-	return eventDetail.JobStatus
+func (Detail *Detail) GetJobStatus() string {
+	return Detail.JobStatus
 }
 
 /**
  * ジョブステータスが成功かどうかを判定します．
  */
-func (eventDetail *EventDetail) IsSucceed() bool {
+func (Detail *Detail) IsSucceed() bool {
 
-	if eventDetail.JobStatus == "SUCCEED" {
+	if Detail.JobStatus == "SUCCEED" {
 		return true
 	}
 

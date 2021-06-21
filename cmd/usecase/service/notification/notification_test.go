@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/detail"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -27,13 +27,13 @@ func TestPostMessage(t *testing.T) {
 		// 期待値
 		expected error
 		// テストデータ
-		eventDetail     *event.EventDetail
+		Detail          *detail.Detail
 		getBranchOutput *aws_amplify.GetBranchOutput
 	}{
 		{
 			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
 			expected: nil,
-			eventDetail: &event.EventDetail{
+			Detail: &detail.Detail{
 				AppId:      "1",
 				BranchName: "test",
 				JobId:      "1",
@@ -46,7 +46,7 @@ func TestPostMessage(t *testing.T) {
 		{
 			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
 			expected: nil,
-			eventDetail: &event.EventDetail{
+			Detail: &detail.Detail{
 				AppId:      "1",
 				BranchName: "test",
 				JobId:      "1",
@@ -70,7 +70,7 @@ func TestPostMessage(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 
 			message := NewMessage(
-				tt.eventDetail,
+				tt.Detail,
 				tt.getBranchOutput.Branch,
 			)
 
