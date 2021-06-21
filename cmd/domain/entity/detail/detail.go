@@ -22,16 +22,16 @@ func NewDetail() *Detail {
 /**
  * JobStatusを返却します．
  */
-func (Detail *Detail) GetJobStatus() string {
-	return Detail.JobStatus
+func (d *Detail) GetJobStatus() string {
+	return d.JobStatus
 }
 
 /**
  * ジョブステータスが成功かどうかを判定します．
  */
-func (Detail *Detail) IsSucceed() bool {
+func (d *Detail) IsSucceed() bool {
 
-	if Detail.JobStatus == "SUCCEED" {
+	if d.JobStatus == "SUCCEED" {
 		return true
 	}
 
