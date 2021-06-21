@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -69,10 +69,8 @@ func TestPostMessage(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			event := event.NewEvent(tt.eventDetail)
-
 			message := NewMessage(
-				event,
+				tt.eventDetail,
 				tt.getBranchOutput.Branch,
 			)
 

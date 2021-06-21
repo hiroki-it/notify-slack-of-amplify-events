@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 

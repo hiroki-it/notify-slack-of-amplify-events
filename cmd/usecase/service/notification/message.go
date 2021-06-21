@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
@@ -14,8 +14,8 @@ import (
  * メッセージを構成します．
  */
 type Message struct {
-	event  *event.Event
-	branch *aws_amplify.Branch
+	eventDetail *event.EventDetail
+	branch      *aws_amplify.Branch
 }
 
 /**
@@ -56,11 +56,11 @@ type Element struct {
  * コンストラクタ
  * Messageを作成します．
  */
-func NewMessage(event *event.Event, branch *aws_amplify.Branch) *Message {
+func NewMessage(eventDetail *event.EventDetail, branch *aws_amplify.Branch) *Message {
 
 	return &Message{
-		event:  event,
-		branch: branch,
+		eventDetail: eventDetail,
+		branch:      branch,
 	}
 }
 
@@ -104,7 +104,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									message.event.GetEventDetail().BranchName,
+									message.eventDetail.BranchName,
 								),
 							},
 						},
@@ -116,7 +116,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									message.event.GetEventDetail().BranchName,
+									message.eventDetail.BranchName,
 								),
 							},
 						},
@@ -129,7 +129,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									aws.StringValue(message.branch.DisplayName),
-									message.event.GetEventDetail().AppId,
+									message.eventDetail.AppId,
 								),
 							},
 						},
@@ -143,9 +143,9 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									os.Getenv("AWS_AMPLIFY_REGION"),
-									message.event.GetEventDetail().AppId,
+									message.eventDetail.AppId,
 									aws.StringValue(message.branch.DisplayName),
-									message.event.GetEventDetail().JobId,
+									message.eventDetail.JobId,
 								),
 							},
 						},
@@ -164,7 +164,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
  */
 func (message *Message) StatusWord() string {
 
-	if message.event.GetEventDetail().IsSucceed() {
+	if message.eventDetail.IsSucceed() {
 		return "成功"
 	}
 
@@ -176,7 +176,7 @@ func (message *Message) StatusWord() string {
  */
 func (message *Message) ColorCode() string {
 
-	if message.event.GetEventDetail().IsSucceed() {
+	if message.eventDetail.IsSucceed() {
 		return "#00FF00"
 	}
 

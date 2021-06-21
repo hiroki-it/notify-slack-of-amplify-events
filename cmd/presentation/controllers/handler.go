@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/entity/event_detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
@@ -46,10 +46,8 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	event := event.NewEvent(eventDetail)
-
 	message := notification.NewMessage(
-		event,
+		eventDetail,
 		getBranchOutput.Branch,
 	)
 
