@@ -164,7 +164,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
  */
 func (message *Message) StatusWord() string {
 
-	if message.Detail.IsSucceed() {
+	if message.detail.IsSucceed() {
 		return "成功"
 	}
 
@@ -176,7 +176,7 @@ func (message *Message) StatusWord() string {
  */
 func (message *Message) ColorCode() string {
 
-	if message.Detail.IsSucceed() {
+	if message.detail.IsSucceed() {
 		return "#00FF00"
 	}
 
