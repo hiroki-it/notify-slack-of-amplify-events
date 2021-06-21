@@ -14,7 +14,7 @@ import (
  * メッセージを構成します．
  */
 type Message struct {
-	Detail *detail.Detail
+	detail *detail.Detail
 	branch *aws_amplify.Branch
 }
 
@@ -56,10 +56,10 @@ type Element struct {
  * コンストラクタ
  * Messageを作成します．
  */
-func NewMessage(Detail *detail.Detail, branch *aws_amplify.Branch) *Message {
+func NewMessage(detail *detail.Detail, branch *aws_amplify.Branch) *Message {
 
 	return &Message{
-		Detail: Detail,
+		detail: detail,
 		branch: branch,
 	}
 }
@@ -104,7 +104,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									message.Detail.BranchName,
+									message.detail.BranchName,
 								),
 							},
 						},
@@ -116,7 +116,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									message.Detail.BranchName,
+									message.detail.BranchName,
 								),
 							},
 						},
@@ -129,7 +129,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									aws.StringValue(message.branch.DisplayName),
-									message.Detail.AppId,
+									message.detail.AppId,
 								),
 							},
 						},
@@ -143,9 +143,9 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									os.Getenv("AWS_AMPLIFY_REGION"),
-									message.Detail.AppId,
+									message.detail.AppId,
 									aws.StringValue(message.branch.DisplayName),
-									message.Detail.JobId,
+									message.detail.JobId,
 								),
 							},
 						},

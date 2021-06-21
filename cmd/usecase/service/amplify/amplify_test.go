@@ -41,12 +41,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		// 期待値
 		expected string
 		// テストデータ
-		Detail *detail.Detail
+		detail *detail.Detail
 	}{
 		{
-			name:     "TestGetBranchFromAmplify_Detail_ReturnDisplayName",
+			name:     "TestGetBranchFromAmplify_detail_ReturnDisplayName",
 			expected: "feature-test",
-			Detail: &detail.Detail{
+			detail: &detail.Detail{
 				AppId:      "1",
 				BranchName: "test",
 			},
@@ -68,7 +68,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 			amplifyClient := NewAmplifyClient(mockedAPI)
 
 			// 検証対象の関数を実行します．スタブを含む一連の処理が実行されます．
-			getBranchOutput, err := amplifyClient.GetBranchFromAmplify(tt.Detail)
+			getBranchOutput, err := amplifyClient.GetBranchFromAmplify(tt.detail)
 
 			if err != nil {
 				t.Fatal(err.Error())

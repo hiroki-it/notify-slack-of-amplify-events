@@ -20,10 +20,10 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()
 
-	Detail := detail.NewDetail()
+	detail := detail.NewDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(eventBridge.Detail), Detail)
+	err := json.Unmarshal([]byte(eventBridge.detail), detail)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -39,7 +39,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
 
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(Detail)
+	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(detail)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -47,7 +47,7 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 	}
 
 	message := notification.NewMessage(
-		Detail,
+		detail,
 		getBranchOutput.Branch,
 	)
 
