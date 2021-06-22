@@ -32,10 +32,10 @@ func TestPostMessage(t *testing.T) {
 			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
 			expected: nil,
 			detail: &detail.Detail{
-				AppId:      "1",
-				BranchName: "test",
-				JobId:      "1",
-				JobStatus:  "SUCCEED",
+				AppId:      detail.NewAppId("1"),
+				BranchName: detail.NewBranchName("test"),
+				JobId:      detail.NewJobId("1"),
+				JobStatus:  detail.NewJobStatus("SUCCEED"),
 			},
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
@@ -45,10 +45,10 @@ func TestPostMessage(t *testing.T) {
 			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
 			expected: nil,
 			detail: &detail.Detail{
-				AppId:      "1",
-				BranchName: "test",
-				JobId:      "1",
-				JobStatus:  "FAILED",
+				AppId:      detail.NewAppId("1"),
+				BranchName: detail.NewBranchName("test"),
+				JobId:      detail.NewJobId("1"),
+				JobStatus:  detail.NewJobStatus("FAILED"),
 			},
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
