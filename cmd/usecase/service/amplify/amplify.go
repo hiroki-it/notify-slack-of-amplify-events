@@ -8,13 +8,11 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
-// AmplifyClientInterface AmplifyClientインターフェースを構成します．
 type AmplifyClientInterface interface {
 	CreateGetBranchInput(*detail.Detail) *aws_amplify.GetBranchInput
 	GetBranchFromAmplify(*detail.Detail) (*aws_amplify.GetBranchOutput, error)
 }
 
-// AmplifyClient AmplifyClientインターフェースの実装を構成します．
 type AmplifyClient struct {
 	AmplifyClientInterface
 	api amplifyiface.AmplifyAPI
