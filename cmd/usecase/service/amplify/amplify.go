@@ -8,26 +8,19 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
-/**
- * AmplifyClientインターフェースを構成します．
- */
+// AmplifyClientInterface AmplifyClientインターフェースを構成します．
 type AmplifyClientInterface interface {
 	CreateGetBranchInput(*detail.Detail) *aws_amplify.GetBranchInput
 	GetBranchFromAmplify(*detail.Detail) (*aws_amplify.GetBranchOutput, error)
 }
 
-/**
- * AmplifyClientインターフェースの実装を構成します．
- */
+// AmplifyClient AmplifyClientインターフェースの実装を構成します．
 type AmplifyClient struct {
 	AmplifyClientInterface
 	api amplifyiface.AmplifyAPI
 }
 
-/**
- * コンストラクタ
- * AmplifyClientを作成します．
- */
+// NewAmplifyClient コンストラクタ
 func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 
 	return &AmplifyClient{
@@ -35,9 +28,7 @@ func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 	}
 }
 
-/**
- * Amplifyからブランチ情報を取得します．
- */
+// GetBranchFromAmplify Amplifyからブランチ情報を取得します．
 func (cl *AmplifyClient) GetBranchFromAmplify(detail *detail.Detail) (*aws_amplify.GetBranchOutput, error) {
 
 	getBranchInput := &aws_amplify.GetBranchInput{

@@ -11,9 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-/**
- * 統合テストを実行します．
- */
+// TestIntegration 統合テストを実行します．
 func TestIntegration(t *testing.T) {
 
 	t.Helper()

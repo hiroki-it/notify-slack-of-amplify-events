@@ -8,10 +8,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
-/**
- * コンストラクタ
- * AmplifyAPIを作成します．
- */
+// NewAmplifyAPI コンストラクタ
 func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
 
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})

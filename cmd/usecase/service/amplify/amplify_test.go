@@ -12,9 +12,7 @@ import (
 	m_amplify "github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify"
 )
 
-/**
- * ユニットテストの前処理の結果と，後処理の関数を返却します．
- */
+// setup ユニットテストの前処理の結果と，後処理の関数を返却します．
 func setup() (*m_amplify.MockedAmplifyAPI, func()) {
 
 	// AmplifyAPIのスタブを作成します．
@@ -24,9 +22,7 @@ func setup() (*m_amplify.MockedAmplifyAPI, func()) {
 	}
 }
 
-/**
- * GetBranchFromAmplifyメソッドが成功することをテストします．
- */
+// TestGetBranchFromAmplify GetBranchFromAmplifyメソッドが成功することをテストします．
 func TestGetBranchFromAmplify(t *testing.T) {
 
 	t.Helper()

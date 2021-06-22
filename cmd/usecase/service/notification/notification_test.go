@@ -13,9 +13,7 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
-/**
- * ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
- */
+// TestPostMessage ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
 func TestPostMessage(t *testing.T) {
 
 	t.Helper()

@@ -11,18 +11,13 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
-/**
- * Slack通知を構成します．
- */
+// SlackNotification Slack通知を構成します．
 type SlackNotification struct {
 	slackClient  *SlackClient
 	slackMessage *SlackMessage
 }
 
-/**
- * コンストラクタ
- * SlackNotificationを作成します．
- */
+// NewSlackNotification コンストラクタ
 func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) *SlackNotification {
 
 	return &SlackNotification{
@@ -31,9 +26,7 @@ func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) 
 	}
 }
 
-/**
- * メッセージを送信します．
- */
+// PostMessage メッセージを送信します
 func (no *SlackNotification) PostMessage() error {
 
 	// マッピングを元に，構造体をJSONに変換します．

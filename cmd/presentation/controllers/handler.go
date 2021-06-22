@@ -13,9 +13,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
 )
 
-/**
- * Lambdaハンドラー関数
- */
+// HandleRequest イベントをハンドリングします．
 func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()

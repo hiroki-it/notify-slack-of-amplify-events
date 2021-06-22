@@ -10,52 +10,39 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
-/**
- * メッセージを構成します．
- */
 type Message struct {
 	detail *detail.Detail
 	branch *aws_amplify.Branch
 }
 
-/**
- * Slackメッセージを構成します．
- */
 type SlackMessage struct {
 	Channel     string       `json:"channel"`
 	Text        string       `json:"text"`
 	Attachments []Attachment `json:"attachments"`
 }
 
-/**/
 type Attachment struct {
 	Color  string  `json:"color"`
 	Blocks []Block `json:"blocks"`
 }
 
-/**/
 type Block struct {
 	Type     string    `json:"type"`
 	Text     *Text     `json:"text,omitempty"`
 	Elements []Element `json:"elements,omitempty"`
 }
 
-/**/
 type Text struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
 }
 
-/**/
 type Element struct {
 	Type string `json:"type"`
 	Text string `json:"text"`
 }
 
-/**
- * コンストラクタ
- * Messageを作成します．
- */
+// NewMessage コンストラクタ
 func NewMessage(detail *detail.Detail, branch *aws_amplify.Branch) *Message {
 
 	return &Message{
@@ -64,10 +51,7 @@ func NewMessage(detail *detail.Detail, branch *aws_amplify.Branch) *Message {
 	}
 }
 
-/**
- * コンストラクタ
- * Messageを作成します．
- */
+// BuildSlackMessage コンストラクタ
 func (message *Message) BuildSlackMessage() *SlackMessage {
 
 	// メッセージを構成します．
@@ -159,9 +143,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 	}
 }
 
-/**
- * ジョブステータスを表現する文言を返却します．
- */
+// StatusWord ジョブステータスを表現する文言を返却します．
 func (message *Message) StatusWord() string {
 
 	if message.detail.IsSucceed() {
@@ -171,9 +153,7 @@ func (message *Message) StatusWord() string {
 	return "失敗"
 }
 
-/**
- * ジョブステータスを表現する色を返却します．
- */
+// ColorCode ジョブステータスを表現する色を返却します.
 func (message *Message) ColorCode() string {
 
 	if message.detail.IsSucceed() {
