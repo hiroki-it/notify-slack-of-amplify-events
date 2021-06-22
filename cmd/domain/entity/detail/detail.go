@@ -21,7 +21,7 @@ func (d *Detail) GetJobStatus() *JobStatus {
 // IsSucceed ジョブステータスが成功かどうかを判定します
 func (d *Detail) IsSucceed() bool {
 
-	if d.JobStatus == "SUCCEED" {
+	if d.JobStatus.Value() == "SUCCEED" {
 		return true
 	}
 
