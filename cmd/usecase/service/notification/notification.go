@@ -30,7 +30,7 @@ func NewSlackNotification(slackClient *SlackClient, slackMessage *SlackMessage) 
 func (no *SlackNotification) PostMessage() error {
 
 	// マッピングを元に，構造体をJSONに変換します．
-	json, err := json.Marshal(no.slackMessage)
+	sm, err := json.Marshal(no.slackMessage)
 
 	if err != nil {
 		return err
@@ -38,13 +38,13 @@ func (no *SlackNotification) PostMessage() error {
 
 	log := logger.NewLogger()
 
-	log.Info(string(json))
+	log.Info(string(sm))
 
 	// リクエストメッセージを定義します．
 	req, err := http.NewRequest(
 		"POST",
 		no.slackClient.url,
-		bytes.NewBuffer(json),
+		bytes.NewBuffer(sm),
 	)
 
 	if err != nil {
@@ -65,9 +65,9 @@ func (no *SlackNotification) PostMessage() error {
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにします．
 	defer res.Body.Close()
 
-	body, _ := ioutil.ReadAll(res.Body)
+	b, _ := ioutil.ReadAll(res.Body)
 
-	log.Info(string(body))
+	log.Info(string(b))
 
 	return nil
 }

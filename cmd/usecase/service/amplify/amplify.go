@@ -29,17 +29,17 @@ func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
 // GetBranchFromAmplify Amplifyからブランチ情報を取得します．
 func (cl *AmplifyClient) GetBranchFromAmplify(detail *detail.Detail) (*aws_amplify.GetBranchOutput, error) {
 
-	getBranchInput := &aws_amplify.GetBranchInput{
+	gbi := &aws_amplify.GetBranchInput{
 		AppId:      aws.String(detail.AppId.Value()),
 		BranchName: aws.String(detail.BranchName.Value()),
 	}
 
 	// ブランチ情報を構造体として取得します．
-	getBranchOutput, err := cl.api.GetBranch(getBranchInput)
+	gbo, err := cl.api.GetBranch(gbi)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return getBranchOutput, nil
+	return gbo, nil
 }

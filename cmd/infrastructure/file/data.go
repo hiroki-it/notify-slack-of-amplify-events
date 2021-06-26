@@ -11,12 +11,12 @@ func ReadDataFile(path string) []byte {
 
 	log := logger.NewLogger()
 
-	data, err := ioutil.ReadFile(path)
+	d, err := ioutil.ReadFile(path)
 
 	if err != nil {
 		log.Error(err.Error())
 		return nil
 	}
 
-	return data
+	return d
 }

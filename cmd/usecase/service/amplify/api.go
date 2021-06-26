@@ -11,11 +11,11 @@ import (
 // NewAmplifyAPI コンストラクタ
 func NewAmplifyAPI(region string) (amplifyiface.AmplifyAPI, error) {
 
-	sess, err := session.NewSession(&aws.Config{Region: aws.String(region)})
+	s, err := session.NewSession(&aws.Config{Region: aws.String(region)})
 
 	if err != nil {
 		return nil, err
 	}
 
-	return aws_amplify.New(sess), nil
+	return aws_amplify.New(s), nil
 }

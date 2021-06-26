@@ -67,24 +67,24 @@ func TestPostMessage(t *testing.T) {
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
 
-			message := NewMessage(
+			m := NewMessage(
 				tt.detail,
 				tt.getBranchOutput.Branch,
 			)
 
-			slackClient := NewSlackClient(
+			sc := NewSlackClient(
 				&http.Client{},
 				ts.URL, // モックサーバのURLに差し替えます．
 			)
 
-			slackMessage := message.BuildSlackMessage()
+			sm := m.BuildSlackMessage()
 
-			slackNotification := NewSlackNotification(
-				slackClient,
-				slackMessage,
+			sn := NewSlackNotification(
+				sc,
+				sm,
 			)
 
-			err := slackNotification.PostMessage()
+			err := sn.PostMessage()
 
 			if err != nil {
 				t.Fatal(err.Error())

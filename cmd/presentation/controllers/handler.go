@@ -18,10 +18,10 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()
 
-	detail := detail.NewDetail()
+	d := detail.NewDetail()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(eventBridge.Detail), detail)
+	err := json.Unmarshal([]byte(eventBridge.Detail), d)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -35,9 +35,9 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyClient := amplify.NewAmplifyClient(amplifyApi)
+	ac := amplify.NewAmplifyClient(amplifyApi)
 
-	getBranchOutput, err := amplifyClient.GetBranchFromAmplify(detail)
+	gbo, err := ac.GetBranchFromAmplify(d)
 
 	if err != nil {
 		log.Error(err.Error())
@@ -45,23 +45,23 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 	}
 
 	message := notification.NewMessage(
-		detail,
-		getBranchOutput.Branch,
+		d,
+		gbo.Branch,
 	)
 
-	slackMessage := message.BuildSlackMessage()
+	sm := message.BuildSlackMessage()
 
-	slackClient := notification.NewSlackClient(
+	sc := notification.NewSlackClient(
 		&http.Client{},
 		"https://slack.com/api/chat.postMessage",
 	)
 
-	slackNotification := notification.NewSlackNotification(
-		slackClient,
-		slackMessage,
+	sn := notification.NewSlackNotification(
+		sc,
+		sm,
 	)
 
-	err = slackNotification.PostMessage()
+	err = sn.PostMessage()
 
 	if err != nil {
 		log.Error(err.Error())
