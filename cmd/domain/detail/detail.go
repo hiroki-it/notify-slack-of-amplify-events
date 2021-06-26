@@ -1,14 +1,10 @@
-package entity
-
-import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/value"
-)
+package detail
 
 type Detail struct {
-	AppId      *value.AppId      `json:"appId"`
-	BranchName *value.BranchName `json:"branchName"`
-	JobId      *value.JobId      `json:"jobId"`
-	JobStatus  *value.JobStatus  `json:"jobStatus"`
+	AppId      *AppId      `json:"appId"`
+	BranchName *BranchName `json:"branchName"`
+	JobId      *JobId      `json:"jobId"`
+	JobStatus  *JobStatus  `json:"jobStatus"`
 }
 
 // NewDetail コンストラクタ
@@ -18,7 +14,7 @@ func NewDetail() *Detail {
 }
 
 // GetJobStatus JobStatusを返却します.
-func (d *Detail) GetJobStatus() *value.JobStatus {
+func (d *Detail) GetJobStatus() *JobStatus {
 	return d.JobStatus
 }
 
