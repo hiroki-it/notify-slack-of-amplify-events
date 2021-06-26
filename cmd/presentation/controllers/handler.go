@@ -9,8 +9,8 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/notification"
 )
 
 // HandleRequest イベントをハンドリングします．
