@@ -6,6 +6,6 @@ import (
 
 // NewLogger コンストラクタ
 func NewLogger() *zap.Logger {
-	logger, _ := zap.NewDevelopment()
-	return logger
+	log, _ := zap.NewDevelopment()
+	return log
 }
