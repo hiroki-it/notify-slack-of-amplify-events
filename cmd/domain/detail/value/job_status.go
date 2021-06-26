@@ -11,6 +11,7 @@ type JobStatus struct {
 	value string
 }
 
+// NewJobStatus コンストラクタ
 func NewJobStatus(value string) *JobStatus {
 
 	return &JobStatus{
