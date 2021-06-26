@@ -11,6 +11,7 @@ type AppId struct {
 	value string
 }
 
+// NewAppId コンストラクタ
 func NewAppId(value string) *AppId {
 
 	return &AppId{
