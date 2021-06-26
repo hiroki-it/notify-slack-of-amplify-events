@@ -44,12 +44,12 @@ func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	message := notification.NewMessage(
+	m := notification.NewMessage(
 		d,
 		gbo.Branch,
 	)
 
-	sm := message.BuildSlackMessage()
+	sm := m.BuildSlackMessage()
 
 	sc := notification.NewSlackClient(
 		&http.Client{},
