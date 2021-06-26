@@ -14,6 +14,7 @@ replace (
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/amplify => /cmd/usecase/service/amplify
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/service/notification => /cmd/usecase/service/notification
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entity => /cmd/domain/detail/entity
+	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/value => /cmd/domain/detail/value
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file => /cmd/infrastructure/file
 	github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/controllers => /cmd/presentation/controllers
 	github.com/hiroki-it/notify-slack-of-amplify-events/mock/amplify => /mock/amplify
