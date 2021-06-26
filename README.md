@@ -28,14 +28,16 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
-|   ├── domain         # ドメイン層
-|   |   └── entity
+|   ├── domain   # ** ドメイン層 **
+|   |   ├── core   # ドメインの元となるオブジェクト
+|   |   └── X      # 任意のルートエンティティ
 |   |
-|   ├── infrastructure # インフラストラクチャ層 
-|   ├── presentation   # プレゼンテーション層
-|   |   └── controller
+|   ├── infrastructure # ** インフラストラクチャ層 ** 
+|   ├── presentation    # ** プレゼンテーション層 **
+|   |   └── controllers   # コントローラ
 |   |     
-|   └── usecase        # ユースケース層
+|   └── usecase        # ** ユースケース層 **
+        └── services
 | 
 ├── integration_test # 統合テスト
 |   └── testdata # テストデータ
