@@ -65,9 +65,9 @@ func (no *SlackNotification) PostMessage() error {
 	// deferで宣言しておき，HTTP通信を必ず終了できるようにします．
 	defer res.Body.Close()
 
-	b, _ := ioutil.ReadAll(res.Body)
+	b, err := ioutil.ReadAll(res.Body)
 
 	log.Info(string(b))
 
-	return nil
+	return err
 }
