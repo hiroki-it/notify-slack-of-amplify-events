@@ -1,10 +1,10 @@
 package detail
 
 type Detail struct {
-	AppId      *AppId      `json:"appId"`
-	BranchName *BranchName `json:"branchName"`
-	JobId      *JobId      `json:"jobId"`
-	JobStatus  *JobStatus  `json:"jobStatus"`
+	AppId      AppId      `json:"appId"`
+	BranchName BranchName `json:"branchName"`
+	JobId      JobId      `json:"jobId"`
+	JobStatus  JobStatus  `json:"jobStatus"`
 }
 
 // NewDetail コンストラクタ
@@ -14,7 +14,7 @@ func NewDetail() *Detail {
 }
 
 // GetJobStatus JobStatusを返却します.
-func (d *Detail) GetJobStatus() *JobStatus {
+func (d *Detail) GetJobStatus() JobStatus {
 	return d.JobStatus
 }
 

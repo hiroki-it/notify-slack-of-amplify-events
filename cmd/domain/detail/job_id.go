@@ -1,35 +1,19 @@
 package detail
 
-import (
-	"encoding/json"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
-)
-
-type JobId struct {
-	core.ValueObject
-	value string
-}
+type JobId string
 
 // NewJobId コンストラクタ
-func NewJobId(value string) *JobId {
+func NewJobId(value string) JobId {
 
-	return &JobId{
-		value: value,
-	}
-}
-
-// Equals 等価性を検証します．
-func (ji *JobId) Equals(target *JobId) bool {
-	return ji.value == target.Value()
+	return JobId(value)
 }
 
 // Value 属性を返却します．
-func (ji *JobId) Value() string {
-	return ji.value
+func (ji JobId) Value() string {
+	return string(ji)
 }
 
-// MarshalJSON 構造体をJSONに変換します．
-func (ji *JobId) MarshalJSON() ([]byte, error) {
-	return json.Marshal(ji.Value())
+// Equals 等価性を検証します．
+func (ji JobId) Equals(target *JobId) bool {
+	return ji.Value() == target.Value()
 }
