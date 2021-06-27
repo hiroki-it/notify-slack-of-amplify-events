@@ -20,7 +20,7 @@ func NewJobId(value string) *JobId {
 }
 
 // Equals 等価性を検証します．
-func (ji *JobId) Equals(target JobId) bool {
+func (ji *JobId) Equals(target *JobId) bool {
 	return ji.value == target.Value()
 }
 

@@ -20,7 +20,7 @@ func NewJobStatus(value string) *JobStatus {
 }
 
 // Equals 等価性を検証します．
-func (js *JobStatus) Equals(target JobStatus) bool {
+func (js *JobStatus) Equals(target *JobStatus) bool {
 	return js.value == target.Value()
 }
 

@@ -20,7 +20,7 @@ func NewAppId(value string) *AppId {
 }
 
 // Equals 等価性を検証します．
-func (ai AppId) Equals(target AppId) bool {
+func (ai AppId) Equals(target *AppId) bool {
 	return ai.value == target.value
 }
 

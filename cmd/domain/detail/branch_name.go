@@ -20,7 +20,7 @@ func NewBranchName(value string) *BranchName {
 }
 
 // Equals 等価性を検証します．
-func (bn *BranchName) Equals(target BranchName) bool {
+func (bn *BranchName) Equals(target *BranchName) bool {
 	return bn.value == target.Value()
 }
 
