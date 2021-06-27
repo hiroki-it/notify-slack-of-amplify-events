@@ -88,7 +88,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									message.detail.BranchName,
+									message.detail.BranchName.Value(),
 								),
 							},
 						},
@@ -100,7 +100,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									message.detail.BranchName,
+									message.detail.BranchName.Value(),
 								),
 							},
 						},
@@ -113,7 +113,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									aws.StringValue(message.branch.DisplayName),
-									message.detail.AppId,
+									message.detail.AppId.Value(),
 								),
 							},
 						},
@@ -127,9 +127,9 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									os.Getenv("AWS_AMPLIFY_REGION"),
-									message.detail.AppId,
+									message.detail.AppId.Value(),
 									aws.StringValue(message.branch.DisplayName),
-									message.detail.JobId,
+									message.detail.JobId.Value(),
 								),
 							},
 						},
