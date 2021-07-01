@@ -1,23 +1,28 @@
 package detail
 
+import (
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
+)
+
 type BranchName struct {
-	value string
+	core.ValueObject
+	name string
 }
 
 // NewBranchName コンストラクタ
-func NewBranchName(value string) *BranchName {
+func NewBranchName(name string) *BranchName {
 
 	return &BranchName{
-		value: value,
+		name: name,
 	}
 }
 
-// Value 属性を返却します．
-func (bn BranchName) Value() string {
-	return bn.value
+// Name 属性を返却します．
+func (bn BranchName) Name() string {
+	return bn.name
 }
 
 // Equals 等価性を検証します．
 func (bn BranchName) Equals(target *BranchName) bool {
-	return bn.value == target.Value()
+	return bn.name == target.Name()
 }

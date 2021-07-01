@@ -1,23 +1,28 @@
 package detail
 
+import (
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
+)
+
 type JobStatus struct {
-	value string
+	core.ValueObject
+	status string
 }
 
 // NewJobStatus コンストラクタ
-func NewJobStatus(value string) *JobStatus {
+func NewJobStatus(status string) *JobStatus {
 
 	return &JobStatus{
-		value: value,
+		status: status,
 	}
 }
 
-// Value 属性を返却します．
-func (js JobStatus) Value() string {
-	return js.value
+// Status 属性を返却します．
+func (js JobStatus) Status() string {
+	return js.status
 }
 
 // Equals 等価性を検証します．
 func (js JobStatus) Equals(target *JobStatus) bool {
-	return js.value == target.Value()
+	return js.status == target.Status()
 }
