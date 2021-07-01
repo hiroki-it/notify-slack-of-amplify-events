@@ -38,7 +38,7 @@ project
 |   |   └── forms       # バリデーション
 |   |     
 |   └── usecase   # ** ユースケース層 **
-|      ├── inputs   # ユースケースのパラメータ
+|      ├── inputs   # ユースケース層のパラメータ
 |      ├── services # サービス
 |      └── usecases # ユースケース
 | 
