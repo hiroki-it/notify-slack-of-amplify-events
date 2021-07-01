@@ -1,67 +1,60 @@
-package handler
+package controllers
 
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
-	"os"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/notification"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/forms/detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/input"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/usecases"
 )
 
-// HandleRequest イベントをハンドリングします．
-func HandleRequest(eventBridge events.CloudWatchEvent) (string, error) {
+type LambdaController struct {
+	*usecases.EventPostUseCase
+}
+
+// NewLambdaController コンストラクタ
+func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
+
+	return &LambdaController{
+		EventPostUseCase: eventPostUseCase,
+	}
+}
+
+// PostEvent イベントをハンドリングします．
+func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string, error) {
 
 	log := logger.NewLogger()
 
-	d := detail.NewDetail()
+	f := detail.NewDetailForm()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(eventBridge.Detail), d)
+	err := json.Unmarshal([]byte(eventBridge.Detail), f)
 
 	if err != nil {
 		log.Error(err.Error())
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
+	err = f.Validate()
 
 	if err != nil {
 		log.Error(err.Error())
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	ac := amplify.NewAmplifyClient(amplifyApi)
-
-	gbo, err := ac.GetBranchFromAmplify(d)
-
-	if err != nil {
-		log.Error(err.Error())
-		return fmt.Sprint("Failed to handle request"), err
-	}
-
-	m := notification.NewMessage(
-		d,
-		gbo.Branch,
+	i := input.NewEventPostInput(
+		f.AppId,
+		f.BranchName,
+		f.JobId,
+		f.JobStatus,
 	)
 
-	sm := m.BuildSlackMessage()
+	uc := usecases.NewEventPostUseCase()
 
-	sc := notification.NewSlackClient(
-		&http.Client{},
-		"https://slack.com/api/chat.postMessage",
-	)
-
-	sn := notification.NewSlackNotification(
-		sc,
-		sm,
-	)
-
-	err = sn.PostMessage()
+	err = uc.PostEvent(i)
 
 	if err != nil {
 		log.Error(err.Error())
