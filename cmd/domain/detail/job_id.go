@@ -1,19 +1,23 @@
 package detail
 
-type JobId string
+type JobId struct {
+	value string
+}
 
 // NewJobId コンストラクタ
-func NewJobId(value string) JobId {
+func NewJobId(value string) *JobId {
 
-	return JobId(value)
+	return &JobId{
+		value: value,
+	}
 }
 
 // Value 属性を返却します．
 func (ji JobId) Value() string {
-	return string(ji)
+	return ji.value
 }
 
 // Equals 等価性を検証します．
 func (ji JobId) Equals(target *JobId) bool {
-	return ji.Value() == target.Value()
+	return ji.value == target.Value()
 }
