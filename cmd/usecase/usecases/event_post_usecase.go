@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/input"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/inputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/notification"
 )
@@ -20,7 +20,7 @@ func NewEventPostUseCase() *EventPostUseCase {
 }
 
 // PostEvent イベントを通知します．
-func (uc *EventPostUseCase) PostEvent(input *input.EventPostInput) error {
+func (uc *EventPostUseCase) PostEvent(input *inputs.EventPostInput) error {
 
 	amplifyApi, err := amplify.NewAmplifyAPI(os.Getenv("AWS_AMPLIFY_REGION"))
 

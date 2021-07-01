@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/forms/detail"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/input"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/inputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/usecases"
 )
 
@@ -45,7 +45,7 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	i := input.NewEventPostInput(
+	i := inputs.NewEventPostInput(
 		f.AppId,
 		f.BranchName,
 		f.JobId,
