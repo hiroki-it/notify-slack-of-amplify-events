@@ -1,23 +1,28 @@
 package detail
 
+import (
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
+)
+
 type JobId struct {
-	value string
+	core.ID
+	id string
 }
 
 // NewJobId コンストラクタ
-func NewJobId(value string) *JobId {
+func NewJobId(id string) *JobId {
 
 	return &JobId{
-		value: value,
+		id: id,
 	}
 }
 
-// Value 属性を返却します．
-func (ji JobId) Value() string {
-	return ji.value
+// Id 属性を返却します．
+func (ji JobId) Id() string {
+	return ji.id
 }
 
 // Equals 等価性を検証します．
 func (ji JobId) Equals(target *JobId) bool {
-	return ji.value == target.Value()
+	return ji.id == target.Id()
 }
