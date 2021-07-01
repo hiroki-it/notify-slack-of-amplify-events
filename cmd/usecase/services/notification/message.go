@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -112,7 +111,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
-									aws.StringValue(message.branch.DisplayName),
+									*message.branch.DisplayName,
 									message.detail.AppId.Value(),
 								),
 							},
@@ -128,7 +127,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									message.detail.AppId.Value(),
-									aws.StringValue(message.branch.DisplayName),
+									*message.branch.DisplayName,
 									message.detail.JobId.Value(),
 								),
 							},
