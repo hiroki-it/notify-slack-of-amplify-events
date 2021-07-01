@@ -18,11 +18,11 @@ func NewJobStatus(status string) *JobStatus {
 }
 
 // Status 属性を返却します．
-func (js JobStatus) Status() string {
+func (js *JobStatus) Status() string {
 	return js.status
 }
 
 // Equals 等価性を検証します．
-func (js JobStatus) Equals(target *JobStatus) bool {
+func (js *JobStatus) Equals(target *JobStatus) bool {
 	return js.status == target.Status()
 }

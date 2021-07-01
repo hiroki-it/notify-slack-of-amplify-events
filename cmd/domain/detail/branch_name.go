@@ -18,11 +18,11 @@ func NewBranchName(name string) *BranchName {
 }
 
 // Name 属性を返却します．
-func (bn BranchName) Name() string {
+func (bn *BranchName) Name() string {
 	return bn.name
 }
 
 // Equals 等価性を検証します．
-func (bn BranchName) Equals(target *BranchName) bool {
+func (bn *BranchName) Equals(target *BranchName) bool {
 	return bn.name == target.Name()
 }

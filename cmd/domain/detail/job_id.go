@@ -18,11 +18,11 @@ func NewJobId(id string) *JobId {
 }
 
 // Id 属性を返却します．
-func (ji JobId) Id() string {
+func (ji *JobId) Id() string {
 	return ji.id
 }
 
 // Equals 等価性を検証します．
-func (ji JobId) Equals(target *JobId) bool {
+func (ji *JobId) Equals(target *JobId) bool {
 	return ji.id == target.Id()
 }
