@@ -34,10 +34,13 @@ project
 |   |
 |   ├── infrastructure # ** インフラストラクチャ層 ** 
 |   ├── presentation    # ** プレゼンテーション層 **
-|   |   └── controllers   # コントローラ
+|   |   ├── controllers # コントローラ
+|   |   └── forms       # バリデーション
 |   |     
-|   └── usecase        # ** ユースケース層 **
-        └── services
+|   └── usecase   # ** ユースケース層 **
+|      ├── inputs   # ユースケースのパラメータ
+|      ├── services # サービス
+|      └── usecases # ユースケース
 | 
 ├── integration_test # 統合テスト
 |   └── testdata # テストデータ
