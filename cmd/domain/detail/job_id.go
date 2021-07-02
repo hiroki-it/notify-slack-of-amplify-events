@@ -8,6 +8,8 @@ type JobId struct {
 	id string
 }
 
+var _ core.ID = (*JobId)(nil)
+
 // NewJobId コンストラクタ
 func NewJobId(id string) *JobId {
 

@@ -8,6 +8,8 @@ type JobStatus struct {
 	status string
 }
 
+var _ core.ValueObject = (*JobStatus)(nil)
+
 // NewJobStatus コンストラクタ
 func NewJobStatus(status string) *JobStatus {
 

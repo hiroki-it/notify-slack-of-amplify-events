@@ -8,6 +8,8 @@ type AppId struct {
 	id string
 }
 
+var _ core.ID = (*AppId)(nil)
+
 // NewAppId コンストラクタ
 func NewAppId(id string) *AppId {
 
