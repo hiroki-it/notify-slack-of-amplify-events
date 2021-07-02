@@ -1,11 +1,6 @@
 package detail
 
-import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
-)
-
 type Detail struct {
-	core.Entity
 	AppId      *AppId
 	BranchName *BranchName
 	JobId      *JobId
