@@ -8,7 +8,7 @@ type BranchName struct {
 	name string
 }
 
-var _ core.ValueObject = (*BranchName)(nil)
+var _ core.ValueObject = &BranchName{}
 
 // NewBranchName コンストラクタ
 func NewBranchName(name string) *BranchName {
