@@ -22,6 +22,6 @@ func (bn *BranchName) Name() string {
 }
 
 // Equals 等価性を検証します．
-func (bn *BranchName) Equals(target *BranchName) bool {
-	return bn.name == target.Name()
+func (bn *BranchName) Equals(target core.ValueObject) bool {
+	return bn.name == target.(*BranchName).Name()
 }

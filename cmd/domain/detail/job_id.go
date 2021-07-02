@@ -22,6 +22,6 @@ func (ji *JobId) Id() string {
 }
 
 // Equals 等価性を検証します．
-func (ji *JobId) Equals(target *JobId) bool {
-	return ji.id == target.Id()
+func (ji *JobId) Equals(target core.ID) bool {
+	return ji.id == target.(*JobId).Id()
 }

@@ -22,6 +22,6 @@ func (js *JobStatus) Status() string {
 }
 
 // Equals 等価性を検証します．
-func (js *JobStatus) Equals(target *JobStatus) bool {
-	return js.status == target.Status()
+func (js *JobStatus) Equals(target core.ValueObject) bool {
+	return js.status == target.(*JobStatus).Status()
 }
