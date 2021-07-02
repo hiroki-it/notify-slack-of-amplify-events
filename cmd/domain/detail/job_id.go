@@ -5,7 +5,6 @@ import (
 )
 
 type JobId struct {
-	core.ID
 	id string
 }
 

@@ -5,7 +5,6 @@ import (
 )
 
 type BranchName struct {
-	core.ValueObject
 	name string
 }
 

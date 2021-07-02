@@ -5,7 +5,6 @@ import (
 )
 
 type JobStatus struct {
-	core.ValueObject
 	status string
 }
 

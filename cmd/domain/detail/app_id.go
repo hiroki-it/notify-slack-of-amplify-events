@@ -5,7 +5,6 @@ import (
 )
 
 type AppId struct {
-	core.ID
 	id string
 }
 
