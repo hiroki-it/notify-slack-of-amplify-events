@@ -34,7 +34,7 @@ func (uc *EventPostUseCase) PostEvent(input *inputs.EventPostInput) error {
 		detail.NewAppId(input.AppId),
 		detail.NewBranchName(input.BranchName),
 		detail.NewJobId(input.JobId),
-		detail.NewJobStatus(input.JobStatus),
+		detail.NewJobStatusType(input.JobStatusType),
 	)
 
 	gbo, err := ac.GetBranchFromAmplify(d)

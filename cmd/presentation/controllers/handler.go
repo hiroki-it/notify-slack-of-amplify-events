@@ -49,7 +49,7 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		f.AppId,
 		f.BranchName,
 		f.JobId,
-		f.JobStatus,
+		f.JobStatusType,
 	)
 
 	uc := usecases.NewEventPostUseCase()

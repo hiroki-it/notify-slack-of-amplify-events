@@ -1,32 +1,32 @@
 package detail
 
 type Detail struct {
-	AppId      *AppId
-	BranchName *BranchName
-	JobId      *JobId
-	JobStatus  *JobStatus
+	AppId         *AppId
+	BranchName    *BranchName
+	JobId         *JobId
+	JobStatusType JobStatusType
 }
 
 // NewDetail コンストラクタ
-func NewDetail(appId *AppId, branchName *BranchName, jobId *JobId, jobStatus *JobStatus) *Detail {
+func NewDetail(appId *AppId, branchName *BranchName, jobId *JobId, jobStatusType JobStatusType) *Detail {
 
 	return &Detail{
-		AppId:      appId,
-		BranchName: branchName,
-		JobId:      jobId,
-		JobStatus:  jobStatus,
+		AppId:         appId,
+		BranchName:    branchName,
+		JobId:         jobId,
+		JobStatusType: jobStatusType,
 	}
 }
 
-// GetJobStatus JobStatusを返却します.
-func (d *Detail) GetJobStatus() *JobStatus {
-	return d.JobStatus
+// GetJobStatusType JobStatusTypeを返却します.
+func (d *Detail) GetJobStatusType() JobStatusType {
+	return d.JobStatusType
 }
 
 // IsSucceed ジョブステータスが成功かどうかを判定します
 func (d *Detail) IsSucceed() bool {
 
-	if d.JobStatus.Status() == "SUCCEED" {
+	if d.JobStatusType.String() == "SUCCEED" {
 		return true
 	}
 

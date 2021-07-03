@@ -5,10 +5,10 @@ import (
 )
 
 type DetailForm struct {
-	AppId      string `json:"appId" validate:"required"`
-	BranchName string `json:"branchName" validate:"required"`
-	JobId      string `json:"jobId" validate:"required"`
-	JobStatus  string `json:"jobStatus" validate:"required"`
+	AppId         string `json:"appId" validate:"required"`
+	BranchName    string `json:"branchName" validate:"required"`
+	JobId         string `json:"jobId" validate:"required"`
+	JobStatusType int    `json:"jobStatus" validate:"required"`
 }
 
 // NewDetailForm コンストラクタ
