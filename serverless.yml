@@ -49,13 +49,14 @@ functions:
           pattern: ${file(./serverless_configs/event_bridge/patterns/succeed.json)}
           inputTransformer:
             inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
-            inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/succeed.tpl)}
+            inputTemplate: '{"detail": {"appId": <appId>,"branchName": <branchName>,"jobId": <jobId>,"jobStatusType": 1}'
       - eventBridge:
           pattern: ${file(./serverless_configs/event_bridge/patterns/failed.json)}
           inputTransformer:
             inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
-            inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/failed.tpl)}
-    image: 
+            inputTemplate: '{"detail": {"appId": <appId>,"branchName": <branchName>,"jobId": <jobId>,"jobStatusType": 2}'
+
+    image:
       name: base
     maximumRetryAttempts: 1
     memorySize: 512
