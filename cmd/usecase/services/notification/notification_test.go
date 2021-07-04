@@ -29,7 +29,7 @@ func TestPostMessage(t *testing.T) {
 		getBranchOutput *aws_amplify.GetBranchOutput
 	}{
 		{
-			name:     "TestPostMessage_JobStatusSucceed_ReturnNil",
+			name:     "TestPostMessage_JobStatusTypeSucceed_ReturnNil",
 			expected: nil,
 			detail: &detail.Detail{
 				AppId:         detail.NewAppId("1"),
@@ -42,7 +42,7 @@ func TestPostMessage(t *testing.T) {
 			},
 		},
 		{
-			name:     "TestPostMessage_JobStatusFailed_ReturnNil",
+			name:     "TestPostMessage_JobStatusTypeFailed_ReturnNil",
 			expected: nil,
 			detail: &detail.Detail{
 				AppId:         detail.NewAppId("1"),
