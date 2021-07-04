@@ -46,7 +46,15 @@ functions:
       SLACK_CHANNEL_ID: ${env:SLACK_CHANNEL_ID}
     events:
       - eventBridge:
-          pattern: ${file(./serverless_configs/events/amplify_event.json)}
+          pattern: ${file(./serverless_configs/event_bridge/patterns/succeed.json)}
+          inputTransformer:
+            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.tpl)}
+            inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/succeed.tpl)}
+      - eventBridge:
+          pattern: ${file(./serverless_configs/event_bridge/patterns/failed.json)}
+          inputTransformer:
+            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.tpl)}
+            inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/failed.tpl)}
     image: 
       name: base
     maximumRetryAttempts: 1
