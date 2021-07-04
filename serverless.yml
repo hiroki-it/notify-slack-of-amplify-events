@@ -50,12 +50,18 @@ functions:
       - eventBridge:
           pattern: ${file(./serverless_configs/event_bridge/patterns/succeed.json)}
           inputTransformer:
-            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
+            inputPathsMap:
+              appId: "$.detail.appId"
+              branchName: "$.detail.branchName"
+              jobId: "$.detail.jobId"
             inputTemplate: '{"detail": {"appId": <appId>,"branchName": <branchName>,"jobId": <jobId>,"jobStatusType": 1}'
       - eventBridge:
           pattern: ${file(./serverless_configs/event_bridge/patterns/failed.json)}
           inputTransformer:
-            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
+            inputPathsMap:
+              appId: "$.detail.appId"
+              branchName: "$.detail.branchName"
+              jobId: "$.detail.jobId"
             inputTemplate: '{"detail": {"appId": <appId>,"branchName": <branchName>,"jobId": <jobId>,"jobStatusType": 2}'
 
     image:
