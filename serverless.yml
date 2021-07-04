@@ -35,6 +35,8 @@ provider:
       base:
         uri: ${env:AWS_ECR_ACCOUNT_URL}/${env:APP_ENV}-${self:service}-repository@${self:custom.ecrImageDigest}
   lambdaHashingVersion: 20201221
+  eventBridge:
+    useCloudFormation: true
 
 # Lambda
 functions:
