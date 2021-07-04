@@ -48,12 +48,12 @@ functions:
       - eventBridge:
           pattern: ${file(./serverless_configs/event_bridge/patterns/succeed.json)}
           inputTransformer:
-            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.tpl)}
+            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
             inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/succeed.tpl)}
       - eventBridge:
           pattern: ${file(./serverless_configs/event_bridge/patterns/failed.json)}
           inputTransformer:
-            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.tpl)}
+            inputPathsMap: ${file(./serverless_configs/event_bridge/input_paths/input_path.json)}
             inputTemplate: ${file(./serverless_configs/event_bridge/input_templates/failed.tpl)}
     image: 
       name: base
