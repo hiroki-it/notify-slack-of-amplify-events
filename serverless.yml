@@ -71,11 +71,11 @@ resources:
       Properties:
         RoleName: ${env:APP_ENV}-${self:service}-lambda-role
         Description: The role for ${env:APP_ENV}-${self:service}-lambda
-        AssumeRolePolicyDocument: ${file(./serverless_configs/policies/trust_policies/lambda_policy.json)}
+        AssumeRolePolicyDocument: ${file(./serverless_configs/iam_role/policies/trust_policies/lambda_policy.json)}
         # インラインポリシー
         Policies:
           - PolicyName: ${env:APP_ENV}-${self:service}-lambda-execution-policy
-            PolicyDocument: ${file(./serverless_configs/policies/custom_managed_policies/lambda_execution_policy.json)}
+            PolicyDocument: ${file(./serverless_configs/iam_role/policies/custom_managed_policies/lambda_execution_policy.json)}
         # 管理ポリシー
         ManagedPolicyArns:
           - arn:aws:iam::aws:policy/AWSLambdaExecute
