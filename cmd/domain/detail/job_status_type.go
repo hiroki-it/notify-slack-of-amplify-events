@@ -7,7 +7,7 @@ const (
 	FAILED
 )
 
-// NewJobStatus コンストラクタ
+// NewJobStatusType コンストラクタ
 func NewJobStatusType(jobStatusType int) JobStatusType {
 	return JobStatusType(jobStatusType)
 }
