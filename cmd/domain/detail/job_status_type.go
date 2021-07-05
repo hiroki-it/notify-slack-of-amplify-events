@@ -1,14 +1,14 @@
 package detail
 
-type JobStatusType int
+type JobStatusType string
 
 const (
-	SUCCEED JobStatusType = iota + 1
-	FAILED
+	SUCCEED JobStatusType = "SUCCEED"
+	FAILED  JobStatusType = "FAILED"
 )
 
 // NewJobStatusType コンストラクタ
-func NewJobStatusType(jobStatusType int) JobStatusType {
+func NewJobStatusType(jobStatusType string) JobStatusType {
 	return JobStatusType(jobStatusType)
 }
 
@@ -17,10 +17,10 @@ func (js JobStatusType) String() string {
 
 	switch js {
 	case SUCCEED:
-		return "SUCCEED"
+		return "成功"
 	case FAILED:
-		return "FAILED"
+		return "失敗"
 	default:
-		return "Unknown"
+		return "不明のステータス"
 	}
 }

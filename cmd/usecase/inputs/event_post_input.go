@@ -4,10 +4,10 @@ type EventPostInput struct {
 	AppId         string
 	BranchName    string
 	JobId         string
-	JobStatusType int
+	JobStatusType string
 }
 
-func NewEventPostInput(appId string, branchName string, jobId string, jobStatusType int) *EventPostInput {
+func NewEventPostInput(appId string, branchName string, jobId string, jobStatusType string) *EventPostInput {
 
 	return &EventPostInput{
 		AppId:         appId,
