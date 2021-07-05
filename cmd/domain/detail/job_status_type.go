@@ -12,7 +12,7 @@ func NewJobStatusType(jobStatusType string) JobStatusType {
 	return JobStatusType(jobStatusType)
 }
 
-// Status 属性を返却します．
+// String 区分値を返却します．
 func (js JobStatusType) String() string {
 
 	switch js {
