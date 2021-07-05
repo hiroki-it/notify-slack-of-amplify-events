@@ -58,20 +58,20 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 		Channel: os.Getenv("SLACK_CHANNEL_ID"),
 		Text:    "検証用dev環境",
 		Attachments: []Attachment{
-			Attachment{
+			{
 				Color: message.ColorCode(),
 				Blocks: []Block{
-					Block{
+					{
 						Type: "section",
 						Text: &Text{
 							Type: "mrkdwn",
 							Text: "*検証用dev環境*",
 						},
 					},
-					Block{
+					{
 						Type: "context",
 						Elements: []Element{
-							Element{
+							{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
@@ -80,10 +80,10 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 							},
 						},
 					},
-					Block{
+					{
 						Type: "context",
 						Elements: []Element{
-							Element{
+							{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
@@ -92,10 +92,10 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 							},
 						},
 					},
-					Block{
+					{
 						Type: "context",
 						Elements: []Element{
-							Element{
+							{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
@@ -104,10 +104,10 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 							},
 						},
 					},
-					Block{
+					{
 						Type: "context",
 						Elements: []Element{
-							Element{
+							{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
@@ -117,10 +117,10 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 							},
 						},
 					},
-					Block{
+					{
 						Type: "context",
 						Elements: []Element{
-							Element{
+							{
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
@@ -133,7 +133,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 							},
 						},
 					},
-					Block{
+					{
 						Type: "divider",
 					},
 				},
