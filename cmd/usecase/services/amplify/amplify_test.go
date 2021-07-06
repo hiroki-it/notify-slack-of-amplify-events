@@ -56,13 +56,13 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		nil,
 	)
 
+	client := &AmplifyClient{
+		api: maa,
+	}
+
 	// 反復処理で全てのテストケースを検証します．
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
-
-			client := &AmplifyClient{
-				api: maa,
-			}
 
 			// 検証対象の関数を実行します．スタブを含む一連の処理が実行されます．
 			gbo, err := client.GetBranchFromAmplify(tt.detail)
