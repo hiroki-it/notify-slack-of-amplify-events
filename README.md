@@ -145,6 +145,7 @@ CircleCIにおけるジョブにて，Lambdaのホストを指定してリクエ
 ```shell
 $ docker-compose up --build lambda
 
+# 別のターミナルを開いた上で実行する．
 $ docker-compose run --rm notify-slack-of-amplify-events go test -v -cover ./integration_test/...
 ```
 
