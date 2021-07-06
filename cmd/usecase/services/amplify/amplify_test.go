@@ -18,8 +18,7 @@ func setup() (*m_amplify.MockedAmplifyAPI, func()) {
 	// AmplifyAPIのスタブを作成します．
 	maa := &m_amplify.MockedAmplifyAPI{}
 
-	return maa, func() {
-	}
+	return maa, func() {}
 }
 
 // TestGetBranchFromAmplify GetBranchFromAmplifyメソッドが成功することをテストします．
@@ -61,10 +60,12 @@ func TestGetBranchFromAmplify(t *testing.T) {
 				nil,
 			)
 
-			ac := NewAmplifyClient(maa)
+			client := &AmplifyClient{
+				api: maa,
+			}
 
 			// 検証対象の関数を実行します．スタブを含む一連の処理が実行されます．
-			gbo, err := ac.GetBranchFromAmplify(tt.detail)
+			gbo, err := client.GetBranchFromAmplify(tt.detail)
 
 			if err != nil {
 				t.Fatal(err.Error())
