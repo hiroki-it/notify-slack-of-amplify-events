@@ -30,6 +30,8 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	f := detail.NewDetailValidator()
 
+	log.Info(string(eventBridge.Detail))
+
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(eventBridge.Detail), f)
 
