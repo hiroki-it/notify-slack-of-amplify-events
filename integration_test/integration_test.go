@@ -3,6 +3,7 @@ package integration
 import (
 	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"testing"
@@ -62,6 +63,10 @@ func TestIntegration(t *testing.T) {
 			}
 
 			defer res.Body.Close()
+
+			b, _ := ioutil.ReadAll(res.Body)
+
+			t.Log(string(b))
 
 			assert.Exactly(t, tt.expected, res.StatusCode)
 		})
