@@ -11,6 +11,4 @@ require (
 	go.uber.org/zap v1.16.0
 )
 
-replace (
-	github.com/hiroki-it/notify-slack-of-amplify-events/ => /
-	)
+replace github.com/hiroki-it/notify-slack-of-amplify-events/ => /
