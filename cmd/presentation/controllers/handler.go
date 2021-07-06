@@ -6,7 +6,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/forms/detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/validators/detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/inputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/usecases"
 )
@@ -28,7 +28,7 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	log := logger.NewLogger()
 
-	f := detail.NewDetailForm()
+	f := detail.NewDetailValidator()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal([]byte(eventBridge.Detail), f)
