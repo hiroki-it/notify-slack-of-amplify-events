@@ -8,7 +8,7 @@ type DetailValidator struct {
 	AppId         string `json:"appId" validate:"required"`
 	BranchName    string `json:"branchName" validate:"required"`
 	JobId         string `json:"jobId" validate:"required"`
-	JobStatusType string `json:"jobStatusType" validate:"required"`
+	JobStatusType string `json:"jobStatus" validate:"required"`
 }
 
 // NewDetailValidator コンストラクタ
