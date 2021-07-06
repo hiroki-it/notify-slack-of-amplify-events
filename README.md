@@ -140,7 +140,7 @@ CircleCIにおけるジョブにて，Lambdaのホストを指定してリクエ
 
 なお，修正したソースコードをLambdaのRIEに再反映するためには，イメージを再ビルドする必要があります．
 
-また，Lambdaサービスをアタッチモードで起動します．
+アタッチモードで起動中のLambdaサービスに対して，notify-slack-of-amplify-eventsサービスからリクエストを送信します．
 
 ```shell
 $ docker-compose up --build lambda
