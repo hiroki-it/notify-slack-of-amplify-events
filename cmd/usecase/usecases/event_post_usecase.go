@@ -1,6 +1,7 @@
 package usecases
 
 import (
+	"github.com/aws/aws-sdk-go/aws"
 	"net/http"
 	"os"
 
