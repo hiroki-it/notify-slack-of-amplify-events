@@ -22,18 +22,18 @@ func TestIntegration(t *testing.T) {
 		// テストケース名
 		name string
 		// 期待値
-		expected int
+		expected []byte
 		// テストデータ
 		detail []byte
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: http.StatusOK,
+			expected: file.ReadDataFile("./response/response.json.golden"),
 			detail:   file.ReadDataFile("./request/succeed.json"),
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: http.StatusOK,
+			expected: file.ReadDataFile("./response/response.json.golden"),
 			detail:   file.ReadDataFile("./request/failed.json"),
 		},
 	}
@@ -64,11 +64,13 @@ func TestIntegration(t *testing.T) {
 
 			defer res.Body.Close()
 
-			b, _ := ioutil.ReadAll(res.Body)
+			b, err := ioutil.ReadAll(res.Body)
 
-			t.Log(string(b))
+			if err != nil {
+				t.Fatal(err.Error())
+			}
 
-			assert.Exactly(t, tt.expected, res.StatusCode)
+			assert.Exactly(t, string(tt.expected), string(b))
 		})
 	}
 }
