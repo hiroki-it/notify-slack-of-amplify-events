@@ -48,17 +48,17 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		},
 	}
 
+	// スタブのメソッドに処理の内容を定義します．
+	maa.On("GetBranch", mock.Anything).Return(
+		&aws_amplify.GetBranchOutput{
+			Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
+		},
+		nil,
+	)
+
 	// 反復処理で全てのテストケースを検証します．
 	for _, tt := range cases {
 		t.Run(tt.name, func(t *testing.T) {
-
-			// スタブのメソッドに処理の内容を定義します．
-			maa.On("GetBranch", mock.Anything).Return(
-				&aws_amplify.GetBranchOutput{
-					Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
-				},
-				nil,
-			)
 
 			client := &AmplifyClient{
 				api: maa,
