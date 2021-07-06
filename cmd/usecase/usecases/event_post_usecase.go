@@ -23,7 +23,9 @@ func NewEventPostUseCase() *EventPostUseCase {
 // PostEvent イベントを通知します．
 func (uc *EventPostUseCase) PostEvent(input *inputs.EventPostInput) error {
 
-	ac, err := amplify.NewAmplifyClient(&aws.Config{Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION"))})
+	ac, err := amplify.NewAmplifyClient(&aws.Config{
+		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),
+	})
 
 	if err != nil {
 		return err
