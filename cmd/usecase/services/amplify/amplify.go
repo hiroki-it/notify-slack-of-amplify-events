@@ -2,6 +2,7 @@ package amplify
 
 import (
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 
@@ -19,11 +20,17 @@ type AmplifyClient struct {
 }
 
 // NewAmplifyClient コンストラクタ
-func NewAmplifyClient(amplifyApi amplifyiface.AmplifyAPI) *AmplifyClient {
+func NewAmplifyClient(config *aws.Config) (*AmplifyClient, error) {
+
+	s, err := session.NewSession(config)
+
+	if err != nil {
+		return nil, err
+	}
 
 	return &AmplifyClient{
-		api: amplifyApi,
-	}
+		api: aws_amplify.New(s),
+	}, nil
 }
 
 // GetBranchFromAmplify Amplifyからブランチ情報を取得します．
