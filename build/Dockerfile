@@ -9,6 +9,9 @@ ARG LABEL="Hiroki <hasegawafeedshop@gmail.com>"
 #===================
 FROM golang:${GO_VERSION} as build
 
+# ビルドするバイナリファイルをスタティックリンク化する．
+ENV CGO_ENABLED=0
+
 WORKDIR /go/src
 
 # インストールのキャッシュを活用するためにコピーしておく．
