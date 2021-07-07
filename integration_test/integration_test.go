@@ -24,19 +24,19 @@ func TestIntegration(t *testing.T) {
 		// テストケース名
 		name string
 		// 期待値
-		expected []byte
+		expected string
 		// テストデータ
 		detail []byte
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: f.ReadFile("./response/response.json.golden"),
-			detail:   f.ReadFile("./request/succeed.json"),
+			expected: f.ReadFile("./response/response.json.golden").ToString(),
+			detail:   f.ReadFile("./request/succeed.json").ToByte(),
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: f.ReadFile("./response/response.json.golden"),
-			detail:   f.ReadFile("./request/failed.json"),
+			expected: f.ReadFile("./response/response.json.golden").ToString(),
+			detail:   f.ReadFile("./request/failed.json").ToByte(),
 		},
 	}
 
