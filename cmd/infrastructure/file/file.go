@@ -6,8 +6,16 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
+type File struct {
+}
+
+// NewFile コンストラクタ
+func NewFile() *File {
+	return &File{}
+}
+
 // ReadFile ファイルを読み込みます．
-func ReadFile(path string) []byte {
+func (f *File) ReadFile(path string) []byte {
 
 	log := logger.NewLogger()
 

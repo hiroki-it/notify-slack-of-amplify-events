@@ -17,6 +17,8 @@ func TestIntegration(t *testing.T) {
 
 	t.Helper()
 
+	f := file.NewFile()
+
 	// テストケース
 	cases := []struct {
 		// テストケース名
@@ -28,13 +30,13 @@ func TestIntegration(t *testing.T) {
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: file.ReadFile("./response/response.json.golden"),
-			detail:   file.ReadFile("./request/succeed.json"),
+			expected: f.ReadFile("./response/response.json.golden"),
+			detail:   f.ReadFile("./request/succeed.json"),
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: file.ReadFile("./response/response.json.golden"),
-			detail:   file.ReadFile("./request/failed.json"),
+			expected: f.ReadFile("./response/response.json.golden"),
+			detail:   f.ReadFile("./request/failed.json"),
 		},
 	}
 
