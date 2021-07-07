@@ -7,6 +7,7 @@ import (
 )
 
 type File struct {
+	content []byte
 }
 
 // NewFile コンストラクタ
@@ -15,7 +16,7 @@ func NewFile() *File {
 }
 
 // ReadFile ファイルを読み込みます．
-func (f *File) ReadFile(path string) []byte {
+func (f *File) ReadFile(path string) *File {
 
 	log := logger.NewLogger()
 
@@ -26,5 +27,7 @@ func (f *File) ReadFile(path string) []byte {
 		return nil
 	}
 
-	return d
+	f.content = d
+
+	return f
 }
