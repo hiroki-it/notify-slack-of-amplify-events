@@ -22,13 +22,3 @@ func NewDetail(appId *AppId, branchName *BranchName, jobId *JobId, jobStatusType
 func (d *Detail) GetJobStatusType() JobStatusType {
 	return d.JobStatusType
 }
-
-// IsSucceed ジョブステータスが成功かどうかを判定します
-func (d *Detail) IsSucceed() bool {
-
-	if d.JobStatusType.String() == "SUCCEED" {
-		return true
-	}
-
-	return false
-}

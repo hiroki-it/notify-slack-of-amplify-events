@@ -75,7 +75,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
-									message.StatusWord(),
+									message.detail.JobStatusType.String(),
 								),
 							},
 						},
@@ -142,20 +142,10 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 	}
 }
 
-// StatusWord ジョブステータスを表現する文言を返却します．
-func (message *Message) StatusWord() string {
-
-	if message.detail.IsSucceed() {
-		return "成功"
-	}
-
-	return "失敗"
-}
-
 // ColorCode ジョブステータスを表現する色を返却します.
 func (message *Message) ColorCode() string {
 
-	if message.detail.IsSucceed() {
+	if message.detail.JobStatusType.IsSucceed() {
 		return "#00FF00"
 	}
 

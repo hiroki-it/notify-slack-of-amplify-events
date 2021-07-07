@@ -24,3 +24,13 @@ func (js JobStatusType) String() string {
 		return "不明のステータス"
 	}
 }
+
+// IsSucceed ジョブステータスを判定します
+func (js JobStatusType) IsSucceed() bool {
+
+	if js == "SUCCEED" {
+		return true
+	}
+
+	return false
+}
