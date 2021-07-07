@@ -28,19 +28,19 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	log := logger.NewLogger()
 
-	f := detail.NewDetailValidator()
+	v := detail.NewDetailValidator()
 
 	log.Info(string(eventBridge.Detail))
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
-	err := json.Unmarshal([]byte(eventBridge.Detail), f)
+	err := json.Unmarshal(eventBridge.Detail, v)
 
 	if err != nil {
 		log.Error(err.Error())
 		return fmt.Sprint("Failed to handle request"), err
 	}
 
-	err = f.Validate()
+	err = v.Validate()
 
 	if err != nil {
 		log.Error(err.Error())
@@ -48,10 +48,10 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 	}
 
 	i := inputs.NewEventPostInput(
-		f.AppId,
-		f.BranchName,
-		f.JobId,
-		f.JobStatusType,
+		v.AppId,
+		v.BranchName,
+		v.JobId,
+		v.JobStatusType,
 	)
 
 	uc := usecases.NewEventPostUseCase()
