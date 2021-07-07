@@ -72,7 +72,7 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err.Error())
 			}
 
-			assert.Exactly(t, string(tt.expected), string(b))
+			assert.Exactly(t, tt.expected, string(b))
 		})
 	}
 }
