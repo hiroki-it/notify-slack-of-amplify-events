@@ -31,3 +31,14 @@ func (f *File) ReadFile(path string) *File {
 
 	return f
 }
+
+// ToByte 文字列型で返却します．．
+func (f *File) ToByte() []byte {
+	return f.content
+}
+
+// ToString 文字列型で返却します．
+func (f *File) ToString() string {
+	return string(f.content)
+}
+
