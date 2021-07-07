@@ -28,13 +28,13 @@ func TestIntegration(t *testing.T) {
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: file.ReadDataFile("./response/response.json.golden"),
-			detail:   file.ReadDataFile("./request/succeed.json"),
+			expected: file.ReadFile("./response/response.json.golden"),
+			detail:   file.ReadFile("./request/succeed.json"),
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: file.ReadDataFile("./response/response.json.golden"),
-			detail:   file.ReadDataFile("./request/failed.json"),
+			expected: file.ReadFile("./response/response.json.golden"),
+			detail:   file.ReadFile("./request/failed.json"),
 		},
 	}
 

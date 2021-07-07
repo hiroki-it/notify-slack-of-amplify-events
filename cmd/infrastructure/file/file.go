@@ -6,8 +6,8 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
-// ReadDataFile ファイルを読み込みます．
-func ReadDataFile(path string) []byte {
+// ReadFile ファイルを読み込みます．
+func ReadFile(path string) []byte {
 
 	log := logger.NewLogger()
 
