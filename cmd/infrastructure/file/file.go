@@ -41,4 +41,3 @@ func (f *File) ToByte() []byte {
 func (f *File) ToString() string {
 	return string(f.content)
 }
-
