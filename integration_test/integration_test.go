@@ -8,7 +8,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/fileloader"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,7 +18,9 @@ func TestIntegration(t *testing.T) {
 
 	t.Helper()
 
-	f := file.NewFile()
+	expected := fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.json.golden"))).StringLoad()
+	success := fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed.json"))).ByteLoad()
+	failed := fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed.json"))).ByteLoad()
 
 	// テストケース
 	cases := []struct {
@@ -30,13 +33,13 @@ func TestIntegration(t *testing.T) {
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: f.ReadFile("./response/response.json.golden").ToString(),
-			detail:   f.ReadFile("./request/succeed.json").ToByte(),
+			expected: expected,
+			detail:   success,
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: f.ReadFile("./response/response.json.golden").ToString(),
-			detail:   f.ReadFile("./request/failed.json").ToByte(),
+			expected: expected,
+			detail:   failed,
 		},
 	}
 
