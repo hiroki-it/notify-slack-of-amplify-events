@@ -37,8 +37,8 @@ func NewAmplifyClient(config *aws.Config) (*AmplifyClient, error) {
 func (cl *AmplifyClient) GetBranchFromAmplify(detail *detail.Detail) (*aws_amplify.GetBranchOutput, error) {
 
 	gbi := &aws_amplify.GetBranchInput{
-		AppId:      aws.String(detail.AppId.Id()),
-		BranchName: aws.String(detail.BranchName.Name()),
+		AppId:      aws.String(detail.AppId().Id()),
+		BranchName: aws.String(detail.BranchName().Name()),
 	}
 
 	// ブランチ情報を構造体として取得します．

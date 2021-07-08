@@ -75,7 +75,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*結果*: %s",
-									message.detail.JobStatusType.String(),
+									message.detail.JobStatusType().String(),
 								),
 							},
 						},
@@ -87,7 +87,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*ブランチ名*: %s",
-									message.detail.BranchName.Name(),
+									message.detail.BranchName().Name(),
 								),
 							},
 						},
@@ -99,7 +99,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Type: "mrkdwn",
 								Text: fmt.Sprintf(
 									"*プルリクURL*: https://github.com/hiroki-it/notify-slack-of-amplify-events/compare/%s",
-									message.detail.BranchName.Name(),
+									message.detail.BranchName().Name(),
 								),
 							},
 						},
@@ -112,7 +112,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 								Text: fmt.Sprintf(
 									"*検証URL*: https://%s.%s.amplifyapp.com",
 									*message.branch.DisplayName,
-									message.detail.AppId.Id(),
+									message.detail.AppId().Id(),
 								),
 							},
 						},
@@ -126,9 +126,9 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 									":amplify: <https://%s.console.aws.amazon.com/amplify/home?region=%s#/%s/%s/%s|*Amplifyコンソール画面はこちら*>",
 									os.Getenv("AWS_AMPLIFY_REGION"),
 									os.Getenv("AWS_AMPLIFY_REGION"),
-									message.detail.AppId.Id(),
+									message.detail.AppId().Id(),
 									*message.branch.DisplayName,
-									message.detail.JobId.Id(),
+									message.detail.JobId().Id(),
 								),
 							},
 						},
@@ -145,7 +145,7 @@ func (message *Message) BuildSlackMessage() *SlackMessage {
 // ColorCode ジョブステータスを表現する色を返却します.
 func (message *Message) ColorCode() string {
 
-	if message.detail.JobStatusType.IsSucceed() {
+	if message.detail.JobStatusType().IsSucceed() {
 		return "#00FF00"
 	}
 
