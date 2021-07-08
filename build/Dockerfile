@@ -20,7 +20,8 @@ RUN go get github.com/cosmtrek/air@v1.15.1
 COPY . .
 
 # ビルドのアーティファクトを/go/binに配置する．
-RUN go build -x -o /go/bin ./cmd
+# NOTE: netパッケージは標準で動的リンクのため，静的リンクを明示的に指定する必要がある．
+RUN go build -x -a -tags netgo -installsuffix netgo -o /go/bin ./cmd
 
 #===================
 # Base Stage
