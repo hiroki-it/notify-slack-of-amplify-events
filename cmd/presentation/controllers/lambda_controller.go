@@ -2,8 +2,6 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
-
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/validators/detail"
@@ -39,14 +37,20 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprint("Failed to handle request"), err
+		return c.sendErrorJson(&Error{
+			Status: 400,
+			Errors: []string{err.Error()},
+		}), nil
 	}
 
 	err = v.Validate()
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprint("Failed to handle request"), err
+		return c.sendErrorJson(&Error{
+			Status: 400,
+			Errors: []string{err.Error()},
+		}), nil
 	}
 
 	i := inputs.NewEventPostInput(
@@ -62,8 +66,14 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	if err != nil {
 		log.Error(err.Error())
-		return fmt.Sprint("Failed to handle request"), err
+		return c.sendErrorJson(&Error{
+			Status: 400,
+			Errors: []string{err.Error()},
+		}), nil
 	}
 
-	return fmt.Sprint("Succeed to handle request"), nil
+	return c.sendJson(&Success{
+		Status:  200,
+		Message: "Succeed to handle request",
+	}), nil
 }
