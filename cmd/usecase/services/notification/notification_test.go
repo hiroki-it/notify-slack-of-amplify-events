@@ -13,10 +13,26 @@ import (
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
+// setup ユニットテストの前処理の結果と，後処理の関数を返却します．
+func setup() (*httptest.Server, func()) {
+
+	// 外部サーバのモックを構築します．
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "{}")
+	}))
+
+	return ts, func() {
+		ts.Close()
+	}
+}
+
 // TestPostMessage ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
 func TestPostMessage(t *testing.T) {
 
 	t.Helper()
+
+	ts, teardown := setup()
+	defer teardown()
 
 	// テストケース
 	cases := []struct {
@@ -55,13 +71,6 @@ func TestPostMessage(t *testing.T) {
 			},
 		},
 	}
-
-	// 外部サーバのモックを構築します．
-	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "{}")
-	}))
-
-	defer ts.Close()
 
 	// 反復処理で全てのテストケースを検証します．
 	for _, tt := range cases {
