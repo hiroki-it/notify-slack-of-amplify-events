@@ -63,14 +63,14 @@ func TestIntegration(t *testing.T) {
 			)
 
 			if err != nil {
-				t.Fatal(err)
+				t.Fatal(err.Error())
 			}
 
 			// lambdaにリクエストを送信します．
 			res, err := client.Do(req)
 
 			if err != nil {
-				t.Fatal(err)
+				t.Fatal(err.Error())
 			}
 
 			defer res.Body.Close()
@@ -78,14 +78,14 @@ func TestIntegration(t *testing.T) {
 			b, err := ioutil.ReadAll(res.Body)
 
 			if err != nil {
-				t.Fatal(err)
+				t.Fatal(err.Error())
 			}
 
 			// スラッシュを削除します．
 			actual, err := strconv.Unquote(string(b))
 
 			if err != nil {
-				t.Fatal(err)
+				t.Fatal(err.Error())
 			}
 
 			assert.JSONEq(t, tt.expected, actual)
