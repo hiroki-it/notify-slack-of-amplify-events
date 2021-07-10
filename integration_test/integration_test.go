@@ -63,14 +63,14 @@ func TestIntegration(t *testing.T) {
 			)
 
 			if err != nil {
-				t.Fatal(err.Error())
+				t.Fatal(err)
 			}
 
 			// lambdaにリクエストを送信します．
 			res, err := client.Do(req)
 
 			if err != nil {
-				t.Fatal(err.Error())
+				t.Fatal(err)
 			}
 
 			defer res.Body.Close()
@@ -78,7 +78,7 @@ func TestIntegration(t *testing.T) {
 			b, err := ioutil.ReadAll(res.Body)
 
 			if err != nil {
-				t.Fatal(err.Error())
+				t.Fatal(err)
 			}
 
 			// スラッシュを削除します．

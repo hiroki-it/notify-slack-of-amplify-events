@@ -70,7 +70,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 			gbo, err := client.GetBranchFromAmplify(tt.detail)
 
 			if err != nil {
-				t.Fatal(err.Error())
+				t.Fatal(err)
 			}
 
 			// 関数内部でスタブのメソッドがコールされているかを検証します．
