@@ -88,6 +88,8 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err.Error())
 			}
 
+			t.Log(actual)
+
 			assert.JSONEq(t, tt.expected, actual)
 		})
 	}
