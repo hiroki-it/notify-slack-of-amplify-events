@@ -12,11 +12,6 @@ type Success struct {
 	Message string `json:"message"`
 }
 
-type Error struct {
-	Status int      `json:"status"`
-	Errors []string `json:"errors"`
-}
-
 // NewController コンストラクタ
 func NewController() *Controller {
 	return &Controller{}
@@ -31,9 +26,6 @@ func (c *Controller) sendJson(success *Success) string {
 }
 
 // sendErrorJson 異常系レスポンスをJSONで返却します．
-func (c *Controller) sendErrorJson(error *Error) string {
-
-	response, _ := json.Marshal(error)
-
-	return string(response)
+func (c *Controller) sendErrorJson(error error) error {
+	return error
 }

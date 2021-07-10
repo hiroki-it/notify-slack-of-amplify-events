@@ -38,20 +38,14 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	if err != nil {
 		log.Error(err.Error())
-		return c.sendErrorJson(&Error{
-			Status: 400,
-			Errors: []string{err.Error()},
-		}), nil
+		return "", c.sendErrorJson(err)
 	}
 
 	err = v.Validate()
 
 	if err != nil {
 		log.Error(err.Error())
-		return c.sendErrorJson(&Error{
-			Status: 400,
-			Errors: []string{err.Error()},
-		}), nil
+		return "", c.sendErrorJson(err)
 	}
 
 	i := inputs.NewEventPostInput(
@@ -67,10 +61,7 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	if err != nil {
 		log.Error(err.Error())
-		return c.sendErrorJson(&Error{
-			Status: 400,
-			Errors: []string{err.Error()},
-		}), nil
+		return "", c.sendErrorJson(err)
 	}
 
 	return c.sendJson(&Success{
