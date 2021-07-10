@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file"
@@ -13,14 +14,22 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// setup ユニットテストの前処理の結果と，後処理の関数を返却します．
+func setup() (*http.Client, func()) {
+
+	// クライアントを作成します．
+	client := &http.Client{}
+
+	return client, func() {
+	}
+}
+
 // TestIntegration 統合テストを実行します．
 func TestIntegration(t *testing.T) {
 
 	t.Helper()
-
-	expected := fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.json.golden"))).StringLoad()
-	success := fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed.json"))).ByteLoad()
-	failed := fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed.json"))).ByteLoad()
+	client, teardown := setup()
+	defer teardown()
 
 	// テストケース
 	cases := []struct {
@@ -33,13 +42,13 @@ func TestIntegration(t *testing.T) {
 	}{
 		{
 			name:     "TestIntegration_Succeed_ReturnOk",
-			expected: expected,
-			detail:   success,
+			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed.json"))).ByteLoad(),
 		},
 		{
 			name:     "TestIntegration_Failed_ReturnOk",
-			expected: expected,
-			detail:   failed,
+			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed.json"))).ByteLoad(),
 		},
 	}
 
@@ -57,9 +66,6 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err.Error())
 			}
 
-			// クライアントを作成します．
-			client := &http.Client{}
-
 			// lambdaにリクエストを送信します．
 			res, err := client.Do(req)
 
@@ -75,7 +81,14 @@ func TestIntegration(t *testing.T) {
 				t.Fatal(err.Error())
 			}
 
-			assert.Exactly(t, tt.expected, string(b))
+			// スラッシュを削除します．
+			actual, err := strconv.Unquote(string(b))
+
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			assert.JSONEq(t, tt.expected, actual)
 		})
 	}
 }
