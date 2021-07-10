@@ -12,13 +12,15 @@ import (
 )
 
 type LambdaController struct {
+	*Controller
 	*usecases.EventPostUseCase
 }
 
 // NewLambdaController コンストラクタ
-func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
+func NewLambdaController(controller *Controller, eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
 
 	return &LambdaController{
+		Controller:       controller,
 		EventPostUseCase: eventPostUseCase,
 	}
 }

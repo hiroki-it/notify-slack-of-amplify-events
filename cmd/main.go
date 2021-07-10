@@ -7,7 +7,11 @@ import (
 )
 
 func main() {
-	uc := usecases.NewEventPostUseCase()
-	c := controllers.NewLambdaController(uc)
+
+	c := controllers.NewLambdaController(
+		controllers.NewController(),
+		usecases.NewEventPostUseCase(),
+	)
+
 	lambda.Start(c.PostEvent)
 }
