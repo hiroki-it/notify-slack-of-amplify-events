@@ -12,11 +12,6 @@ type Success struct {
 	Message string `json:"message"`
 }
 
-// NewController コンストラクタ
-func NewController() *Controller {
-	return &Controller{}
-}
-
 // sendJson 正常系レスポンスをJSONで返却します．
 func (c *Controller) sendJson(success *Success) string {
 

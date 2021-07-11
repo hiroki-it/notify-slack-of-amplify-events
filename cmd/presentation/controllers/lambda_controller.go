@@ -16,10 +16,10 @@ type LambdaController struct {
 }
 
 // NewLambdaController コンストラクタ
-func NewLambdaController(controller *Controller, eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
+func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
 
 	return &LambdaController{
-		Controller:       controller,
+		Controller:       &Controller{},
 		EventPostUseCase: eventPostUseCase,
 	}
 }

@@ -8,10 +8,7 @@ import (
 
 func main() {
 
-	c := controllers.NewLambdaController(
-		controllers.NewController(),
-		usecases.NewEventPostUseCase(),
-	)
+	c := controllers.NewLambdaController(usecases.NewEventPostUseCase())
 
 	lambda.Start(c.PostEvent)
 }
