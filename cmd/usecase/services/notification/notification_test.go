@@ -26,7 +26,7 @@ func setup() (*httptest.Server, func()) {
 	}
 }
 
-// TestPostMessage ステータスがSUCCEED場合に，PostMessageメソッドが成功することをテストします．
+// TestPostMessage PostMessageメソッドが成功することをテストします．
 func TestPostMessage(t *testing.T) {
 
 	t.Helper()
