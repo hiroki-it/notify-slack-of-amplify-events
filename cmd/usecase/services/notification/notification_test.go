@@ -39,14 +39,14 @@ func TestPostMessage(t *testing.T) {
 		// テストケース名
 		name string
 		// 期待値
-		expected error
+		expected string
 		// テストデータ
 		detail          *detail.Detail
 		getBranchOutput *aws_amplify.GetBranchOutput
 	}{
 		{
 			name:     "TestPostMessage_JobStatusTypeSucceed_ReturnNil",
-			expected: nil,
+			expected: "",
 			detail: detail.NewDetail(
 				detail.NewAppId("1"),
 				detail.NewBranchName("test"),
@@ -59,7 +59,7 @@ func TestPostMessage(t *testing.T) {
 		},
 		{
 			name:     "TestPostMessage_JobStatusTypeFailed_ReturnNil",
-			expected: nil,
+			expected: "",
 			detail: detail.NewDetail(
 				detail.NewAppId("1"),
 				detail.NewBranchName("test"),
