@@ -6,6 +6,7 @@ import (
 
 type AppId struct {
 	*core.ID
+	id string
 }
 
 // NewAppId コンストラクタ
@@ -13,10 +14,11 @@ func NewAppId(id string) *AppId {
 
 	return &AppId{
 		ID: &core.ID{},
+		id: id,
 	}
 }
 
 // Equals 等価性を検証します．
 func (ai *AppId) Equals(target *AppId) bool {
-	return ai.Id() == target.Id()
+	return ai.id == target.Id()
 }
