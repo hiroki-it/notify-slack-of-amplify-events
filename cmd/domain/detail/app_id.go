@@ -5,25 +5,18 @@ import (
 )
 
 type AppId struct {
-	id string
+	*core.ID
 }
-
-var _ core.ID = &AppId{}
 
 // NewAppId コンストラクタ
 func NewAppId(id string) *AppId {
 
 	return &AppId{
-		id: id,
+		ID: &core.ID{},
 	}
 }
 
-// Id 属性を返却します．
-func (ai *AppId) Id() string {
-	return ai.id
-}
-
 // Equals 等価性を検証します．
-func (ai *AppId) Equals(target core.ID) bool {
-	return ai.id == target.(*AppId).Id()
+func (ai *AppId) Equals(target *AppId) bool {
+	return ai.Id() == target.Id()
 }
