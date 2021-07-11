@@ -43,12 +43,12 @@ func TestIntegration(t *testing.T) {
 		{
 			name:     "TestIntegration_SucceedStatus_ReturnOk",
 			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed_status.json"))).ByteLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/normal_succeed_status.json"))).ByteLoad(),
 		},
 		{
 			name:     "TestIntegration_FailedStatus_ReturnOk",
 			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed_status.json"))).ByteLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/normal_failed_status.json"))).ByteLoad(),
 		},
 	}
 
