@@ -45,8 +45,7 @@ func TestPostMessage(t *testing.T) {
 		getBranchOutput *aws_amplify.GetBranchOutput
 	}{
 		{
-			name:     "TestPostMessage_JobStatusTypeSucceed_ReturnNil",
-			expected: "",
+			name: "TestPostMessage_JobStatusTypeSucceed_ReturnNil",
 			detail: detail.NewDetail(
 				detail.NewAppId("1"),
 				detail.NewBranchName("test"),
@@ -58,8 +57,7 @@ func TestPostMessage(t *testing.T) {
 			},
 		},
 		{
-			name:     "TestPostMessage_JobStatusTypeFailed_ReturnNil",
-			expected: "",
+			name: "TestPostMessage_JobStatusTypeFailed_ReturnNil",
 			detail: detail.NewDetail(
 				detail.NewAppId("1"),
 				detail.NewBranchName("test"),
