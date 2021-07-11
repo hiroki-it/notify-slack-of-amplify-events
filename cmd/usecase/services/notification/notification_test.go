@@ -94,9 +94,11 @@ func TestPostMessage(t *testing.T) {
 			err := sn.PostMessage()
 
 			if err != nil {
+				// 異常系テストのアサーション
 				assert.Exactly(t, tt.expected, err)
 			}
 
+			// 正常系テストのアサーション
 			assert.Nil(t, err)
 		})
 	}
