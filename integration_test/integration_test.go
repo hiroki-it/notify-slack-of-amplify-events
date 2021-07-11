@@ -41,14 +41,14 @@ func TestIntegration(t *testing.T) {
 		detail []byte
 	}{
 		{
-			name:     "TestIntegration_Succeed_ReturnOk",
+			name:     "TestIntegration_SucceedStatus_ReturnOk",
 			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed.json"))).ByteLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/succeed_status.json"))).ByteLoad(),
 		},
 		{
-			name:     "TestIntegration_Failed_ReturnOk",
+			name:     "TestIntegration_FailedStatus_ReturnOk",
 			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./response/response.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed.json"))).ByteLoad(),
+			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./request/failed_status.json"))).ByteLoad(),
 		},
 	}
 
