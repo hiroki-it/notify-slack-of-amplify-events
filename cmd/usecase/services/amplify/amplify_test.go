@@ -39,7 +39,7 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		detail *detail.Detail
 	}{
 		{
-			name:     "TestGetBranchFromAmplify_SUCCEED_ReturnDisplayName",
+			name:     "TestGetBranchFromAmplify_JobStatusTypeSucceed_ReturnDisplayName",
 			expected: "feature-test",
 			detail: detail.NewDetail(
 				detail.NewAppId("1"),
