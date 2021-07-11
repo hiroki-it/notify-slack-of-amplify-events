@@ -10,14 +10,14 @@ import (
 )
 
 type AmplifyClientInterface interface {
-	CreateGetBranchInput(*detail.Detail) *aws_amplify.GetBranchInput
 	GetBranchFromAmplify(*detail.Detail) (*aws_amplify.GetBranchOutput, error)
 }
 
 type AmplifyClient struct {
-	AmplifyClientInterface
 	api amplifyiface.AmplifyAPI
 }
+
+var _ AmplifyClientInterface = &AmplifyClient{}
 
 // NewAmplifyClient コンストラクタ
 func NewAmplifyClient(config *aws.Config) (*AmplifyClient, error) {

@@ -8,10 +8,11 @@ type SlackClientInterface interface {
 }
 
 type SlackClient struct {
-	SlackClientInterface
 	httpClient *http.Client
 	url        string
 }
+
+var _ SlackClientInterface = &SlackClient{}
 
 // NewSlackClient コンストラクタ
 func NewSlackClient(httpClient *http.Client, url string) *SlackClient {
