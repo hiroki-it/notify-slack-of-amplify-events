@@ -48,6 +48,16 @@ func TestGetBranchFromAmplify(t *testing.T) {
 				detail.NewJobStatusType("SUCCEED"),
 			),
 		},
+		{
+			name:     "TestGetBranchFromAmplify_JobStatusTypeFailed_ReturnDisplayName",
+			expected: "feature-test",
+			detail: detail.NewDetail(
+				detail.NewAppId("1"),
+				detail.NewBranchName("test"),
+				detail.NewJobId("1"),
+				detail.NewJobStatusType("FAILED"),
+			),
+		},
 	}
 
 	// スタブのメソッドに処理の内容を定義します．
