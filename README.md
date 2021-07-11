@@ -29,23 +29,28 @@ project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
 |   ├── domain   # ** ドメイン層 **
-|   |   ├── core   # ドメインの元となるオブジェクト
-|   |   └── X      # 任意のルートエンティティ
+|   |   ├── core # ドメインの元となるオブジェクト
+|   |   └── X    # 任意のルートエンティティ
 |   |
 |   ├── infrastructure # ** インフラストラクチャ層 ** 
+|   |   ├── fileloader # ファイル入力
+|   |   └── logger     # ロガー
 |   ├── presentation    # ** プレゼンテーション層 **
 |   |   ├── controllers # コントローラ
-|   |   └── forms       # バリデーション
+|   |   └── validators  # バリデーション
 |   |     
-|   └── usecase   # ** ユースケース層 **
-|      ├── inputs   # ユースケース層のパラメータ
-|      ├── services # サービス
-|      └── usecases # ユースケース
+|   └── usecase      # ** ユースケース層 **
+|       ├── inputs   # ユースケース層のパラメータ
+|       ├── services # サービス
+|       └── usecases # ユースケース
 | 
 ├── integration_test # 統合テスト
-|   └── testdata # テストデータ
+|   ├── request  # テストデータ 
+|   └── response # ゴールデンファイル
 | 
-└── mock # モック
+├── mock # モック
+├── ops  # CICD用シェルスクリプト
+└── serverless_configs # Serverless Frameworkの共通部品
 ```
 
 <br>
