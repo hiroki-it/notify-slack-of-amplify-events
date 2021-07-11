@@ -96,7 +96,7 @@ func TestPostMessage(t *testing.T) {
 			err := sn.PostMessage()
 
 			if err != nil {
-				t.Fatal(err.Error())
+				assert.Exactly(t, tt.expected, err)
 			}
 
 			assert.Nil(t, err)
