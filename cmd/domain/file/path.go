@@ -1,7 +1,7 @@
 package file
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain"
 )
 
 type Path struct {
@@ -22,6 +22,6 @@ func (p *Path) Path() string {
 }
 
 // Equals 等価性を検証します．
-func (p *Path) Equals(target core.ValueObject) bool {
+func (p *Path) Equals(target domain.ValueObject) bool {
 	return p.path == target.(*Path).Path()
 }

@@ -1,14 +1,14 @@
 package detail
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/core"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain"
 )
 
 type BranchName struct {
 	name string
 }
 
-var _ core.ValueObject = &BranchName{}
+var _ domain.ValueObject = &BranchName{}
 
 // NewBranchName コンストラクタ
 func NewBranchName(name string) *BranchName {
@@ -24,6 +24,6 @@ func (bn *BranchName) Name() string {
 }
 
 // Equals 等価性を検証します．
-func (bn *BranchName) Equals(target core.ValueObject) bool {
+func (bn *BranchName) Equals(target domain.ValueObject) bool {
 	return bn.name == target.(*BranchName).Name()
 }
