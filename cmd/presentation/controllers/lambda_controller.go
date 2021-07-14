@@ -41,10 +41,10 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		return "", c.sendErrorJson(err)
 	}
 
-	err = v.Validate()
+	errorMessage := v.Validate()
 
-	if err != nil {
-		log.Error(err.Error())
+	if errorMessage != nil {
+		log.Error(errorMessage.Error())
 		return "", c.sendErrorJson(err)
 	}
 
