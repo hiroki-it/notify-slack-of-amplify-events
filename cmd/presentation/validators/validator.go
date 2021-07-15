@@ -9,12 +9,14 @@ import (
 type Validator struct {
 }
 
-// RequiredValidation 必須を検証します．
-func (v *Validator) RequiredValidation(err validator.FieldError) string {
-	return fmt.Sprintf("%s は必須です", err.Field())
-}
-
-// StringValidation 必須を検証します．
+// StringValidation 文字列型を検証します．
 func (v *Validator) StringValidation(err validator.FieldError) string {
+
+	switch err.Tag() {
+	// 必須かどうかを検証します．
+	case "required":
+		return fmt.Sprintf("%s は必須です", err.Field())
+	}
+
 	return fmt.Sprintf("%s は文字列のみ有効です", err.Field())
 }
