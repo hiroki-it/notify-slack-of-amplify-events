@@ -33,6 +33,7 @@ func (v *DetailValidator) Validate() error {
 		for _, err := range err.(validator.ValidationErrors) {
 			switch err.Field() {
 			case "appId":
+				// NOTE: 視認性の観点から，バリデーションメッセージは一つだけ出力するようにします．
 				errorMessages["appId"] = v.StringValidation(err)
 			case "branchName":
 				errorMessages["branchName"] = v.StringValidation(err)
