@@ -27,7 +27,7 @@ func (v *DetailValidator) Validate() error {
 
 	err := validator.New().Struct(v)
 
-	var errorMessages = make(map[string]string)
+	var errorMessages = map[string]string{}
 
 	if err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
