@@ -27,26 +27,25 @@ func (v *DetailValidator) Validate() error {
 
 	err := validator.New().Struct(v)
 
-	var errorMessages = map[string]string{}
-
 	if err != nil {
+		var errorMessages = map[string]string{}
 		for _, err := range err.(validator.ValidationErrors) {
 			switch err.Field() {
-			case "appId":
+			case "AppId":
 				// NOTE: 視認性の観点から，バリデーションメッセージは一つだけ出力するようにします．
 				errorMessages["appId"] = v.StringValidation(err)
-			case "branchName":
+			case "BranchName":
 				errorMessages["branchName"] = v.StringValidation(err)
-			case "jobId":
+			case "JobId":
 				errorMessages["jobId"] = v.StringValidation(err)
-			case "jobStatus":
-				errorMessages["jobStatus"] = v.StringValidation(err)
+			case "JobStatusType":
+				errorMessages["jobStatusType"] = v.StringValidation(err)
 			}
 		}
+		byteJson, _ := json.Marshal(errorMessages)
+		// Lambdaではエラーをerrorインターフェースで扱う必要があるため．独自エラーとして定義します．
+		return errors.New(string(byteJson))
 	}
 
-	byteJson, _ := json.Marshal(errorMessages)
-
-	// Lambdaではエラーをerrorインターフェースで扱う必要があるため．独自エラーとして定義します．
-	return errors.New(string(byteJson))
+	return err
 }
