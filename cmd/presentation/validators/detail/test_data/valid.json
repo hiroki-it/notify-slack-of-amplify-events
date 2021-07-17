@@ -1,8 +1,6 @@
 {
-  "detail": {
-    "appId": "dxz21ruh6i67e",
-    "branchName": "develop",
-    "jobId": "123456789",
-    "jobStatus": "SUCCEED"
-  }
+  "appId": "dxz21ruh6i67e",
+  "branchName": "develop",
+  "jobId": "123456789",
+  "jobStatus": "SUCCEED"
 }
