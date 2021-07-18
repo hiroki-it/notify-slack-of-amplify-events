@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   # Go開発用サービス
-  go-app:
+  app:
     build:
       context: .
       dockerfile: ./build/Dockerfile
