@@ -35,7 +35,7 @@ services:
     networks:
       - default
     ports:
-      - 9000:8080
+      - "9000:8080"
     volumes:
       - ~/.aws-lambda-rie:/aws-lambda
       - .:/go/src
