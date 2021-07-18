@@ -75,26 +75,26 @@ jobs:
           name: Docker compose run & Go env
           command: |
             set -xe
-            docker-compose run -d --rm go-app
-            docker-compose run --rm go-app go env
+            docker-compose run -d --rm app
+            docker-compose run --rm app go env
       - restore_modules
       - run:
           name: Go mod download
           command: |
-            docker-compose run --rm go-app go mod download -x
+            docker-compose run --rm app go mod download -x
       - save_modules
       - run:
           name: Go fmt
           command: |
-            docker-compose run --rm go-app go fmt ./... >&2
+            docker-compose run --rm app go fmt ./... >&2
       - run:
           name: Go vet
           command: |
-            docker-compose run --rm go-app go vet ./...
+            docker-compose run --rm app go vet ./...
       - run:
           name: Go test & Generate coverage report
           command: |
-            docker-compose run --rm go-app sh \
+            docker-compose run --rm app sh \
               -c "set -x \
                 && go test -v -cover -coverprofile=c.out ./cmd/... \
                 && go tool cover -html=c.out -o coverage.html \

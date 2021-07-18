@@ -20,7 +20,7 @@ services:
       - .:/go/src
 
   # Lambda検証用サービス
-  go-lambda-app:
+  lambda:
     build:
       context: .
       dockerfile: ./build/Dockerfile

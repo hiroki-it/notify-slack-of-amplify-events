@@ -83,7 +83,7 @@ Dockerfileからイメージをビルドし，コンテナを構築します．
 イメージのビルドにおいては，マルチステージビルドを採用しております．
 
 ```shell
-$ docker-compose run -d --rm go-app
+$ docker-compose run -d --rm app
 ````
 
 ### モジュールのインストール
@@ -91,7 +91,7 @@ $ docker-compose run -d --rm go-app
 コンテナで，アプリケーションで使用するモジュールをインストールします．
 
 ```shell
-$ docker-compose run --rm go-app go mod download -x
+$ docker-compose run --rm app go mod download -x
 ```
 
 <br>
@@ -105,7 +105,7 @@ $ docker-compose run --rm go-app go mod download -x
 ツールとして，[air](https://github.com/cosmtrek/air) を使用いたしました．
 
 ```shell
-$ docker-compose run --rm go-app air -c .air.toml
+$ docker-compose run --rm app air -c .air.toml
 ```
 
 <br>
@@ -129,7 +129,7 @@ Roy Osherove氏の命名戦略を参考にいたしました．
 Goサービスのユニットテストを実行します．
 
 ```shell
-$ docker-compose run --rm go-app go test -v -cover ./cmd/...
+$ docker-compose run --rm app go test -v -cover ./cmd/...
 ```
 
 <br>
@@ -144,13 +144,13 @@ CircleCIにおけるジョブにて，Lambdaのホストを指定してリクエ
 
 なお，修正したソースコードをLambdaのRIEに再反映するためには，イメージを再ビルドする必要があります．
 
-アタッチモードで起動中のgo-lambda-appサービスに対して，go-appサービスからリクエストを送信します．
+アタッチモードで起動中のlambdaサービスに対して，appサービスからリクエストを送信します．
 
 ```shell
-$ docker-compose up --build go-lambda-app
+$ docker-compose up --build lambda
 
 # 別のターミナルを開いた上で実行する．
-$ docker-compose run --rm go-app go test -v -cover ./integration_test/...
+$ docker-compose run --rm app go test -v -cover ./integration_test/...
 ```
 
 <br>
