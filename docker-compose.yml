@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: ./build/Dockerfile
       target: ${APP_ENV} # .envファイルから参照．
-    container_name: go-app
+    container_name: notify-slack-of-amplify-events-app
     env_file:
       - .env
       - .env.docker
@@ -26,7 +26,7 @@ services:
       dockerfile: ./build/Dockerfile
       target: ${APP_ENV} # .envファイルから参照．
     command: /go/bin/cmd
-    container_name: go-lambda-app
+    container_name: notify-slack-of-amplify-events-lambda
     entrypoint: /aws-lambda/aws-lambda-rie
     env_file:
       - .env
