@@ -7,8 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
 // SlackNotification Slack通知を構成します．
@@ -36,9 +34,7 @@ func (no *SlackNotification) PostMessage() error {
 		return err
 	}
 
-	log := logger.NewLogger()
-
-	log.Info(string(sm))
+	fmt.Println(string(sm))
 
 	// リクエストメッセージを定義します．
 	req, err := http.NewRequest(
@@ -67,7 +63,7 @@ func (no *SlackNotification) PostMessage() error {
 
 	b, err := ioutil.ReadAll(res.Body)
 
-	log.Info(string(b))
+	fmt.Println(string(b))
 
 	return err
 }
