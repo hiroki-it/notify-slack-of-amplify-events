@@ -16,10 +16,10 @@ type LambdaController struct {
 }
 
 // NewLambdaController コンストラクタ
-func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase) *LambdaController {
+func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase, logger *logger.Logger) *LambdaController {
 
 	return &LambdaController{
-		Controller:       &Controller{},
+		Controller:       &Controller{logger},
 		EventPostUseCase: eventPostUseCase,
 	}
 }
@@ -27,9 +27,7 @@ func NewLambdaController(eventPostUseCase *usecases.EventPostUseCase) *LambdaCon
 // PostEvent イベントをハンドリングします．
 func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string, error) {
 
-	log := logger.NewLogger()
-
-	log.Info(string(eventBridge.Detail))
+	c.logger.Log.Info(string(eventBridge.Detail))
 
 	v := detail.NewDetailValidator()
 
@@ -37,14 +35,14 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 	err := json.Unmarshal(eventBridge.Detail, v)
 
 	if err != nil {
-		log.Error(err.Error())
+		c.logger.Log.Error(err.Error())
 		return "", c.sendErrorJson(err)
 	}
 
 	errorMessage := v.Validate()
 
 	if errorMessage != nil {
-		log.Error(errorMessage.Error())
+		c.logger.Log.Error(errorMessage.Error())
 		return "", c.sendErrorJson(err)
 	}
 
@@ -60,7 +58,7 @@ func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string
 	err = uc.PostEvent(i)
 
 	if err != nil {
-		log.Error(err.Error())
+		c.logger.Log.Error(err.Error())
 		return "", c.sendErrorJson(err)
 	}
 

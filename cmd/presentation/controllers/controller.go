@@ -2,9 +2,12 @@ package controllers
 
 import (
 	"encoding/json"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 )
 
 type Controller struct {
+	logger *logger.Logger
 }
 
 type Success struct {
