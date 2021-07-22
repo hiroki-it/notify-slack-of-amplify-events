@@ -4,8 +4,16 @@ import (
 	"go.uber.org/zap"
 )
 
+type Logger struct {
+	Log *zap.Logger
+}
+
 // NewLogger コンストラクタ
-func NewLogger() *zap.Logger {
+func NewLogger() *Logger {
+
 	log, _ := zap.NewDevelopment()
-	return log
+
+	return &Logger{
+		Log: log,
+	}
 }
