@@ -19,7 +19,9 @@ type DetailValidator struct {
 // NewDetailValidator コンストラクタ
 func NewDetailValidator() *DetailValidator {
 
-	return &DetailValidator{}
+	return &DetailValidator{
+		Validator: &validators.Validator{},
+	}
 }
 
 // Validate バリデーションを実行します．
