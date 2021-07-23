@@ -9,7 +9,7 @@ import (
 type Validator struct {
 }
 
-// StringValidation 文字列型を検証します．
+// StringValidation 文字列型データを検証します．
 func (v *Validator) StringValidation(err validator.FieldError) string {
 
 	switch err.Tag() {
