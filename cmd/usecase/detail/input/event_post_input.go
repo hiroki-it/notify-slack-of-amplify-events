@@ -1,4 +1,4 @@
-package inputs
+package input
 
 type EventPostInput struct {
 	AppId         string

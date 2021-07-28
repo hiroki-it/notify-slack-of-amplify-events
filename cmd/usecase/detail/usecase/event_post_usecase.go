@@ -1,14 +1,14 @@
-package usecases
+package usecase
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
 	"net/http"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/inputs"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/amplify"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/services/notification"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/input"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/service/amplify"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/service/notification"
 )
 
 type EventPostUseCase struct {
@@ -21,7 +21,7 @@ func NewEventPostUseCase() *EventPostUseCase {
 }
 
 // PostEvent イベントを通知します．
-func (uc *EventPostUseCase) PostEvent(input *inputs.EventPostInput) error {
+func (uc *EventPostUseCase) PostEvent(input *input.EventPostInput) error {
 
 	ac, err := amplify.NewAmplifyClient(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),
