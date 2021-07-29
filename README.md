@@ -28,24 +28,27 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
-|   ├── domain   # ** ドメイン層 **
-|   |   └── X    # 任意のルートエンティティ
+|   ├── domain # ** ドメイン層 **
+|   |   └── X  # 任意のルートエンティティ
 |   |
 |   ├── infrastructure # ** インフラストラクチャ層 ** 
 |   |   ├── fileloader # ファイル入力
 |   |   └── logger     # ロガー
-|   ├── presentation    # ** プレゼンテーション層 **
-|   |   ├── controllers # コントローラ
-|   |   └── validators  # バリデーション
+|   |
+|   ├── presentation        # ** プレゼンテーション層 **
+|   |   └── X               # 任意のルートエンティティ
+|   |       ├── controllers # コントローラ
+|   |       └── validators  # バリデーション
 |   |     
-|   └── usecase      # ** ユースケース層 **
-|       ├── inputs   # ユースケース層のパラメータ
-|       ├── services # サービス
-|       └── usecases # ユースケース
+|   └── usecase          # ** ユースケース層 **
+|       └── X            # 任意のルートエンティティ
+|           ├── inputs   # ユースケース層のパラメータ
+|           ├── services # サービス
+|           └── usecases # ユースケース
 | 
 ├── integration_test # 統合テスト
-|   ├── request  # テストデータ 
-|   └── response # ゴールデンファイル
+|   ├── request      # テストデータ 
+|   └── response     # ゴールデンファイル
 | 
 ├── mock # モック
 ├── ops  # CICD用シェルスクリプト
