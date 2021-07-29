@@ -11,22 +11,22 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/usecase"
 )
 
-type LambdaController struct {
+type DetailController struct {
 	*presentation.Controller
 	*usecase.EventPostUseCase
 }
 
-// NewLambdaController コンストラクタ
-func NewLambdaController(eventPostUseCase *usecase.EventPostUseCase, logger *logger.Logger) *LambdaController {
+// NewDetailController コンストラクタ
+func NewDetailController(eventPostUseCase *usecase.EventPostUseCase, logger *logger.Logger) *DetailController {
 
-	return &LambdaController{
+	return &DetailController{
 		Controller:       &presentation.Controller{Logger: logger},
 		EventPostUseCase: eventPostUseCase,
 	}
 }
 
 // PostEvent イベントをハンドリングします．
-func (c *LambdaController) PostEvent(eventBridge events.CloudWatchEvent) (string, error) {
+func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string, error) {
 
 	c.Logger.Log.Info(string(eventBridge.Detail))
 

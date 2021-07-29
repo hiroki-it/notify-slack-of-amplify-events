@@ -11,7 +11,7 @@ func main() {
 
 	l := logger.NewLogger()
 
-	c := controller.NewLambdaController(usecase.NewEventPostUseCase(), l)
+	c := controller.NewDetailController(usecase.NewEventPostUseCase(), l)
 
 	lambda.Start(c.PostEvent)
 }
