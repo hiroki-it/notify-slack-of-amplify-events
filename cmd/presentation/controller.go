@@ -1,4 +1,4 @@
-package controllers
+package presentation
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 )
 
 type Controller struct {
-	logger *logger.Logger
+	Logger *logger.Logger
 }
 
 type Success struct {
@@ -15,15 +15,15 @@ type Success struct {
 	Message string `json:"message"`
 }
 
-// sendJson 正常系レスポンスをJSONで返却します．
-func (c *Controller) sendJson(success *Success) string {
+// SendJson 正常系レスポンスをJSONで返却します．
+func (c *Controller) SendJson(success *Success) string {
 
 	response, _ := json.Marshal(success)
 
 	return string(response)
 }
 
-// sendErrorJson 異常系レスポンスをJSONで返却します．
-func (c *Controller) sendErrorJson(error error) error {
+// SendErrorJson 異常系レスポンスをJSONで返却します．
+func (c *Controller) SendErrorJson(error error) error {
 	return error
 }
