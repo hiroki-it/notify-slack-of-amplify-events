@@ -1,23 +1,23 @@
-package controller
+package controllers
 
 import (
 	"encoding/json"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/input"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/detail/validator"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/usecase"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/detail/validators"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/usecases"
 )
 
 type DetailController struct {
 	*presentation.Controller
-	*usecase.EventPostUseCase
+	*usecases.EventPostUseCase
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(eventPostUseCase *usecase.EventPostUseCase, logger *logger.Logger) *DetailController {
+func NewDetailController(eventPostUseCase *usecases.EventPostUseCase, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
 		Controller:       &presentation.Controller{Logger: logger},
@@ -30,7 +30,7 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 
 	c.Logger.Log.Info(string(eventBridge.Detail))
 
-	v := validator.NewDetailValidator()
+	v := validators.NewDetailValidator()
 
 	// eventbridgeから転送されたJSONを構造体にマッピングします．
 	err := json.Unmarshal(eventBridge.Detail, v)
@@ -47,14 +47,14 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		return "", c.SendErrorJson(err)
 	}
 
-	i := input.NewEventPostInput(
+	i := inputs.NewEventPostInput(
 		v.AppId,
 		v.BranchName,
 		v.JobId,
 		v.JobStatusType,
 	)
 
-	uc := usecase.NewEventPostUseCase()
+	uc := usecases.NewEventPostUseCase()
 
 	err = uc.PostEvent(i)
 
