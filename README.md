@@ -35,16 +35,16 @@ project
 |   |   ├── fileloader # ファイル入力
 |   |   └── logger     # ロガー
 |   |
-|   ├── presentation       # ** プレゼンテーション層 **
-|   |   └── foo            # 任意のルートエンティティ
-|   |       ├── controller # コントローラ
-|   |       └── validator  # バリデーション
+|   ├── presentation        # ** プレゼンテーション層 **
+|   |   └── foo             # 任意のルートエンティティ
+|   |       ├── controllers # コントローラ
+|   |       └── validators  # バリデーション
 |   |     
-|   └── usecase         # ** ユースケース層 **
-|       └── foo         # 任意のルートエンティティ
-|           ├── input   # ユースケース層のパラメータ
-|           ├── service # サービス
-|           └── usecase # ユースケース
+|   └── usecase          # ** ユースケース層 **
+|       └── foo          # 任意のルートエンティティ
+|           ├── inputs   # ユースケース層のパラメータ
+|           ├── services # サービス
+|           └── usecases # ユースケース
 | 
 ├── integration_test # 統合テスト
 |   ├── request      # テストデータ 
