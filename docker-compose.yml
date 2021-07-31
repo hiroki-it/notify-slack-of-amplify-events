@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
 
-  # Go開発用サービス
+  # appサービス
   app:
     build:
       context: .
@@ -19,7 +19,7 @@ services:
     volumes:
       - .:/go/src
 
-  # Lambda検証用サービス
+  # lambdaサービス
   lambda:
     build:
       context: .
