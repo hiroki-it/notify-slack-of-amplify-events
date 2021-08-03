@@ -42,7 +42,7 @@ project
 |   |     
 |   └── usecase          # ** ユースケース層 **
 |       └── foo          # 任意のルートエンティティ
-|           ├── inputs   # ユースケース層のパラメータ
+|           ├── inputs   # インプット
 |           ├── services # サービス
 |           └── usecases # ユースケース
 | 
