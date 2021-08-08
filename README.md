@@ -50,7 +50,7 @@ project
 |           ├── inputs      # インプット
 |           ├── interactors # インターラクタ
 |           ├── outputs     # アウトプット
-|           └── services    # ユースケース
+|           └── services    # サービス
 | 
 ├── integration_test # 統合テスト
 |   ├── request      # テストデータ 
