@@ -1,9 +1,9 @@
 package validators
 
 import (
+	"encoding/json"
 	"testing"
 
-	"encoding/json"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/values"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file/repositories"
