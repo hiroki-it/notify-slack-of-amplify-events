@@ -4,10 +4,13 @@ import (
 	"io/ioutil"
 
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/repositories"
 )
 
 type FileRepository struct {
 }
+
+var _ repositories.FileRepository = &FileRepository{}
 
 // NewFileRepository コンストラクタ
 func NewFileRepository() *FileRepository {
