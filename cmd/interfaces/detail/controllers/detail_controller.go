@@ -54,7 +54,7 @@ func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (stri
 		JobStatusType: v.JobStatusType,
 	}
 
-	cdp, err := c.detailInteractor.NotifyDetail(i)
+	cdp, err := c.detailInteractor.NotifyEventDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
