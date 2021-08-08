@@ -22,6 +22,6 @@ func (p *Path) Path() string {
 }
 
 // Equals 等価性を検証します．
-func (p *Path) Equals(target domain.ValueObject) bool {
+func (p *Path) Equals(target domain.Value) bool {
 	return p.path == target.(*Path).Path()
 }

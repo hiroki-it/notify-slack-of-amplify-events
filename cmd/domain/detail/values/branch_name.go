@@ -8,7 +8,7 @@ type BranchName struct {
 	name string
 }
 
-var _ domain.ValueObject = &BranchName{}
+var _ domain.Value = &BranchName{}
 
 // NewBranchName コンストラクタ
 func NewBranchName(name string) *BranchName {
@@ -24,6 +24,6 @@ func (bn *BranchName) Name() string {
 }
 
 // Equals 等価性を検証します．
-func (bn *BranchName) Equals(target domain.ValueObject) bool {
+func (bn *BranchName) Equals(target domain.Value) bool {
 	return bn.name == target.(*BranchName).Name()
 }
