@@ -2,8 +2,9 @@ package notification
 
 import (
 	"fmt"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 	"os"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )

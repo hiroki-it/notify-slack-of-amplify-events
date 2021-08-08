@@ -1,12 +1,12 @@
 package amplify
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 

@@ -2,14 +2,14 @@ package notification
 
 import (
 	"fmt"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
