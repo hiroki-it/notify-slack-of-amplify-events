@@ -35,7 +35,7 @@ project
 |   |   ├── fileloader # ファイル入力
 |   |   └── logger     # ロガー
 |   |
-|   ├── presentation        # ** プレゼンテーション層 **
+|   ├── interaces        # ** プレゼンテーション層 **
 |   |   └── foo             # 任意のルートエンティティ
 |   |       ├── controllers # コントローラ
 |   |       └── validators  # バリデーション

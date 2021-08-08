@@ -3,13 +3,13 @@ package validators
 import (
 	"encoding/json"
 	"errors"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation"
 
 	"github.com/go-playground/validator"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
 )
 
 type DetailValidator struct {
-	*presentation.Validator
+	*interfaces.Validator
 	AppId         string `json:"appId" validate:"required"`
 	BranchName    string `json:"branchName" validate:"required"`
 	JobId         string `json:"jobId" validate:"required"`
@@ -20,7 +20,7 @@ type DetailValidator struct {
 func NewDetailValidator() *DetailValidator {
 
 	return &DetailValidator{
-		Validator: &presentation.Validator{},
+		Validator: &interfaces.Validator{},
 	}
 }
 

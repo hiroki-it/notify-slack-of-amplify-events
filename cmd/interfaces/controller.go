@@ -1,4 +1,4 @@
-package presentation
+package interfaces
 
 import (
 	"encoding/json"

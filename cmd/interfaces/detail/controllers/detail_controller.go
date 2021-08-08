@@ -2,26 +2,26 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/presentation/detail/validators"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/usecases"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/validators"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/interactors"
 )
 
 type DetailController struct {
-	*presentation.Controller
-	*usecases.EventPostUseCase
+	*interfaces.Controller
+	*interactors.EventPostInteractor
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(eventPostUseCase *usecases.EventPostUseCase, logger *logger.Logger) *DetailController {
+func NewDetailController(eventPostInteractor *interactors.EventPostInteractor, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
-		Controller:       &presentation.Controller{Logger: logger},
-		EventPostUseCase: eventPostUseCase,
+		Controller:          &interfaces.Controller{Logger: logger},
+		EventPostInteractor: eventPostInteractor,
 	}
 }
 
@@ -54,7 +54,7 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		v.JobStatusType,
 	)
 
-	uc := usecases.NewEventPostUseCase()
+	uc := interactors.NewEventPostInteractor()
 
 	err = uc.PostEvent(i)
 
@@ -63,7 +63,7 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		return "", c.SendErrorJson(err)
 	}
 
-	return c.SendJson(&presentation.Success{
+	return c.SendJson(&interfaces.Success{
 		Status:  200,
 		Message: "Succeed to handle request",
 	}), nil
