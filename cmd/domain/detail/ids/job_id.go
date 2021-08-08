@@ -1,4 +1,4 @@
-package detail
+package ids
 
 import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain"

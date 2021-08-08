@@ -4,13 +4,13 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/amplify/amplifyiface"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
 type AmplifyClientInterface interface {
-	GetBranchFromAmplify(*detail.Detail) (*aws_amplify.GetBranchOutput, error)
+	GetBranchFromAmplify(*entities.Detail) (*aws_amplify.GetBranchOutput, error)
 }
 
 type AmplifyClient struct {
@@ -34,7 +34,7 @@ func NewAmplifyClient(config *aws.Config) (*AmplifyClient, error) {
 }
 
 // GetBranchFromAmplify Amplifyからブランチ情報を取得します．
-func (cl *AmplifyClient) GetBranchFromAmplify(detail *detail.Detail) (*aws_amplify.GetBranchOutput, error) {
+func (cl *AmplifyClient) GetBranchFromAmplify(detail *entities.Detail) (*aws_amplify.GetBranchOutput, error) {
 
 	gbi := &aws_amplify.GetBranchInput{
 		AppId:      aws.String(detail.AppId().Id()),

@@ -2,15 +2,14 @@ package notification
 
 import (
 	"fmt"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 	"os"
-
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
 )
 
 type Message struct {
-	detail *detail.Detail
+	detail *entities.Detail
 	branch *aws_amplify.Branch
 }
 
@@ -42,7 +41,7 @@ type Element struct {
 }
 
 // NewMessage コンストラクタ
-func NewMessage(detail *detail.Detail, branch *aws_amplify.Branch) *Message {
+func NewMessage(detail *entities.Detail, branch *aws_amplify.Branch) *Message {
 
 	return &Message{
 		detail: detail,

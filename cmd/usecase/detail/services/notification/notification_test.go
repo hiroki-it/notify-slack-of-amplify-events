@@ -2,12 +2,14 @@ package notification
 
 import (
 	"fmt"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 	"github.com/stretchr/testify/assert"
 
 	aws_amplify "github.com/aws/aws-sdk-go/service/amplify"
@@ -41,16 +43,16 @@ func TestPostMessage(t *testing.T) {
 		// 期待値
 		expected string
 		// テストデータ
-		detail          *detail.Detail
+		detail          *entities.Detail
 		getBranchOutput *aws_amplify.GetBranchOutput
 	}{
 		{
 			name: "TestPostMessage_JobStatusTypeSucceed_ReturnNil",
-			detail: detail.NewDetail(
-				detail.NewAppId("1"),
-				detail.NewBranchName("test"),
-				detail.NewJobId("1"),
-				detail.NewJobStatusType("SUCCEED"),
+			detail: entities.NewDetail(
+				ids.NewAppId("1"),
+				values.NewBranchName("test"),
+				ids.NewJobId("1"),
+				values.NewJobStatusType("SUCCEED"),
 			),
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},
@@ -58,11 +60,11 @@ func TestPostMessage(t *testing.T) {
 		},
 		{
 			name: "TestPostMessage_JobStatusTypeFailed_ReturnNil",
-			detail: detail.NewDetail(
-				detail.NewAppId("1"),
-				detail.NewBranchName("test"),
-				detail.NewJobId("1"),
-				detail.NewJobStatusType("FAILED"),
+			detail: entities.NewDetail(
+				ids.NewAppId("1"),
+				values.NewBranchName("test"),
+				ids.NewJobId("1"),
+				values.NewJobStatusType("FAILED"),
 			),
 			getBranchOutput: &aws_amplify.GetBranchOutput{
 				Branch: &aws_amplify.Branch{DisplayName: aws.String("feature-test")},

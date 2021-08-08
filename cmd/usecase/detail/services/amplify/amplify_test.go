@@ -1,10 +1,12 @@
 package amplify
 
 import (
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
@@ -36,26 +38,26 @@ func TestGetBranchFromAmplify(t *testing.T) {
 		// 期待値
 		expected string
 		// テストデータ
-		detail *detail.Detail
+		detail *entities.Detail
 	}{
 		{
 			name:     "TestGetBranchFromAmplify_JobStatusTypeSucceed_ReturnDisplayName",
 			expected: "feature-test",
-			detail: detail.NewDetail(
-				detail.NewAppId("1"),
-				detail.NewBranchName("test"),
-				detail.NewJobId("1"),
-				detail.NewJobStatusType("SUCCEED"),
+			detail: entities.NewDetail(
+				ids.NewAppId("1"),
+				values.NewBranchName("test"),
+				ids.NewJobId("1"),
+				values.NewJobStatusType("SUCCEED"),
 			),
 		},
 		{
 			name:     "TestGetBranchFromAmplify_JobStatusTypeFailed_ReturnDisplayName",
 			expected: "feature-test",
-			detail: detail.NewDetail(
-				detail.NewAppId("1"),
-				detail.NewBranchName("test"),
-				detail.NewJobId("1"),
-				detail.NewJobStatusType("FAILED"),
+			detail: entities.NewDetail(
+				ids.NewAppId("1"),
+				values.NewBranchName("test"),
+				ids.NewJobId("1"),
+				values.NewJobStatusType("FAILED"),
 			),
 		},
 	}

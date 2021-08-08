@@ -1,11 +1,13 @@
 package interactors
 
 import (
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
 	"net/http"
 	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/notification"
@@ -31,11 +33,11 @@ func (uc *EventPostInteractor) PostEvent(input *inputs.EventPostInput) error {
 		return err
 	}
 
-	d := detail.NewDetail(
-		detail.NewAppId(input.AppId),
-		detail.NewBranchName(input.BranchName),
-		detail.NewJobId(input.JobId),
-		detail.NewJobStatusType(input.JobStatusType),
+	d := entities.NewDetail(
+		ids.NewAppId(input.AppId),
+		values.NewBranchName(input.BranchName),
+		ids.NewJobId(input.JobId),
+		values.NewJobStatusType(input.JobStatusType),
 	)
 
 	gbo, err := ac.GetBranchFromAmplify(d)

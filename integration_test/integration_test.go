@@ -3,14 +3,15 @@ package integration
 import (
 	"bytes"
 	"fmt"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/values"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
 	"testing"
 
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/fileloader"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file/repositories"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -42,13 +43,13 @@ func TestIntegration(t *testing.T) {
 	}{
 		{
 			name:     "TestIntegration_SucceedStatus_ReturnOk",
-			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./test_data/response/normal_failed_status.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./test_data/request/normal_succeed_status.json"))).ByteLoad(),
+			expected: repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/response/normal_failed_status.golden"))).StringLoad(),
+			detail:   repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/request/normal_succeed_status.json"))).ByteLoad(),
 		},
 		{
 			name:     "TestIntegration_FailedStatus_ReturnOk",
-			expected: fileloader.NewFileLoader(file.NewFile(file.NewPath("./test_data/response/normal_failed_status.golden"))).StringLoad(),
-			detail:   fileloader.NewFileLoader(file.NewFile(file.NewPath("./test_data/request/normal_failed_status.json"))).ByteLoad(),
+			expected: repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/response/normal_failed_status.golden"))).StringLoad(),
+			detail:   repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/request/normal_failed_status.json"))).ByteLoad(),
 		},
 	}
 

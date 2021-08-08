@@ -1,4 +1,4 @@
-package detail
+package values
 
 type JobStatusType string
 

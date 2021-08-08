@@ -32,8 +32,8 @@ project
 |   |   └── foo # 任意のルートエンティティ
 |   |
 |   ├── infrastructure # ** インフラストラクチャ層 ** 
-|   |   ├── fileloader # ファイル入力
-|   |   └── logger     # ロガー
+|   |   └── foo
+|   |       └── reposiories # リポジトリ
 |   |
 |   ├── interaces        # ** プレゼンテーション層 **
 |   |   └── foo             # 任意のルートエンティティ
