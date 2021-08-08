@@ -27,8 +27,8 @@ func NewDetailInteractor(detailPresenter *presenters.DetailPresenter) *DetailInt
 	}
 }
 
-// CreateDetail イベントを通知します．
-func (uc *DetailInteractor) CreateDetail(input *inputs.DetailInput) (*presenters.CreateDetailPresenter, error) {
+// GetDetail イベントを通知します．
+func (uc *DetailInteractor) GetDetail(input *inputs.DetailInput) (*presenters.GetDetailPresenter, error) {
 
 	ac, err := amplify.NewAmplifyClient(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),
@@ -74,10 +74,10 @@ func (uc *DetailInteractor) CreateDetail(input *inputs.DetailInput) (*presenters
 		return nil, err
 	}
 
-	cdo := &outputs.CreateDetailOutput{
+	cdo := &outputs.GetDetailOutput{
 		Status:  200,
 		Message: "Succeed to handle request",
 	}
 
-	return uc.detailPresenter.CreateDetailPresenter(cdo), nil
+	return uc.detailPresenter.GetDetailPresenter(cdo), nil
 }

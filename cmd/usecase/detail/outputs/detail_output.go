@@ -1,6 +1,6 @@
 package outputs
 
-type CreateDetailOutput struct {
+type GetDetailOutput struct {
 	Status  int
 	Message string
 }

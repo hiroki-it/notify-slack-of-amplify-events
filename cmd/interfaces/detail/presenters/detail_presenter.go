@@ -8,16 +8,16 @@ import (
 type DetailPresenter struct {
 }
 
-type CreateDetailPresenter struct {
+type GetDetailPresenter struct {
 	Status  int    `json:"status"`
 	Message string `json:"message"`
 }
 
 var _ interfaces.Presenter = &DetailPresenter{}
 
-// CreateDetailPresenter 作成レスポンスデータを作成します．
-func (dp *DetailPresenter) CreateDetailPresenter(cdo *outputs.CreateDetailOutput) *CreateDetailPresenter {
-	return &CreateDetailPresenter{
+// GetDetailPresenter 作成レスポンスデータを作成します．
+func (dp *DetailPresenter) GetDetailPresenter(cdo *outputs.GetDetailOutput) *GetDetailPresenter {
+	return &GetDetailPresenter{
 		Status:  cdo.Status,
 		Message: cdo.Message,
 	}
