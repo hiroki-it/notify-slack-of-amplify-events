@@ -1,36 +1,23 @@
 package repositories
 
 import (
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
 	"io/ioutil"
+
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
 )
 
 type FileRepository struct {
-	file *entities.File
 }
 
 // NewFileRepository コンストラクタ
-func NewFileRepository(file *entities.File) *FileRepository {
+func NewFileRepository() *FileRepository {
 
-	return &FileRepository{
-		file: file,
-	}
+	return &FileRepository{}
 }
 
-// ByteLoad 文字列型で返却します．．
-func (l *FileRepository) ByteLoad() []byte {
-	return l.loadFile()
-}
-
-// StringLoad 文字列型で返却します．
-func (l *FileRepository) StringLoad() string {
-	return string(l.loadFile())
-}
-
-// loadFile ファイルを読み込みます．
-func (l *FileRepository) loadFile() []byte {
-
-	d, err := ioutil.ReadFile(l.file.FilePath().Path())
+// GetFile ファイルを読み出します．
+func (fr *FileRepository) GetFile(file *entities.File) []byte {
+	d, err := ioutil.ReadFile(file.FilePath().Path())
 
 	if err != nil {
 		return nil

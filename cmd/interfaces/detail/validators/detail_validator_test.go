@@ -1,11 +1,11 @@
 package validators
 
 import (
+	"testing"
+
 	"encoding/json"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/entities"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/file/values"
-	"testing"
-
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/file/repositories"
 	"github.com/stretchr/testify/assert"
 )
@@ -13,6 +13,8 @@ import (
 func TestValidate(t *testing.T) {
 
 	t.Helper()
+
+	fileRepositoty := repositories.NewFileRepository()
 
 	// テストケース
 	cases := []struct {
@@ -23,11 +25,11 @@ func TestValidate(t *testing.T) {
 	}{
 		{
 			name:   "TestValidate_Valid_ReturnEmpty",
-			detail: repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/valid.json"))).ByteLoad(),
+			detail: fileRepositoty.GetFile(entities.NewFile(values.NewPath("./test_data/valid.json"))),
 		},
 		{
 			name:   "TestValidate_InvalidRequired_ExceptionError",
-			detail: repositories.NewFileRepository(entities.NewFile(values.NewPath("./test_data/invalid_required.json"))).ByteLoad(),
+			detail: fileRepositoty.GetFile(entities.NewFile(values.NewPath("./test_data/invalid_required.json"))),
 		},
 	}
 
