@@ -31,19 +31,22 @@ project
 |   ├── domain  # ** ドメイン層 **
 |   |   └── foo # 任意のルートエンティティ
 |   |
-|   ├── infrastructure # ** インフラストラクチャ層 ** 
-|   |   └── foo
+|   ├── infrastructure      # ** インフラストラクチャ層 ** 
+|   |   ├── logger          # ロガー 
+|   |   └── foo             # 任意のルートエンティティ
 |   |       └── reposiories # リポジトリ
 |   |
-|   ├── interaces        # ** インターフェース層 **
+|   ├── interaces           # ** インターフェース層 **
 |   |   └── foo             # 任意のルートエンティティ
 |   |       ├── controllers # コントローラ
+|   |       ├── presenters  # プレゼンター
 |   |       └── validators  # バリデーション
 |   |     
 |   └── usecase             # ** ユースケース層 **
 |       └── foo             # 任意のルートエンティティ
 |           ├── inputs      # インプット
 |           ├── interactors # インターラクタ
+|           ├── outputs     # アウトプット
 |           └── services    # ユースケース
 | 
 ├── integration_test # 統合テスト
