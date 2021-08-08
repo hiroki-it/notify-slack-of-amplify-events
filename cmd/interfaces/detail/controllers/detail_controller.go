@@ -13,20 +13,20 @@ import (
 
 type DetailController struct {
 	*interfaces.Controller
-	*interactors.DetailInteractor
+	detailInteractor *interactors.DetailInteractor
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(DetailInteractor *interactors.DetailInteractor, logger *logger.Logger) *DetailController {
+func NewDetailController(detailInteractor *interactors.DetailInteractor, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
 		Controller:       &interfaces.Controller{Logger: logger},
-		DetailInteractor: DetailInteractor,
+		detailInteractor: detailInteractor,
 	}
 }
 
-// PostEvent イベントをハンドリングします．
-func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string, error) {
+// CreateDetail イベントをハンドリングします．
+func (c *DetailController) CreateDetail(eventBridge events.CloudWatchEvent) (string, error) {
 
 	c.Logger.Log.Info(string(eventBridge.Detail))
 
@@ -54,17 +54,12 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		v.JobStatusType,
 	)
 
-	uc := interactors.NewDetailInteractor()
-
-	err = uc.PostEvent(i)
+	cdp, err := c.detailInteractor.CreateDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
 		return "", c.SendErrorJson(err)
 	}
 
-	return c.SendJson(&interfaces.Success{
-		Status:  200,
-		Message: "Succeed to handle request",
-	}), nil
+	return c.SendJson(cdp), nil
 }

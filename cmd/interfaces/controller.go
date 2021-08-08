@@ -10,15 +10,10 @@ type Controller struct {
 	Logger *logger.Logger
 }
 
-type Success struct {
-	Status  int    `json:"status"`
-	Message string `json:"message"`
-}
-
 // SendJson 正常系レスポンスをJSONで返却します．
-func (c *Controller) SendJson(success *Success) string {
+func (c *Controller) SendJson(presenter Presenter) string {
 
-	response, _ := json.Marshal(success)
+	response, _ := json.Marshal(presenter)
 
 	return string(response)
 }
