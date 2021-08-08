@@ -56,16 +56,12 @@ func (uc *DetailInteractor) NotifyEventDetail(input *inputs.DetailInput) (*prese
 		gbo.Branch,
 	)
 
-	sm := m.BuildSlackMessage()
-
-	sc := notification.NewSlackClient(
-		&http.Client{},
-		"https://slack.com/api/chat.postMessage",
-	)
-
 	sn := notification.NewSlackNotification(
-		sc,
-		sm,
+		notification.NewSlackClient(
+			&http.Client{},
+			"https://slack.com/api/chat.postMessage",
+		),
+		m.BuildSlackMessage(),
 	)
 
 	err = sn.PostMessage()
@@ -74,10 +70,9 @@ func (uc *DetailInteractor) NotifyEventDetail(input *inputs.DetailInput) (*prese
 		return nil, err
 	}
 
-	cdo := &outputs.GetDetailOutput{
-		Status:  200,
-		Message: "Succeed to handle request",
-	}
-
-	return uc.detailPresenter.GetDetailPresenter(cdo), nil
+	return uc.detailPresenter.GetDetailPresenter(
+		&outputs.GetDetailOutput{
+			Status:  200,
+			Message: "Succeed to handle request",
+		}), nil
 }
