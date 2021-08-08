@@ -14,5 +14,5 @@ func main() {
 
 	c := controllers.NewDetailController(interactors.NewDetailInteractor(&presenters.DetailPresenter{}), l)
 
-	lambda.Start(c.GetDetail)
+	lambda.Start(c.HandleEvent)
 }

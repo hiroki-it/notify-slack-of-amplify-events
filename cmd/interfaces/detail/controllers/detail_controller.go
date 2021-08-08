@@ -25,8 +25,8 @@ func NewDetailController(detailInteractor *interactors.DetailInteractor, logger 
 	}
 }
 
-// GetDetail イベントをハンドリングします．
-func (c *DetailController) GetDetail(eventBridge events.CloudWatchEvent) (string, error) {
+// HandleEvent イベントをハンドリングします．
+func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (string, error) {
 
 	c.Logger.Log.Info(string(eventBridge.Detail))
 
@@ -54,7 +54,7 @@ func (c *DetailController) GetDetail(eventBridge events.CloudWatchEvent) (string
 		JobStatusType: v.JobStatusType,
 	}
 
-	cdp, err := c.detailInteractor.GetDetail(i)
+	cdp, err := c.detailInteractor.NotifyDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
