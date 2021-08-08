@@ -35,16 +35,16 @@ project
 |   |   └── foo
 |   |       └── reposiories # リポジトリ
 |   |
-|   ├── interaces        # ** プレゼンテーション層 **
+|   ├── interaces        # ** インターフェース層 **
 |   |   └── foo             # 任意のルートエンティティ
 |   |       ├── controllers # コントローラ
 |   |       └── validators  # バリデーション
 |   |     
-|   └── usecase          # ** ユースケース層 **
-|       └── foo          # 任意のルートエンティティ
-|           ├── inputs   # インプット
-|           ├── services # サービス
-|           └── usecases # ユースケース
+|   └── usecase             # ** ユースケース層 **
+|       └── foo             # 任意のルートエンティティ
+|           ├── inputs      # インプット
+|           ├── interactors # インターラクタ
+|           └── services    # ユースケース
 | 
 ├── integration_test # 統合テスト
 |   ├── request      # テストデータ 
