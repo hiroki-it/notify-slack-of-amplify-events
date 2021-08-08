@@ -29,7 +29,10 @@ project
 ├── build # ビルド処理
 ├── cmd   # エントリポイントを含む処理，ユニットテスト
 |   ├── domain  # ** ドメイン層 **
-|   |   └── foo # 任意のルートエンティティ
+|   |   ├── entities     # エンティティ
+|   |   ├── ids          # ID
+|   |   ├── repositories # インターフェースリポジトリ
+|   |   └── values       # 値オブジェクト
 |   |
 |   ├── infrastructure      # ** インフラストラクチャ層 ** 
 |   |   ├── logger          # ロガー 
