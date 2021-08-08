@@ -13,15 +13,15 @@ import (
 
 type DetailController struct {
 	*interfaces.Controller
-	*interactors.EventPostInteractor
+	*interactors.DetailInteractor
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(eventPostInteractor *interactors.EventPostInteractor, logger *logger.Logger) *DetailController {
+func NewDetailController(DetailInteractor *interactors.DetailInteractor, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
-		Controller:          &interfaces.Controller{Logger: logger},
-		EventPostInteractor: eventPostInteractor,
+		Controller:       &interfaces.Controller{Logger: logger},
+		DetailInteractor: DetailInteractor,
 	}
 }
 
@@ -47,14 +47,14 @@ func (c *DetailController) PostEvent(eventBridge events.CloudWatchEvent) (string
 		return "", c.SendErrorJson(err)
 	}
 
-	i := inputs.NewEventPostInput(
+	i := inputs.NewDetailInput(
 		v.AppId,
 		v.BranchName,
 		v.JobId,
 		v.JobStatusType,
 	)
 
-	uc := interactors.NewEventPostInteractor()
+	uc := interactors.NewDetailInteractor()
 
 	err = uc.PostEvent(i)
 

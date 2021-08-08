@@ -13,17 +13,17 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/notification"
 )
 
-type EventPostInteractor struct {
+type DetailInteractor struct {
 }
 
-// NewEventPostInteractor コンストラクタ
-func NewEventPostInteractor() *EventPostInteractor {
+// NewDetailInteractor コンストラクタ
+func NewDetailInteractor() *DetailInteractor {
 
-	return &EventPostInteractor{}
+	return &DetailInteractor{}
 }
 
 // PostEvent イベントを通知します．
-func (uc *EventPostInteractor) PostEvent(input *inputs.EventPostInput) error {
+func (uc *DetailInteractor) PostEvent(input *inputs.DetailInput) error {
 
 	ac, err := amplify.NewAmplifyClient(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),

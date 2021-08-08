@@ -1,15 +1,15 @@
 package inputs
 
-type EventPostInput struct {
+type DetailInput struct {
 	AppId         string
 	BranchName    string
 	JobId         string
 	JobStatusType string
 }
 
-func NewEventPostInput(appId string, branchName string, jobId string, jobStatusType string) *EventPostInput {
+func NewDetailInput(appId string, branchName string, jobId string, jobStatusType string) *DetailInput {
 
-	return &EventPostInput{
+	return &DetailInput{
 		AppId:         appId,
 		BranchName:    branchName,
 		JobId:         jobId,

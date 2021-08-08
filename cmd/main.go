@@ -11,7 +11,7 @@ func main() {
 
 	l := logger.NewLogger()
 
-	c := controllers.NewDetailController(interactors.NewEventPostInteractor(), l)
+	c := controllers.NewDetailController(interactors.NewDetailInteractor(), l)
 
 	lambda.Start(c.PostEvent)
 }
