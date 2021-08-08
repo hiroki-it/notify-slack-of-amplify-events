@@ -47,12 +47,12 @@ func (c *DetailController) CreateDetail(eventBridge events.CloudWatchEvent) (str
 		return "", c.SendErrorJson(err)
 	}
 
-	i := inputs.NewDetailInput(
-		v.AppId,
-		v.BranchName,
-		v.JobId,
-		v.JobStatusType,
-	)
+	i := &inputs.DetailInput{
+		AppId:         v.AppId,
+		BranchName:    v.BranchName,
+		JobId:         v.JobId,
+		JobStatusType: v.JobStatusType,
+	}
 
 	cdp, err := c.detailInteractor.CreateDetail(i)
 
