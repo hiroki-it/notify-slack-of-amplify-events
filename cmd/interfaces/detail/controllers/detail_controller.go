@@ -7,8 +7,8 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/validators"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/interactors"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
 )
 
 type DetailController struct {
@@ -37,29 +37,29 @@ func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (stri
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
-		return "", c.SendErrorJson(err)
+		return "", err
 	}
 
 	errorMessage := v.Validate()
 
 	if errorMessage != nil {
 		c.Logger.Log.Error(errorMessage.Error())
-		return "", c.SendErrorJson(err)
+		return "", err
 	}
 
-	i := &inputs.DetailInput{
+	i := &requests.DetailRequest{
 		AppId:         v.AppId,
 		BranchName:    v.BranchName,
 		JobId:         v.JobId,
 		JobStatusType: v.JobStatusType,
 	}
 
-	cdp, err := c.detailInteractor.NotifyEventDetail(i)
+	cdr, err := c.detailInteractor.NotifyEventDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
-		return "", c.SendErrorJson(err)
+		return "", err
 	}
 
-	return c.SendJson(cdp), nil
+	return c.JSON(cdr), nil
 }

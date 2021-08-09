@@ -8,27 +8,23 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/presenters"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/outputs"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/responses"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/amplify"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/notification"
 )
 
 type DetailInteractor struct {
-	detailPresenter *presenters.DetailPresenter
 }
 
 // NewDetailInteractor コンストラクタ
-func NewDetailInteractor(detailPresenter *presenters.DetailPresenter) *DetailInteractor {
+func NewDetailInteractor() *DetailInteractor {
 
-	return &DetailInteractor{
-		detailPresenter: detailPresenter,
-	}
+	return &DetailInteractor{}
 }
 
 // NotifyEventDetail イベントの詳細を通知します．
-func (uc *DetailInteractor) NotifyEventDetail(input *inputs.DetailInput) (*presenters.GetDetailPresenter, error) {
+func (uc *DetailInteractor) NotifyEventDetail(input *requests.DetailRequest) (*responses.GetDetailResponse, error) {
 
 	ac, err := amplify.NewAmplifyClient(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),
@@ -70,9 +66,8 @@ func (uc *DetailInteractor) NotifyEventDetail(input *inputs.DetailInput) (*prese
 		return nil, err
 	}
 
-	return uc.detailPresenter.GetDetailPresenter(
-		&outputs.GetDetailOutput{
-			Status:  200,
-			Message: "Succeed to handle request",
-		}), nil
+	return &responses.GetDetailResponse{
+		Status:  200,
+		Message: "Succeed to handle request",
+	}, nil
 }

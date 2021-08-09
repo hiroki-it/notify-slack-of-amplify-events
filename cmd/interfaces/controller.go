@@ -10,15 +10,10 @@ type Controller struct {
 	Logger *logger.Logger
 }
 
-// SendJson 正常系レスポンスをJSONで返却します．
-func (c *Controller) SendJson(presenter Presenter) string {
+// JSON 正常系レスポンスをJSONで返却します．
+func (c *Controller) JSON(response interface{}) string {
 
-	response, _ := json.Marshal(presenter)
+	byteJson, _ := json.Marshal(response)
 
-	return string(response)
-}
-
-// SendErrorJson 異常系レスポンスをJSONで返却します．
-func (c *Controller) SendErrorJson(error error) error {
-	return error
+	return string(byteJson)
 }
