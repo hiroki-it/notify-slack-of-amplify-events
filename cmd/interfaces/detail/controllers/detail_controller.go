@@ -7,21 +7,21 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/validators"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/interactors"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/outputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
 )
 
 type DetailController struct {
 	*interfaces.Controller
-	detailInteractor *interactors.DetailInteractor
+	detailOutput outputs.DetailOutput
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(detailInteractor *interactors.DetailInteractor, logger *logger.Logger) *DetailController {
+func NewDetailController(detailOutput outputs.DetailOutput, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
-		Controller:       &interfaces.Controller{Logger: logger},
-		detailInteractor: detailInteractor,
+		Controller:   &interfaces.Controller{Logger: logger},
+		detailOutput: detailOutput,
 	}
 }
 
@@ -54,7 +54,7 @@ func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (stri
 		JobStatusType: v.JobStatusType,
 	}
 
-	cdr, err := c.detailInteractor.NotifyEventDetail(i)
+	cdr, err := c.detailOutput.NotifyEventDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())

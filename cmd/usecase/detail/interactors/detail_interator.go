@@ -27,7 +27,7 @@ func NewDetailInteractor() *DetailInteractor {
 }
 
 // NotifyEventDetail イベントの詳細を通知します．
-func (uc *DetailInteractor) NotifyEventDetail(input *requests.DetailRequest) (*responses.GetDetailResponse, error) {
+func (di *DetailInteractor) NotifyEventDetail(input *requests.DetailRequest) (*responses.GetDetailResponse, error) {
 
 	ac, err := amplify.NewAmplifyClient(&aws.Config{
 		Region: aws.String(os.Getenv("AWS_AMPLIFY_REGION")),
