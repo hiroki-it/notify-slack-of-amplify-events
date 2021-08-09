@@ -7,17 +7,17 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/validators"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/inputs"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/ports"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
 )
 
 type DetailController struct {
 	*interfaces.Controller
-	detailInput inputs.DetailInput
+	detailInput ports.DetailInput
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(detailInput inputs.DetailInput, logger *logger.Logger) *DetailController {
+func NewDetailController(detailInput ports.DetailInput, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
 		Controller:  &interfaces.Controller{Logger: logger},
