@@ -8,6 +8,7 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/entities"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/ids"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/domain/detail/values"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/outputs"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/responses"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/services/amplify"
@@ -16,6 +17,8 @@ import (
 
 type DetailInteractor struct {
 }
+
+var _ outputs.DetailOutput = &DetailInteractor{}
 
 // NewDetailInteractor コンストラクタ
 func NewDetailInteractor() *DetailInteractor {
