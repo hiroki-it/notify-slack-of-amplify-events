@@ -1,6 +1,6 @@
-package inputs
+package requests
 
-type DetailInput struct {
+type DetailRequest struct {
 	AppId         string
 	BranchName    string
 	JobId         string
