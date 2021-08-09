@@ -47,9 +47,10 @@ project
 |   |     
 |   └── usecase             # ** ユースケース層 **
 |       └── foo             # 任意のルートエンティティ
-|           ├── inputs      # インプット
 |           ├── interactors # インターラクタ
-|           ├── outputs     # アウトプット
+|           ├── outputs     # アウトプットポート
+|           ├── requests    # リクエストモデル
+|           ├── responses   # レスポンスモデル
 |           └── services    # サービス
 | 
 ├── integration_test # 統合テスト
