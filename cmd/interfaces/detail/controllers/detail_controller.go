@@ -54,12 +54,12 @@ func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (stri
 		JobStatusType: v.JobStatusType,
 	}
 
-	dib, err := c.detailInputBoundary.NotifyEventDetail(i)
+	gdr, err := c.detailInputBoundary.NotifyEventDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
 		return "", err
 	}
 
-	return c.JSON(dib), nil
+	return c.JSON(gdr), nil
 }
