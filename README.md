@@ -56,7 +56,7 @@ project
 |   └── usecase             # ** ユースケース層 **
 |       └── foo             # 任意のルートエンティティ
 |           ├── interactors # インターラクタ
-|           ├── ports       # インプットポート
+|           ├── boundaries  # インプットバウンダリ
 |           ├── requests    # リクエストモデル
 |           ├── responses   # レスポンスモデル
 |           └── services    # サービス
