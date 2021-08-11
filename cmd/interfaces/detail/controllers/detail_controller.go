@@ -7,21 +7,21 @@ import (
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/infrastructure/logger"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/interfaces/detail/validators"
-	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/ports"
+	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/boundaries"
 	"github.com/hiroki-it/notify-slack-of-amplify-events/cmd/usecase/detail/requests"
 )
 
 type DetailController struct {
 	*interfaces.Controller
-	detailInput ports.DetailInput
+	detailInputBoundary boundaries.DetailInputBoundary
 }
 
 // NewDetailController コンストラクタ
-func NewDetailController(detailInput ports.DetailInput, logger *logger.Logger) *DetailController {
+func NewDetailController(detailInputBoundary boundaries.DetailInputBoundary, logger *logger.Logger) *DetailController {
 
 	return &DetailController{
-		Controller:  &interfaces.Controller{Logger: logger},
-		detailInput: detailInput,
+		Controller:          &interfaces.Controller{Logger: logger},
+		detailInputBoundary: detailInputBoundary,
 	}
 }
 
@@ -54,12 +54,12 @@ func (c *DetailController) HandleEvent(eventBridge events.CloudWatchEvent) (stri
 		JobStatusType: v.JobStatusType,
 	}
 
-	cdr, err := c.detailInput.NotifyEventDetail(i)
+	dib, err := c.detailInputBoundary.NotifyEventDetail(i)
 
 	if err != nil {
 		c.Logger.Log.Error(err.Error())
 		return "", err
 	}
 
-	return c.JSON(cdr), nil
+	return c.JSON(dib), nil
 }
