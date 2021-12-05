@@ -28,12 +28,12 @@ RUN go build -x -a -tags netgo -installsuffix netgo -o /go/bin ./cmd
 #===================
 FROM golang:${GO_VERSION}-alpine as base
 
-WORKDIR /go/src
-
 # /go/binにパスを通す．
 ENV PATH $PATH:/go/bin
 
-COPY --from=build /go /
+COPY --from=build /go /go/
+
+WORKDIR /go/src
 
 #===================
 # Develop Stage
