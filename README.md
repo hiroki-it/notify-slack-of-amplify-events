@@ -104,14 +104,6 @@ Dockerfileからイメージをビルドし，コンテナを構築します．
 $ docker-compose run -d --rm app
 ````
 
-### モジュールのインストール
-
-コンテナで，アプリケーションで使用するモジュールをインストールします．
-
-```shell
-$ docker-compose run --rm app go mod download -x
-```
-
 <br>
 
 ## ホットリロード

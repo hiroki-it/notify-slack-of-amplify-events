@@ -78,10 +78,6 @@ jobs:
             docker-compose run -d --rm app
             docker-compose run --rm app go env
       - restore_modules
-      - run:
-          name: Go mod download
-          command: |
-            docker-compose run --rm app go mod download -x
       - save_modules
       - run:
           name: Go fmt

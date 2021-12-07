@@ -19,9 +19,11 @@ RUN go get github.com/cosmtrek/air@v1.15.1
 
 COPY . /go/src/
 
+# 手作業のステップを減らすために，Dockerfileの中でパッケージをインストールしてしまう．
+RUN go mod download -x \
 # ビルドのアーティファクトを/go/binに配置する．
 # NOTE: netパッケージは標準で動的リンクのため，静的リンクを明示的に指定する必要がある．
-RUN go build -x -a -tags netgo -installsuffix netgo -o /go/bin ./cmd
+  && go build -x -a -tags netgo -installsuffix netgo -o /go/bin ./cmd
 
 #===================
 # Base Stage
