@@ -32,6 +32,10 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 これに伴い，ユースケース層のインターラクターは，プレゼンターではなくレスポンスモデルを返却するようにしております．
 
+実装方法は以下に整理しております．
+
+参考：https://hiroki-it.github.io/tech-notebook-mkdocs/software/software_application_architecture_backend_domain_driven_design_clean_architecture.html
+
 ```
 project
 ├── build # ビルド処理
