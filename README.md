@@ -18,6 +18,11 @@ Goは開発者に実装方法を強制させられるため，可読性が高く
 
 今回，これらには当てはまりませんが，Goを採用し，環境構築からデプロイまでの一連の流れを学習しようと考えました．
 
+### 参考
+
+クリーンアーキテクチャについて：
+<br>https://hiroki-it.github.io/tech-notebook-mkdocs/software/software_application_architecture_backend_domain_driven_design_clean_architecture.html
+
 <br>
 
 ## Goのディレクトリ構造
